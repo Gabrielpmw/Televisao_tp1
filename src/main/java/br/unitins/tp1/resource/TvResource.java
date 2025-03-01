@@ -4,39 +4,52 @@ package br.unitins.tp1.resource;
 import java.util.List;
 
 import br.unitins.tp1.model.Televisao;
+import br.unitins.tp1.repository.TelevisaoRepository;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/tv")
-public class TvResource{
+public class TvResource {
+
+    @Inject
+    protected TelevisaoRepository tvrepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Televisao> buscarTodos(){
-        return Televisao.findAll().list();
+    public List<Televisao> buscarTodos() {
+        return tvrepository.findAll().list();
+    }
+
+    @GET
+    @Path("/search/marca/{marca}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Televisao buscarPorMarca(String marca) {
+        return tvrepository.findByMarca(marca);
+    }
+
+    @GET
+    @Path("/search/marcas/{polegada}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Televisao> buscarPorPolegada_lista(@PathParam("polegada") int polegada) {
+        return tvrepository.findByPolegada(polegada);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Televisao incluir(Televisao televisao){
+    public Televisao incluir(Televisao televisao) {
         Televisao tv = new Televisao();
 
         tv.setMarca(televisao.getMarca());
-        tv.setModelo(televisao.getModelo());
-        tv.setLinha(televisao.getLinha());
-        tv.setAnoLancamento(televisao.getAnoLancamento());
+        tv.setPolegada(televisao.getPolegada());
+        tv.setTipoTela(televisao.getTipoTela());
+        tv.setResolucao(televisao.getResolucao());
 
-        tv.persist();
-        
+        tvrepository.persist(tv);
+
         return tv;
     }
 
@@ -44,19 +57,19 @@ public class TvResource{
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public void alterar(long id, Televisao televisao){
-        Televisao tv = Televisao.findById(id);
+    public void alterar(long id, Televisao televisao) {
+        Televisao tv = tvrepository.findById(id);
 
         tv.setMarca(televisao.getMarca());
-        tv.setModelo(televisao.getModelo());
-        tv.setLinha(televisao.getLinha());
-        tv.setAnoLancamento(televisao.getAnoLancamento());
+        tv.setPolegada(televisao.getPolegada());
+        tv.setTipoTela(televisao.getTipoTela());
+        tv.setResolucao(televisao.getResolucao());
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
-    public void deletar(long id){
-        Televisao.deleteById(id);
+    public void deletar(long id) {
+        tvrepository.deleteById(id);
     }
 }
