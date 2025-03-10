@@ -1,75 +1,42 @@
 package br.unitins.tp1.resource;
 
-
-import java.util.List;
-
 import br.unitins.tp1.model.Televisao;
-import br.unitins.tp1.repository.TelevisaoRepository;
+import br.unitins.tp1.model.DTO.TelevisaoDTO;
+import br.unitins.tp1.service.TelevisaoServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
+import java.util.List;
+
 @Path("/tv")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class TvResource {
-
     @Inject
-    protected TelevisaoRepository tvrepository;
+    TelevisaoServiceImpl service;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Televisao> buscarTodos() {
-        return tvrepository.findAll().list();
+    public List<Televisao> buscarTodos(){
+        return service.findAll();
     }
 
     @GET
-    @Path("/search/marca/{marca}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Televisao buscarPorMarca(String marca) {
-        return tvrepository.findByMarca(marca);
-    }
-
-    @GET
-    @Path("/search/marcas/{polegada}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Televisao> buscarPorPolegada_lista(@PathParam("polegada") int polegada) {
-        return tvrepository.findByPolegada(polegada);
+    @Path("/marca/{marca}")
+    public List<Televisao> buscarPorMarca(String marca){
+        return service.findByMarca(marca);
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Televisao incluir(Televisao televisao) {
-        Televisao tv = new Televisao();
-
-        tv.setMarca(televisao.getMarca());
-        tv.setPolegada(televisao.getPolegada());
-        tv.setTipoTela(televisao.getTipoTela());
-        tv.setResolucao(televisao.getResolucao());
-
-        tvrepository.persist(tv);
-
-        return tv;
+    public Televisao incluir(TelevisaoDTO dto){
+        return service.create(dto);
     }
 
     @PUT
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public void alterar(long id, Televisao televisao) {
-        Televisao tv = tvrepository.findById(id);
-
-        tv.setMarca(televisao.getMarca());
-        tv.setPolegada(televisao.getPolegada());
-        tv.setTipoTela(televisao.getTipoTela());
-        tv.setResolucao(televisao.getResolucao());
-    }
-
-    @DELETE
-    @Path("/{id}")
-    @Transactional
-    public void deletar(long id) {
-        tvrepository.deleteById(id);
+    public void apagar(long id){
+        service.delete(id);
     }
 }

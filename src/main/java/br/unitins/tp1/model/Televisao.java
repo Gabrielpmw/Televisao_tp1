@@ -1,6 +1,5 @@
 package br.unitins.tp1.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,13 +13,16 @@ public class Televisao {
     private String marca;
 
     @Column(length = 60, nullable = false)
+    private String modelo;
+
+    @Column(length = 60, nullable = false)
     private int polegada;
 
     @Column(length = 60, nullable = false)
     private String resolucao;
 
     @Column(length = 60, nullable = false)
-    private int tipoTela;
+    private TipoTela tipoTela;
 
     public Long getId() {
         return id;
@@ -30,12 +32,20 @@ public class Televisao {
         this.id = id;
     }
 
-    public int getTipoTela() {
-        return tipoTela;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setTipoTela(int tipoTela) {
-        this.tipoTela = tipoTela;
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public int getPolegada() {
@@ -54,11 +64,11 @@ public class Televisao {
         this.resolucao = resolucao;
     }
 
-    public String getMarca() {
-        return marca;
+    public TipoTela getTipoTela() {
+        return tipoTela;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setTipoTela(TipoTela tipoTela) {
+        this.tipoTela = tipoTela;
     }
 }
