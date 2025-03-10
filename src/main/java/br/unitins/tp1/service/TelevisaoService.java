@@ -11,5 +11,6 @@ public interface TelevisaoService {
     void delete(long id);
     Televisao findById(long id);
     List<Televisao> findAll();
-    List<Televisao> findByMarca(String marca);
+    Televisao findByMarca(String marca);
+    List<Televisao> findByModelo(String modelo);
 }

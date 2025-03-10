@@ -24,8 +24,14 @@ public class TvResource {
 
     @GET
     @Path("/marca/{marca}")
-    public List<Televisao> buscarPorMarca(String marca){
+    public Televisao buscarPorMarca(String marca){
         return service.findByMarca(marca);
+    }
+
+    @GET
+    @Path("/modelo/{modelo}")
+    public List<Televisao> buscarPorModelo(String modelo){
+        return service.findByModelo(modelo);
     }
 
     @POST
@@ -35,8 +41,9 @@ public class TvResource {
 
     @PUT
     @Path("/{id}")
-    @Transactional
     public void apagar(long id){
         service.delete(id);
     }
+
+
 }

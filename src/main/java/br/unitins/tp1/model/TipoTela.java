@@ -1,5 +1,8 @@
 package br.unitins.tp1.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TipoTela {
     LED(1, "Led"),
     OLED(2, "Oled"),
@@ -25,7 +28,9 @@ public enum TipoTela {
 
     public static TipoTela valueOf(int id){
         for (TipoTela tela : TipoTela.values()){
-            return tela;
+            if (tela.getID() == id){
+                return tela;
+            }
         }
         return null;
     };

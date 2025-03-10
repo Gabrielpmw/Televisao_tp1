@@ -25,11 +25,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
         tv.setModelo(dto.getModelo());
         tv.setResolucao(dto.getResolucao());
         tv.setPolegada(dto.getPolegada());
-
-        TipoTela tela = null;
-        for (TipoTela t : TipoTela.values()){
-            if (t.getID() == tela.getID()) tela = t;
-        }
+        tv.setTipoTela(TipoTela.valueOf(dto.getIdTipoTela()));
 
         tvrepository.persist(tv);
 
@@ -45,7 +41,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
         tv.setModelo(dto.getModelo());
         tv.setResolucao(dto.getResolucao());
         tv.setPolegada(dto.getPolegada());
-        tv.setTipoTela(TipoTela.valueOf((int) id));
+        tv.setTipoTela(TipoTela.valueOf(dto.getIdTipoTela()));
     }
 
     @Transactional
@@ -54,20 +50,23 @@ public class TelevisaoServiceImpl implements TelevisaoService {
         tvrepository.deleteById(id);
     }
 
-
     @Override
     public Televisao findById(long id) {
         return tvrepository.findById(id);
     }
 
-
     @Override
     public List<Televisao> findAll() {
-        return tvrepository.findAll().list();
+        return tvrepository.listAll();
     }
 
     @Override
-    public List<Televisao> findByMarca(String marca) {
-        return List.of();
+    public Televisao findByMarca(String marca) {
+        return tvrepository.findByMarca(marca);
+    }
+
+    @Override
+    public List<Televisao> findByModelo(String modelo) {
+        return tvrepository.findByModelo(modelo);
     }
 }
