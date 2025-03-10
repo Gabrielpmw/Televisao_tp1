@@ -7,6 +7,7 @@ import br.unitins.tp1.repository.TelevisaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
 
@@ -35,13 +36,17 @@ public class TelevisaoServiceImpl implements TelevisaoService {
     @Transactional
     @Override
     public void update(long id, TelevisaoDTO dto) {
-        Televisao tv = new Televisao();
+        Televisao tv = tvrepository.findById(id);
 
-        tv.setMarca(dto.getMarca());
-        tv.setModelo(dto.getModelo());
-        tv.setResolucao(dto.getResolucao());
-        tv.setPolegada(dto.getPolegada());
-        tv.setTipoTela(TipoTela.valueOf(dto.getIdTipoTela()));
+        if (tv != null) {
+            tv.setMarca(dto.getMarca());
+            tv.setModelo(dto.getModelo());
+            tv.setResolucao(dto.getResolucao());
+            tv.setPolegada(dto.getPolegada());
+            tv.setTipoTela(TipoTela.valueOf(dto.getIdTipoTela()));
+        } else {
+            throw new NotFoundException("Televisão não encontrada para o ID: " + id);
+        }
     }
 
     @Transactional

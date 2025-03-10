@@ -18,30 +18,36 @@ public class TvResource {
     TelevisaoServiceImpl service;
 
     @GET
-    public List<Televisao> buscarTodos(){
+    public List<Televisao> buscarTodos() {
         return service.findAll();
     }
 
     @GET
     @Path("/marca/{marca}")
-    public Televisao buscarPorMarca(String marca){
+    public Televisao buscarPorMarca(String marca) {
         return service.findByMarca(marca);
     }
 
     @GET
     @Path("/modelo/{modelo}")
-    public List<Televisao> buscarPorModelo(String modelo){
+    public List<Televisao> buscarPorModelo(String modelo) {
         return service.findByModelo(modelo);
     }
 
     @POST
-    public Televisao incluir(TelevisaoDTO dto){
+    public Televisao incluir(TelevisaoDTO dto) {
         return service.create(dto);
     }
 
     @PUT
     @Path("/{id}")
-    public void apagar(long id){
+    public void atualizar(@PathParam("id") long id, TelevisaoDTO tv) {
+        service.update(id, tv);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public void apagar(@PathParam("id") long id) {
         service.delete(id);
     }
 

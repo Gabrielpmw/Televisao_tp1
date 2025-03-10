@@ -21,6 +21,7 @@ public class Televisao {
     @Column(length = 60, nullable = false)
     private String resolucao;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 60, nullable = false)
     private TipoTela tipoTela;
 
