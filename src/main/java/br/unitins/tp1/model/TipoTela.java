@@ -26,7 +26,9 @@ public enum TipoTela {
         return NOME;
     }
 
-    public static TipoTela valueOf(int id){
+    public static TipoTela valueOf(Integer id){
+        if (id == null) return null;
+
         for (TipoTela tela : TipoTela.values()){
             if (tela.getID() == id){
                 return tela;

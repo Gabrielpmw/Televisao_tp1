@@ -3,11 +3,7 @@ package br.unitins.tp1.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Televisao {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Televisao extends DefaultEntity{
 
     @Column(length = 60, nullable = false)
     private String marca;
@@ -25,13 +21,17 @@ public class Televisao {
     @Column(length = 60, nullable = false)
     private TipoTela tipoTela;
 
-    public Long getId() {
-        return id;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "fabricante_id")
+//    private Fabricante fabricante;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Fabricante getFabricante() {
+//        return fabricante;
+//    }
+//
+//    public void setFabricante(Fabricante fabricante) {
+//        this.fabricante = fabricante;
+//    }
 
     public String getMarca() {
         return marca;

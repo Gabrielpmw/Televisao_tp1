@@ -1,10 +1,10 @@
 package br.unitins.tp1.resource;
 
+import br.unitins.tp1.model.DTO.TelevisaoResponseDTO;
+import br.unitins.tp1.model.DTO.TelevisaoRequestDTO;
 import br.unitins.tp1.model.Televisao;
-import br.unitins.tp1.model.DTO.TelevisaoDTO;
 import br.unitins.tp1.service.TelevisaoServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
@@ -17,31 +17,14 @@ public class TvResource {
     @Inject
     TelevisaoServiceImpl service;
 
-    @GET
-    public List<Televisao> buscarTodos() {
-        return service.findAll();
-    }
-
-    @GET
-    @Path("/marca/{marca}")
-    public Televisao buscarPorMarca(String marca) {
-        return service.findByMarca(marca);
-    }
-
-    @GET
-    @Path("/modelo/{modelo}")
-    public List<Televisao> buscarPorModelo(String modelo) {
-        return service.findByModelo(modelo);
-    }
-
     @POST
-    public Televisao incluir(TelevisaoDTO dto) {
+    public TelevisaoResponseDTO incluir(TelevisaoRequestDTO dto) {
         return service.create(dto);
     }
 
     @PUT
     @Path("/{id}")
-    public void atualizar(@PathParam("id") long id, TelevisaoDTO tv) {
+    public void atualizar(@PathParam("id") long id, TelevisaoRequestDTO tv) {
         service.update(id, tv);
     }
 
@@ -51,5 +34,27 @@ public class TvResource {
         service.delete(id);
     }
 
+    @GET
+    @Path("/{id}")
+    public TelevisaoResponseDTO buscarPorId(@PathParam("id") long id){
+        Televisao tv = service.findById(id);
+        return TelevisaoResponseDTO.valueOf(tv);
+    }
 
+    @GET
+    public List<TelevisaoResponseDTO> buscarTodos() {
+        return service.findAll();
+    }
+
+    @GET
+    @Path("/marca/{marca}")
+    public TelevisaoResponseDTO buscarPorMarca(String marca) {
+        return service.findByMarca(marca);
+    }
+
+    @GET
+    @Path("/modelo/{modelo}")
+    public List<TelevisaoResponseDTO> buscarPorModelo(String modelo) {
+        return service.findByModelo(modelo);
+    }
 }
