@@ -1,7 +1,7 @@
 package br.unitins.tp1.resource;
 
-import br.unitins.tp1.model.DTO.TelevisaoResponseDTO;
-import br.unitins.tp1.model.DTO.TelevisaoRequestDTO;
+import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
+import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
 import br.unitins.tp1.model.Televisao;
 import br.unitins.tp1.service.TelevisaoServiceImpl;
 import jakarta.inject.Inject;
@@ -56,5 +56,11 @@ public class TvResource {
     @Path("/modelo/{modelo}")
     public List<TelevisaoResponseDTO> buscarPorModelo(String modelo) {
         return service.findByModelo(modelo);
+    }
+
+    @GET
+    @Path("fabricante/{id}")
+    public List<TelevisaoResponseDTO> buscarPorFabricante(@PathParam("id") long id){
+        return service.findByFabricante(id);
     }
 }

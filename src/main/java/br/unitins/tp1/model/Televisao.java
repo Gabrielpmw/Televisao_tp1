@@ -21,17 +21,17 @@ public class Televisao extends DefaultEntity{
     @Column(length = 60, nullable = false)
     private TipoTela tipoTela;
 
-//    @ManyToOne
-//    @JoinColumn(name = "fabricante_id")
-//    private Fabricante fabricante;
+    @ManyToOne
+    @JoinColumn(name = "id_fabricante")
+    private Fabricante fabricante;
 
-//    public Fabricante getFabricante() {
-//        return fabricante;
-//    }
-//
-//    public void setFabricante(Fabricante fabricante) {
-//        this.fabricante = fabricante;
-//    }
+    public Fabricante getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(Fabricante fabricante) {
+        this.fabricante = fabricante;
+    }
 
     public String getMarca() {
         return marca;
