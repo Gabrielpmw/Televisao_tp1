@@ -1,7 +1,9 @@
 package br.unitins.tp1.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Fabricante extends DefaultEntity{
@@ -14,8 +16,16 @@ public class Fabricante extends DefaultEntity{
     @Column(length = 60, nullable = false)
     private String paisSede;
 
-    @Column(length = 11, nullable = false)
-    private String telefone;
+    @OneToMany(mappedBy = "fabricante" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefone> telefones = new ArrayList<>();
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
 
     public String getNome() {
         return nome;
@@ -41,11 +51,4 @@ public class Fabricante extends DefaultEntity{
         this.paisSede = paisSede;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
 }

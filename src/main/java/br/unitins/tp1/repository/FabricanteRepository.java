@@ -9,4 +9,5 @@ import java.util.List;
 
 @ApplicationScoped
 public class FabricanteRepository implements PanacheRepository<Fabricante> {
+
 }

@@ -7,6 +7,7 @@ import br.unitins.tp1.service.TelevisaoServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -18,49 +19,51 @@ public class TvResource {
     TelevisaoServiceImpl service;
 
     @POST
-    public TelevisaoResponseDTO incluir(TelevisaoRequestDTO dto) {
-        return service.create(dto);
+    public Response incluir(TelevisaoRequestDTO dto) {
+        return Response.status(Response.Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void atualizar(@PathParam("id") long id, TelevisaoRequestDTO tv) {
+    public Response atualizar(@PathParam("id") long id, TelevisaoRequestDTO tv) {
         service.update(id, tv);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void apagar(@PathParam("id") long id) {
+    public Response apagar(@PathParam("id") long id) {
         service.delete(id);
+        return Response.noContent().build();
     }
 
     @GET
     @Path("/{id}")
-    public TelevisaoResponseDTO buscarPorId(@PathParam("id") long id){
+    public Response buscarPorId(@PathParam("id") long id){
         Televisao tv = service.findById(id);
-        return TelevisaoResponseDTO.valueOf(tv);
+        return Response.ok().entity(TelevisaoResponseDTO.valueOf(tv)).build();
     }
 
     @GET
-    public List<TelevisaoResponseDTO> buscarTodos() {
-        return service.findAll();
+    public Response buscarTodos() {
+        return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
     @Path("/marca/{marca}")
-    public TelevisaoResponseDTO buscarPorMarca(String marca) {
-        return service.findByMarca(marca);
+    public Response buscarPorMarca(String marca) {
+        return Response.ok().entity(service.findByMarca(marca)).build();
     }
 
     @GET
     @Path("/modelo/{modelo}")
-    public List<TelevisaoResponseDTO> buscarPorModelo(String modelo) {
-        return service.findByModelo(modelo);
+    public Response buscarPorModelo(String modelo) {
+        return Response.ok().entity(service.findByModelo(modelo)).build();
     }
 
     @GET
     @Path("fabricante/{id}")
-    public List<TelevisaoResponseDTO> buscarPorFabricante(@PathParam("id") long id){
-        return service.findByFabricante(id);
+    public Response buscarPorFabricante(@PathParam("id") long id){
+        return Response.ok().entity(service.findByFabricante(id)).build();
     }
 }
