@@ -1,13 +1,17 @@
 package br.unitins.tp1.repository;
 
-import br.unitins.tp1.model.Televisao;
+import br.unitins.tp1.model.Televisao.Televisao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
 @ApplicationScoped
 public class TelevisaoRepository implements PanacheRepository<Televisao>{
+
 
     public Televisao findByMarca(String marca){
         return find("from Televisao t where t.marca = ?1", marca).firstResult();

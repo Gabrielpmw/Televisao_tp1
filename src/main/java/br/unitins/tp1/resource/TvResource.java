@@ -2,14 +2,12 @@ package br.unitins.tp1.resource;
 
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
-import br.unitins.tp1.model.Televisao;
+import br.unitins.tp1.model.Televisao.Televisao;
 import br.unitins.tp1.service.TelevisaoServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import java.util.List;
 
 @Path("/tv")
 @Produces(MediaType.APPLICATION_JSON)

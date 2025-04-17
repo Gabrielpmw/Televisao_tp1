@@ -1,9 +1,11 @@
-package br.unitins.tp1.model;
+package br.unitins.tp1.model.Televisao;
 
+import br.unitins.tp1.model.DefaultEntity;
+import br.unitins.tp1.model.Fabricante;
 import jakarta.persistence.*;
 
 @Entity
-public class Televisao extends DefaultEntity{
+public class Televisao extends DefaultEntity {
 
     @Column(length = 60, nullable = false)
     private String marca;
@@ -12,18 +14,21 @@ public class Televisao extends DefaultEntity{
     private String modelo;
 
     @Column(length = 60, nullable = false)
-    private int polegada;
-
-    @Column(length = 60, nullable = false)
     private String resolucao;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 60, nullable = false)
     private TipoTela tipoTela;
 
+
     @ManyToOne
     @JoinColumn(name = "id_fabricante")
     private Fabricante fabricante;
+
+    @ManyToOne
+    @JoinColumn(name = "id_dimensao")
+    private Dimensao dimensao;
+
 
     public Fabricante getFabricante() {
         return fabricante;
@@ -49,14 +54,6 @@ public class Televisao extends DefaultEntity{
         this.modelo = modelo;
     }
 
-    public int getPolegada() {
-        return polegada;
-    }
-
-    public void setPolegada(int polegada) {
-        this.polegada = polegada;
-    }
-
     public String getResolucao() {
         return resolucao;
     }
@@ -71,5 +68,13 @@ public class Televisao extends DefaultEntity{
 
     public void setTipoTela(TipoTela tipoTela) {
         this.tipoTela = tipoTela;
+    }
+
+    public Dimensao getDimensao() {
+        return dimensao;
+    }
+
+    public void setDimensao(Dimensao dimensao) {
+        this.dimensao = dimensao;
     }
 }

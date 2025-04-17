@@ -1,6 +1,7 @@
 package br.unitins.tp1.model.converterJPA;
 
-import br.unitins.tp1.model.TipoTela;
+
+import br.unitins.tp1.model.Televisao.TipoTela;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

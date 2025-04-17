@@ -2,8 +2,6 @@ package br.unitins.tp1.service;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
-import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
-import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Fabricante;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.repository.FabricanteRepository;
@@ -12,10 +10,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class FabricanteServiceImpl implements FabricanteService {
@@ -34,8 +30,13 @@ public class FabricanteServiceImpl implements FabricanteService {
         fabricante.setPaisSede(dto.paisSede());
 
         List<Telefone> telefones = dto.idTelefone().stream()
-                .map(id -> telefoneRepository.findById(id))
-                .filter(Objects::nonNull).toList();
+                .map(telefoneRepository::findById)
+                .filter(Objects::nonNull)
+                .toList();
+
+        for (Telefone telefone : telefones) {
+            telefone.setFabricante(fabricante);
+        }
 
         fabricante.setTelefones(telefones);
 
@@ -43,6 +44,7 @@ public class FabricanteServiceImpl implements FabricanteService {
 
         return FabricanteResponseDTO.valueOf(fabricante);
     }
+
 
     @Override
     @Transactional

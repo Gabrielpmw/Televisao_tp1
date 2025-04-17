@@ -1,4 +1,4 @@
-package br.unitins.tp1.model;
+package br.unitins.tp1.model.Televisao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
