@@ -9,8 +9,7 @@ import java.util.List;
 public record FornecedorResponseDTO(
         long id,
         String nome,
-        List<TelefoneResponseDTO> telefones,
-        List<TelevisaoResponseDTO> televisoes
+        List<TelefoneResponseDTO> telefones
 ) {
     public static FornecedorResponseDTO valueOf(Fornecedor fornecedor){
         if (fornecedor == null) return null;
@@ -18,8 +17,6 @@ public record FornecedorResponseDTO(
         return new FornecedorResponseDTO(
                 fornecedor.getId(),
                 fornecedor.getNome(),
-                fornecedor.getTelefones().stream().map(TelefoneResponseDTO::valueOf).toList(),
-                fornecedor.getTelevisaos().stream().map(TelevisaoResponseDTO::valueOf).toList()
-        );
+                fornecedor.getTelefones().stream().map(TelefoneResponseDTO::valueOf).toList());
     }
 }

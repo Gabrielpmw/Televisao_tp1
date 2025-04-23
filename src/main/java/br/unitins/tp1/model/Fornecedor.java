@@ -20,7 +20,7 @@ public class Fornecedor extends DefaultEntity{
     )
     private List<Televisao> televisaos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones = new ArrayList<>();
 
     public String getNome() {

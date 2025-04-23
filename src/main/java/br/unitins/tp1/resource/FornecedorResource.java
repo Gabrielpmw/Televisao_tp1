@@ -38,4 +38,10 @@ public class FornecedorResource {
     public Response buscarTodos(){
         return Response.ok().entity(fornecedorService.findAll()).build();
     }
+
+    @GET
+    @Path("/{id}")
+    public Response buscarPorFornecedor(@PathParam("id") long id){
+        return Response.ok().entity(fornecedorService.findTelevisaoByFornecedor(id)).build();
+    }
 }
