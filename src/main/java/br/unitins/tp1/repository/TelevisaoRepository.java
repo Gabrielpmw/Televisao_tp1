@@ -12,6 +12,9 @@ import java.util.List;
 @ApplicationScoped
 public class TelevisaoRepository implements PanacheRepository<Televisao>{
 
+    public List<Televisao> findByIds(List<Long> id){
+        return find("SELECT t from Televisao t WHERE t.id in ?1", id).stream().toList();
+    }
 
     public Televisao findByMarca(String marca){
         return find("from Televisao t where t.marca = ?1", marca).firstResult();

@@ -22,22 +22,20 @@ INSERT INTO Fabricante (nome, cnpj, paisSede) VALUES
 
 -- TELEFONE
 INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
-('63', '123456789', 2),
-('66', '985275291', 2),
-('12', '987654321', 3),
-('11', '909090909', 3);
+('63', '123456789', 1),
+('66', '985275291', 1),
+('12', '987654321', 1),
+('11', '909090909', 1);
 
 
 
 -- TELEVISAO
 INSERT INTO Televisao (marca, modelo, resolucao, tipoTela, id_fabricante, id_dimensao) VALUES
-('LG', 'OLED Evo', 'full hd', 'OLED', 1, 2);
--- ('Sony', 'Bravia XR', 75, '8K', 'LED', 3),
--- ('Philips', 'Ambilight', 50, 'Full HD', 'LCD', 5, ),
--- ('Panasonic', 'Viera', 42, 'HD', 'PLASMA', 4),
--- ('Samsung', 'QLED Ultra HD', 55, '4K', 'QLED', 1),
--- ('LG', 'OLED Ultra HD', 65, '8K', 'OLED', 2 ),
--- ('Sony', 'Bravia QLED', 75, '4K', 'QLED', 3);
+('LG', 'Crystal HUD', '8k', 'LED', 1, 1),
+('Samsung', 'Bravia XR', '4k', 'OLED', 2, 2),
+('Philips', 'Viera TH', '2k', 'PLASMA', 3, 3),
+('Sony', 'OLED Evo', 'full hd', 'OLED', 4, 4);
+
 
 
 

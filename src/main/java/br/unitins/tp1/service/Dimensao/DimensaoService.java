@@ -1,7 +1,5 @@
-package br.unitins.tp1.service;
+package br.unitins.tp1.service.Dimensao;
 
-import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
-import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.DimensaoRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.DimensaoResponseDTO;
 

@@ -1,7 +1,7 @@
 package br.unitins.tp1.resource;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
-import br.unitins.tp1.service.FabricanteServiceImpl;
+import br.unitins.tp1.service.Fabricante.FabricanteServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

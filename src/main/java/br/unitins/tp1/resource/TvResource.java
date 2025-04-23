@@ -3,7 +3,7 @@ package br.unitins.tp1.resource;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
 import br.unitins.tp1.model.Televisao.Televisao;
-import br.unitins.tp1.service.TelevisaoServiceImpl;
+import br.unitins.tp1.service.Televisao.TelevisaoServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

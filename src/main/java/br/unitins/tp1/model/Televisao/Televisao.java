@@ -2,7 +2,11 @@ package br.unitins.tp1.model.Televisao;
 
 import br.unitins.tp1.model.DefaultEntity;
 import br.unitins.tp1.model.Fabricante;
+import br.unitins.tp1.model.Fornecedor;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Televisao extends DefaultEntity {
@@ -29,6 +33,9 @@ public class Televisao extends DefaultEntity {
     @JoinColumn(name = "id_dimensao")
     private Dimensao dimensao;
 
+    @ManyToMany(mappedBy = "televisaos")
+    private List<Fornecedor> fornecedores = new ArrayList<>();
+    
 
     public Fabricante getFabricante() {
         return fabricante;
@@ -36,6 +43,14 @@ public class Televisao extends DefaultEntity {
 
     public void setFabricante(Fabricante fabricante) {
         this.fabricante = fabricante;
+    }
+
+    public List<Fornecedor> getFornecedores() {
+        return fornecedores;
+    }
+
+    public void setFornecedores(List<Fornecedor> fornecedores) {
+        this.fornecedores = fornecedores;
     }
 
     public String getMarca() {

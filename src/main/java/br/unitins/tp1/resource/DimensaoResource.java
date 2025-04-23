@@ -1,7 +1,7 @@
 package br.unitins.tp1.resource;
 
 import br.unitins.tp1.model.DTO.Televisao.DimensaoRequestDTO;
-import br.unitins.tp1.service.DimensaoServiceImpl;
+import br.unitins.tp1.service.Dimensao.DimensaoServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

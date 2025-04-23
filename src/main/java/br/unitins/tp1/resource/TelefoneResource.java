@@ -1,7 +1,7 @@
 package br.unitins.tp1.resource;
 
 import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
-import br.unitins.tp1.service.TelefoneServiceImpl;
+import br.unitins.tp1.service.Telefone.TelefoneServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

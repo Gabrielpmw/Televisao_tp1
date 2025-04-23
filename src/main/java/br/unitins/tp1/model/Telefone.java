@@ -18,6 +18,18 @@ public class Telefone extends DefaultEntity{
     @JoinColumn(name = "fabricante_id")
     private Fabricante fabricante;
 
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
     public Fabricante getFabricante() {
         return fabricante;
     }

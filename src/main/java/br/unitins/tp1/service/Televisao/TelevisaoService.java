@@ -1,4 +1,4 @@
-package br.unitins.tp1.service;
+package br.unitins.tp1.service.Televisao;
 
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;

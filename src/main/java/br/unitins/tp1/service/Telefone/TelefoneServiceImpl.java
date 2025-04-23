@@ -1,4 +1,4 @@
-package br.unitins.tp1.service;
+package br.unitins.tp1.service.Telefone;
 
 import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
 import br.unitins.tp1.model.DTO.Telefone.TelefoneResponseDTO;
