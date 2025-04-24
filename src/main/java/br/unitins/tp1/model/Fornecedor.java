@@ -1,6 +1,7 @@
 package br.unitins.tp1.model;
 
 import br.unitins.tp1.model.Televisao.Televisao;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

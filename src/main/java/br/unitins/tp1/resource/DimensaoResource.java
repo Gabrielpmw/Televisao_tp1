@@ -20,14 +20,14 @@ public class DimensaoResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/{id}/atualizar-dimensao-por-id")
     public Response atualizar(@PathParam("id") long id, DimensaoRequestDTO dto){
         dimensaoService.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("/{id}/deletar-dimensao-por-id")
     public Response deletar(@PathParam("id") long id){
         dimensaoService.delete(id);
         return Response.noContent().build();
@@ -39,8 +39,14 @@ public class DimensaoResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/{id}/buscar-dimensao-por-id")
     public Response buscarPorId(@PathParam("id") long id){
         return Response.ok().entity(dimensaoService.findById(id)).build();
+    }
+
+    @GET
+    @Path("/{id}/buscar-televisao-por-id_dimensao")
+    public Response buscarTelevisaoPorIdDimensao(@PathParam("id") long idDimensao){
+        return Response.ok().entity(dimensaoService.findTelevisaoByDimensao(idDimensao)).build();
     }
 }

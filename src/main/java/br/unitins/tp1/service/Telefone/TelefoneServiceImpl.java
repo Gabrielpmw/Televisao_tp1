@@ -13,7 +13,7 @@ import java.util.List;
 @ApplicationScoped
 public class TelefoneServiceImpl implements TelefoneService{
     @Inject
-    TelefoneRepository repository;
+    TelefoneRepository telefoneRepository;
 
     @Override
     @Transactional
@@ -23,7 +23,7 @@ public class TelefoneServiceImpl implements TelefoneService{
         telefone.setDdd(dto.ddd());
         telefone.setNumero(dto.numero());
 
-        repository.persist(telefone);
+        telefoneRepository.persist(telefone);
 
         return TelefoneResponseDTO.valueOf(telefone);
     }
@@ -31,7 +31,7 @@ public class TelefoneServiceImpl implements TelefoneService{
     @Override
     @Transactional
     public void update(long id, TelefoneRequestDTO dto) {
-        Telefone telefone = repository.findById(id);
+        Telefone telefone = telefoneRepository.findById(id);
 
         telefone.setDdd(dto.ddd());
         telefone.setNumero(dto.numero());
@@ -40,16 +40,21 @@ public class TelefoneServiceImpl implements TelefoneService{
     @Override
     @Transactional
     public void delete(long id) {
-        repository.deleteById(id);
+        telefoneRepository.deleteById(id);
     }
 
     @Override
     public TelefoneResponseDTO findById(long id) {
-        return TelefoneResponseDTO.valueOf(repository.findById(id));
+        return TelefoneResponseDTO.valueOf(telefoneRepository.findById(id));
     }
 
     @Override
     public List<TelefoneResponseDTO> findAll() {
-        return repository.findAll().stream().map(t -> TelefoneResponseDTO.valueOf(t)).toList();
+        return telefoneRepository.findAll().stream().map(t -> TelefoneResponseDTO.valueOf(t)).toList();
+    }
+
+    @Override
+    public List<TelefoneResponseDTO> findTelefonesByDDD(String ddd) {
+        return telefoneRepository.findTelefonesByDdd(ddd).stream().map(TelefoneResponseDTO::valueOf).toList();
     }
 }

@@ -16,4 +16,6 @@ public interface TelefoneService {
     TelefoneResponseDTO findById(long id);
 
     List<TelefoneResponseDTO> findAll();
+
+    List<TelefoneResponseDTO> findTelefonesByDDD(String ddd);
 }

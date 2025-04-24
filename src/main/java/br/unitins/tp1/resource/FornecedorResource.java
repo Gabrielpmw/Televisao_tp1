@@ -21,15 +21,15 @@ public class FornecedorResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/{id}/atualizar-fornecedor-por-id")
     public Response atualizar(@PathParam("id") long id, FornecedorRequestDTO dto){
         fornecedorService.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response deletar(long id){
+    @Path("/{id}/deletar-fornecedor-por-id")
+    public Response deletar(@PathParam("id") long id){
         fornecedorService.delete(id);
         return Response.noContent().build();
     }
@@ -40,8 +40,20 @@ public class FornecedorResource {
     }
 
     @GET
-    @Path("/{id}")
-    public Response buscarPorFornecedor(@PathParam("id") long id){
-        return Response.ok().entity(fornecedorService.findTelevisaoByFornecedor(id)).build();
+    @Path("/{id}/buscar-fornecedor-por-id")
+    public Response buscarPorId(@PathParam("id") long id){
+        return Response.ok().entity(fornecedorService.findById(id)).build();
+    }
+
+    @GET
+    @Path("/{id}/buscar-televisao-por-id_fornecedor")
+    public Response buscarTelevisaoPorIdFornecedor(@PathParam("id") long idFornecedor){
+        return Response.ok().entity(fornecedorService.findTelevisaoByFornecedor(idFornecedor)).build();
+    }
+
+    @GET
+    @Path("/{id}/buscar-fornecedor-por-id_telefone")
+    public Response busarFornecedorPorIdTelefone(@PathParam("id") long idTelefone){
+        return Response.ok().entity(fornecedorService.findFornecedorByTelefone(idTelefone)).build();
     }
 }

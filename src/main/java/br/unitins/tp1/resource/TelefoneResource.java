@@ -20,22 +20,22 @@ public class TelefoneResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/{id}/atualizar-telefone-por-id")
     public Response atualizar(@PathParam("id") long id, TelefoneRequestDTO dto){
         telefoneService.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response deletar(long id){
+    @Path("/{id}/deletar-telefone-por-id")
+    public Response deletar(@PathParam("id") long id){
         telefoneService.delete(id);
         return Response.noContent().build();
     }
 
     @GET
-    @Path("/{id}")
-    public Response buscarPorId(long id){
+    @Path("/{id}/buscar-telefone-por-id")
+    public Response buscarPorId(@PathParam("id") long id){
         return Response.ok().entity(telefoneService.findById(id)).build();
     }
 
@@ -43,4 +43,12 @@ public class TelefoneResource {
     public Response buscarTodos(){
         return Response.ok().entity(telefoneService.findAll()).build();
     }
+
+    @GET
+    @Path("/{ddd}/buscar-telefone-por-ddd")
+    public Response buscarTelefonesPorDDD(@PathParam("ddd") String ddd){
+        return Response.ok().entity(telefoneService.findTelefonesByDDD(ddd)).build();
+    }
+
+
 }

@@ -22,21 +22,21 @@ public class TvResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/{id}/atualizar-televisao-por-id")
     public Response atualizar(@PathParam("id") long id, TelevisaoRequestDTO tv) {
         service.update(id, tv);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("/{id}/apagar-televisao-por-id")
     public Response apagar(@PathParam("id") long id) {
         service.delete(id);
         return Response.noContent().build();
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/{id}/buscar-televisao-por-id")
     public Response buscarPorId(@PathParam("id") long id){
         Televisao tv = service.findById(id);
         return Response.ok().entity(TelevisaoResponseDTO.valueOf(tv)).build();
@@ -48,20 +48,14 @@ public class TvResource {
     }
 
     @GET
-    @Path("/marca/{marca}")
-    public Response buscarPorMarca(String marca) {
-        return Response.ok().entity(service.findByMarca(marca)).build();
+    @Path("/{tela}/buscar-televisao-por-tipo_de_tela")
+    public Response buscarTelevisaoPorTipoDeTela(@PathParam("tela") int idTipoTela){
+        return Response.ok().entity(service.findTelevisaoByTipoTela(idTipoTela)).build();
     }
 
     @GET
-    @Path("/modelo/{modelo}")
-    public Response buscarPorModelo(String modelo) {
-        return Response.ok().entity(service.findByModelo(modelo)).build();
-    }
-
-    @GET
-    @Path("fabricante/{id}")
-    public Response buscarPorFabricante(@PathParam("id") long id){
-        return Response.ok().entity(service.findByFabricante(id)).build();
+    @Path("/{modelo}/buscar-televisao-por-modelo")
+    public Response buscarTelevisaoPorModelo(@PathParam("modelo") String modelo){
+        return Response.ok().entity(service.findTelevisaoByModelo(modelo)).build();
     }
 }

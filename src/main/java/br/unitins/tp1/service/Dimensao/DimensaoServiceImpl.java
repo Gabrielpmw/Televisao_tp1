@@ -2,6 +2,7 @@ package br.unitins.tp1.service.Dimensao;
 
 import br.unitins.tp1.model.DTO.Televisao.DimensaoRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.DimensaoResponseDTO;
+import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Televisao.Dimensao;
 import br.unitins.tp1.repository.DimensaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -53,5 +54,10 @@ public class DimensaoServiceImpl implements DimensaoService{
     @Override
     public List<DimensaoResponseDTO> findAll() {
         return dimensaoRepository.findAll().stream().map(DimensaoResponseDTO::valueOf).toList();
+    }
+
+    @Override
+    public List<TelevisaoResponseDTO> findTelevisaoByDimensao(long idDimensao) {
+        return dimensaoRepository.findTelevisaoByDimensao(idDimensao).stream().map(TelevisaoResponseDTO::valueOf).toList();
     }
 }

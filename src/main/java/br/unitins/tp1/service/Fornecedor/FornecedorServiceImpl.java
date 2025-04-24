@@ -96,11 +96,14 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    @Transactional
-    public List<TelevisaoResponseDTO> findTelevisaoByFornecedor(long id) {
-        return fornecedorRepository.findTelevisoesByFornecedor(id)
-                .stream()
-                .map(TelevisaoResponseDTO::valueOf)
-                .toList();
+    public List<TelevisaoResponseDTO> findTelevisaoByFornecedor(long idFornecedor) {
+        List<Televisao> televisaos = fornecedorRepository.findTelevisaoByFornecedor(idFornecedor);
+
+        return televisaos.stream().map(TelevisaoResponseDTO::valueOf).toList();
+    }
+
+    @Override
+    public FornecedorResponseDTO findFornecedorByTelefone(long idTelefone) {
+        return FornecedorResponseDTO.valueOf(fornecedorRepository.findFornecedorByTelefone(idTelefone));
     }
 }

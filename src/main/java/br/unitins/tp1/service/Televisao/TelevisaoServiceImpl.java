@@ -2,6 +2,7 @@ package br.unitins.tp1.service.Televisao;
 
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Fabricante;
+import br.unitins.tp1.model.Fornecedor;
 import br.unitins.tp1.model.Televisao.Dimensao;
 import br.unitins.tp1.model.Televisao.Televisao;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
@@ -26,6 +27,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
     @Inject
     protected DimensaoRepository dimensaoRepository;
+
 
     @Transactional
     @Override
@@ -83,20 +85,18 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
     @Override
     public List<TelevisaoResponseDTO> findAll() {
-        return tvrepository.listAll().stream().map(TelevisaoResponseDTO::valueOf).toList();    }
-
-    @Override
-    public TelevisaoResponseDTO findByMarca(String marca) {
-        return TelevisaoResponseDTO.valueOf(tvrepository.findByMarca(marca));
+        return tvrepository.listAll().stream().map(TelevisaoResponseDTO::valueOf).toList();
     }
 
     @Override
-    public List<TelevisaoResponseDTO> findByModelo(String modelo) {
-        return tvrepository.findByModelo(modelo).stream().map(TelevisaoResponseDTO::valueOf).toList();
+    public List<TelevisaoResponseDTO> findTelevisaoByTipoTela(int idTipoTela) {
+        return tvrepository.findTelevisaoByTipoTela(idTipoTela).stream().map(TelevisaoResponseDTO::valueOf).toList();
     }
 
     @Override
-    public List<TelevisaoResponseDTO> findByFabricante(long id) {
-        return tvrepository.findByFabricante(id).stream().map(TelevisaoResponseDTO::valueOf).toList();
+    public TelevisaoResponseDTO findTelevisaoByModelo(String modelo) {
+        Televisao televisao = tvrepository.findTelevisaoByModelo(modelo);
+
+        return TelevisaoResponseDTO.valueOf(televisao);
     }
 }

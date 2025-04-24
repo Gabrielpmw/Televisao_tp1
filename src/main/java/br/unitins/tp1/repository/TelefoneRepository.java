@@ -9,7 +9,7 @@ import java.util.List;
 @ApplicationScoped
 public class TelefoneRepository implements PanacheRepository<Telefone> {
 
-    public List<Telefone> findByIdsTelefone(List<Long> id) {
-        return find("SELECT t FROM Telefone t WHERE t.id IN ?1", id).stream().toList();
+    public List<Telefone> findTelefonesByDdd(String ddd) {
+        return find("ddd", ddd).list();
     }
 }
