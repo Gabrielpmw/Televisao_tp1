@@ -2,7 +2,6 @@ package br.unitins.tp1.service.Fabricante;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
-import br.unitins.tp1.model.DTO.Telefone.TelefoneResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Fabricante;
 import br.unitins.tp1.model.Telefone;
