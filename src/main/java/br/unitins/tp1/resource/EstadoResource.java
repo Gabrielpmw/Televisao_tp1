@@ -21,7 +21,7 @@ public class EstadoResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-estado-por-id")
+    @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, EstadoRequestDTO dto){
          estadoService.update(id, dto);
 
@@ -29,7 +29,7 @@ public class EstadoResource {
     }
 
     @DELETE
-    @Path("/{id}/deletar-estado-por-id")
+    @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         estadoService.delete(id);
 
@@ -42,19 +42,19 @@ public class EstadoResource {
     }
 
     @GET
-    @Path("/{id}/buscar-estado-por-id")
+    @Path("/{id}/buscar-id")
     public Response buscarPorId(@PathParam("id") long id){
         return Response.ok().entity(estadoService.findById(id)).build();
     }
 
     @GET
-    @Path("/{nome}buscar-estado-por-nome")
+    @Path("/{nome}/buscar-nome")
     public Response buscarPorNome(@PathParam("nome") String nome){
         return Response.ok().entity(estadoService.findByNome(nome)).build();
     }
 
     @GET
-    @Path("/{ordenar}ordenar-estado-ordem-crescente")
+    @Path("/ordenar")
     public Response ordenarEstado(){
         return Response.ok().entity(estadoService.ordenarNome()).build();
     }
