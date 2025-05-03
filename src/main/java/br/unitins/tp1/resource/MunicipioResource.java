@@ -21,7 +21,7 @@ public class MunicipioResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-municipio-por-id")
+    @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, MunicipioRequestDTO dto){
         municipioService.update(id, dto);
 
@@ -29,7 +29,7 @@ public class MunicipioResource {
     }
 
     @DELETE
-    @Path("/{id}/deletar-municipio-por-id")
+    @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         municipioService.delete(id);
 
@@ -37,7 +37,7 @@ public class MunicipioResource {
     }
 
     @GET
-    @Path("/{id}/procurar-municipio-por-id")
+    @Path("/{id}/procurar-id")
     public Response procurarPorId(@PathParam("id") long id){
         return Response.ok().entity(municipioService.findById(id)).build();
     }
@@ -48,8 +48,8 @@ public class MunicipioResource {
     }
 
     @GET
-    @Path("{ordenar}/ordenar-municipio")
-    public Response ordenarPorNome(){
-        return Response.ok().entity(municipioService.ordenarNomes()).build();
+    @Path("/{id}/procurar-endereco")
+    public Response procurarEnderecoPorMunicipio(@PathParam("id") long id){
+        return Response.ok().entity(municipioService.findEnderecoByMunicipio(id)).build();
     }
 }

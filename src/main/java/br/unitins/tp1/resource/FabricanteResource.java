@@ -21,14 +21,14 @@ public class FabricanteResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-fabricante-por-id")
+    @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, FabricanteRequestDTO dto) {
         serviceFabricante.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}/apagar-fabricante-por-id")
+    @Path("/{id}/apagar")
     public Response apagar(@PathParam("id") long id) {
         serviceFabricante.delete(id);
         return Response.noContent().build();
@@ -46,7 +46,7 @@ public class FabricanteResource {
     }
 
     @GET
-    @Path("/{id}/busccar-televisao-por-id_fabricante")
+    @Path("/{id}/buscar-televisao-por-id_fabricante")
     public Response buscarTelevisaoPorIdFabricante(@PathParam("id") long idFabricante){
         return Response.ok().entity(serviceFabricante.findTelevisaoByFabricante(idFabricante)).build();
     }

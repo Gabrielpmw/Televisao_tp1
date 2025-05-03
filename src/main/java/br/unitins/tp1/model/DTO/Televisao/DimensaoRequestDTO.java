@@ -1,15 +1,16 @@
 package br.unitins.tp1.model.DTO.Televisao;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DimensaoRequestDTO(
-        @NotBlank(message = "Comprimento deve ser informado")
-        int comprimento,
+        @NotNull(message = "O campo comprimento é obrigatório.")
+        Integer comprimento,
 
-        @NotBlank(message = "Altura deve ser informado")
-        int altura,
+        @NotNull(message = "O campo altura é obrigatório.")
+        Integer altura,
 
-        @NotBlank(message = "Polegada deve ser informado")
-        int polegada
+        @NotNull(message = "O campo polegada é obrigatório.")
+        Integer polegada
 ) {
 }

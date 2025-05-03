@@ -9,10 +9,10 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/tv")
+@Path("/televisao")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class TvResource {
+public class TelevisaoResource {
     @Inject
     TelevisaoServiceImpl service;
 
@@ -22,14 +22,14 @@ public class TvResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-televisao-por-id")
+    @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, TelevisaoRequestDTO tv) {
         service.update(id, tv);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}/apagar-televisao-por-id")
+    @Path("/{id}/apagar")
     public Response apagar(@PathParam("id") long id) {
         service.delete(id);
         return Response.noContent().build();
@@ -45,12 +45,6 @@ public class TvResource {
     @GET
     public Response buscarTodos() {
         return Response.ok().entity(service.findAll()).build();
-    }
-
-    @GET
-    @Path("/{tela}/buscar-televisao-por-tipo_de_tela")
-    public Response buscarTelevisaoPorTipoDeTela(@PathParam("tela") int idTipoTela){
-        return Response.ok().entity(service.findTelevisaoByTipoTela(idTipoTela)).build();
     }
 
     @GET

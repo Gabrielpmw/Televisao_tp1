@@ -2,7 +2,6 @@ package br.unitins.tp1.resource;
 
 import br.unitins.tp1.model.DTO.Endereco.Endereco.EnderecoRequestDTO;
 import br.unitins.tp1.service.Endereco.EnderecoServiceImpl;
-import br.unitins.tp1.service.Estado.EstadoServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -22,7 +21,7 @@ public class EnderecoResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-endereco-por-id")
+    @Path("/{id}/atualizar")
     public Response alterar(@PathParam("id") long id, EnderecoRequestDTO dto){
         enderecoService.update(id, dto);
 
@@ -30,7 +29,7 @@ public class EnderecoResource {
     }
 
     @DELETE
-    @Path("/{id}deletar-endereco-por-id")
+    @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         enderecoService.delete(id);
 
@@ -38,7 +37,7 @@ public class EnderecoResource {
     }
 
     @GET
-    @Path("/{id}/buscar-endereco-por-id")
+    @Path("/{id}/buscar-id")
     public Response procurarPorId(@PathParam("id") long id){
         return Response.ok().entity(enderecoService.findById(id)).build();
     }

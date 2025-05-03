@@ -14,7 +14,10 @@ public class EstadoRepository implements PanacheRepository<Estado> {
         return find("UPPER(nome) = UPPER(?1)", nome).firstResult();
     }
 
-    public List<Estado> listarTodosOrdenadosPorNome() {
-        return list("ORDER BY nome ASC");
+    public List<Municipio> findMunicipiosByEstadoId(Long idEstado) {
+        return getEntityManager()
+                .createQuery("FROM Municipio m WHERE m.estado.id = :idEstado", Municipio.class)
+                .setParameter("idEstado", idEstado)
+                .getResultList();
     }
 }

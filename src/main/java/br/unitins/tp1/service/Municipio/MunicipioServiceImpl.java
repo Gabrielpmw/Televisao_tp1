@@ -1,5 +1,6 @@
 package br.unitins.tp1.service.Municipio;
 
+import br.unitins.tp1.model.DTO.Endereco.Endereco.EnderecoResponseDTO;
 import br.unitins.tp1.model.DTO.Endereco.Municipio.MunicipioRequestDTO;
 import br.unitins.tp1.model.DTO.Endereco.Municipio.MunicipioResponseDTO;
 import br.unitins.tp1.model.Endereco.Estado;
@@ -67,7 +68,7 @@ public class MunicipioServiceImpl implements MunicipioService{
     }
 
     @Override
-    public List<MunicipioResponseDTO> ordenarNomes() {
-        return municipioRepository.findAllOrderByNomeDesc().stream().map(MunicipioResponseDTO::valueOf).toList();
+    public List<EnderecoResponseDTO> findEnderecoByMunicipio(long id) {
+        return municipioRepository.findEnderecosByMunicipioId(id).stream().map(EnderecoResponseDTO::valueOf).toList();
     }
 }

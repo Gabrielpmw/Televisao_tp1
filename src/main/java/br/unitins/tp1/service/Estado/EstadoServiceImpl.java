@@ -2,6 +2,7 @@ package br.unitins.tp1.service.Estado;
 
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoRequestDTO;
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoResponseDTO;
+import br.unitins.tp1.model.DTO.Endereco.Municipio.MunicipioResponseDTO;
 import br.unitins.tp1.model.Endereco.Estado;
 import br.unitins.tp1.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -59,7 +60,7 @@ public class EstadoServiceImpl implements EstadoService{
     }
 
     @Override
-    public List<EstadoResponseDTO> ordenarNome() {
-        return estadoRepository.listarTodosOrdenadosPorNome().stream().map(EstadoResponseDTO::valueOf).toList();
+    public List<MunicipioResponseDTO> findMunicipioByEstado(long idEstado) {
+        return estadoRepository.findMunicipiosByEstadoId(idEstado).stream().map(MunicipioResponseDTO::valueOf).toList();
     }
 }

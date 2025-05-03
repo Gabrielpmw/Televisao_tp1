@@ -6,16 +6,16 @@ import jakarta.persistence.*;
 @Entity
 public class Endereco extends DefaultEntity {
 
-    @Column
+    @Column(length = 60)
     private String cep;
 
-    @Column
+    @Column(length = 60)
     private String bairro;
 
     @Column
     private int numero;
 
-    @Column
+    @Column(length = 60)
     private String complemento;
 
     @ManyToOne

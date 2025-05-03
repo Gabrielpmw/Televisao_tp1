@@ -24,8 +24,8 @@ INSERT INTO Fabricante (nome, cnpj, paisSede) VALUES
 INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
 ('63', '123456789', 1),
 ('66', '985275291', 1),
-('12', '987654321', 1),
-('11', '909090909', 1);
+('12', '987654321', 2),
+('11', '909090909', 2);
 
 
 
@@ -41,12 +41,13 @@ INSERT INTO Televisao (marca, modelo, resolucao, tipoTela, id_fabricante, id_dim
 ('Philips', 'Ambilight OLED806', '4k', 'OLED', 5, 3);
 
 -- FORNECEDOR
-INSERT INTO Fornecedor (nome) VALUES
-('Eletro Distribuidora'),
-('Mega Importados'),
-('TechHouse Comércio'),
-('Digital Center'),
-('Eletro Sul Atacado');
+INSERT INTO Fornecedor (nome, cnpj) VALUES
+('Eletro Distribuidora', '12345678000190'),
+('Mega Importados', '23456789000101'),
+('TechHouse Comércio', '34567890000112'),
+('Digital Center', '45678901000123'),
+('Eletro Sul Atacado', '56789012000134');
+
 
 -- ADICIONANDO TELEVISÃO PARA FORNECEDORES
 INSERT INTO fornecedor_televisao (fornecedor_id, televisao_id) VALUES

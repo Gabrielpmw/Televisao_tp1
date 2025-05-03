@@ -21,14 +21,14 @@ public class FornecedorResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-fornecedor-por-id")
+    @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, FornecedorRequestDTO dto){
         fornecedorService.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}/deletar-fornecedor-por-id")
+    @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         fornecedorService.delete(id);
         return Response.noContent().build();

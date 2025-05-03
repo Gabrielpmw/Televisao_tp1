@@ -35,6 +35,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 
         fornecedor.setNome(dto.nome());
 
+        fornecedor.setCnpj(dto.cnpj());
+
         fornecedorRepository.persist(fornecedor);
 
         List<Telefone> telefones = dto.idTelefone().stream()
@@ -60,6 +62,8 @@ public class FornecedorServiceImpl implements FornecedorService {
         Fornecedor novoFornecedor = fornecedorRepository.findById(id);
 
         novoFornecedor.setNome(dto.nome());
+
+        novoFornecedor.setCnpj(dto.cnpj());
 
         novoFornecedor.getTelefones().clear();
 

@@ -54,8 +54,8 @@ public class EstadoResource {
     }
 
     @GET
-    @Path("/ordenar")
-    public Response ordenarEstado(){
-        return Response.ok().entity(estadoService.ordenarNome()).build();
+    @Path("/{id}/buscar-municipio")
+    public Response buscarMunicipioPorEstado(@PathParam("id") long id){
+        return Response.ok().entity(estadoService.findMunicipioByEstado(id)).build();
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Municipio extends DefaultEntity {
 
-    @Column
+    @Column(length = 60)
     private String nome;
 
     @ManyToOne

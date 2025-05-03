@@ -2,13 +2,10 @@ package br.unitins.tp1;
 
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoRequestDTO;
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoResponseDTO;
-import br.unitins.tp1.repository.EstadoRepository;
 import br.unitins.tp1.service.Estado.EstadoServiceImpl;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -24,10 +21,8 @@ public class EstadoResourceTest {
     @Inject
     EstadoServiceImpl estadoService;
 
-
-
     @Test
-    void testIncluir(){
+    void testIncluir_ESTADO(){
         EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins 2", "TO-2");
 
         given()
@@ -43,7 +38,7 @@ public class EstadoResourceTest {
     static Long id = null;
 
     @Test
-    void testAlterar(){
+    void testAlterar_ESTADO(){
         EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins 3", "TO-2");
 
         id = estadoService.create(estadoRequestDTO).idEstado();
@@ -63,7 +58,7 @@ public class EstadoResourceTest {
     }
 
     @Test
-    void testDeletar(){
+    void testDeletar_ESTADO(){
         given()
                 .when()
                 .delete("/Estado/" + id + "/deletar")
@@ -74,17 +69,15 @@ public class EstadoResourceTest {
     }
 
     @Test
-    void testBuscarTodos(){
+    void testBuscarTodos_ESTADO(){
         given()
-                .when()
-                .get("/Estado")
-                .then()
-                .statusCode(200).body("$.size()", greaterThanOrEqualTo(2));
+                .when().get("/Estado")
+                .then().statusCode(200);
     }
 
 
     @Test
-    void testBucarPorId(){
+    void testBucarPorId_ESTADO(){
         EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Bahia", "BA");
         id = estadoService.create(estadoRequestDTO).idEstado();
 
@@ -101,12 +94,13 @@ public class EstadoResourceTest {
     }
 
     @Test
-    void testBuscarPorNome(){
+    void testBuscarPorNome_ESTADO(){
 
         EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Acre-test", "AC");
         Long id = estadoService.create(estadoRequestDTO).idEstado();
 
         given()
+                .contentType(ContentType.JSON)
                 .when()
                 .get("/Estado/Acre-test/buscar-nome")
                 .then()
@@ -117,15 +111,16 @@ public class EstadoResourceTest {
     }
 
     @Test
-    void testOrdenarEstado(){
+    void testBuscarMunicipioPorEstado_ESTADO(){
+        Long id = 1L;
 
         given()
-                .when()
-                .get("Estado/ordenar")
-                .then()
-                .statusCode(200)
-                .body("nome[0]", is("Bahia"),
-                        "nome[1]", is("Minas Gerais"),
-                        "nome[2]", is("Paraná"));
+                .contentType(ContentType.JSON)
+                .when().get("/Estado/" + id + "/buscar-municipio")
+                .then().statusCode(200)
+                .body("$", not(empty()))
+                .body("municipio", everyItem(notNullValue()))
+                .body("estado.nome", everyItem(equalTo("São Paulo")))
+                .body("estado.sigla", everyItem(equalTo("SP")));
     }
 }

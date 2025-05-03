@@ -13,5 +13,5 @@ public interface EstadoService {
     EstadoResponseDTO findById(long id);
     List<EstadoResponseDTO> findAll();
     EstadoResponseDTO findByNome(String nome);
-    List<EstadoResponseDTO> ordenarNome();
+    List<MunicipioResponseDTO> findMunicipioByEstado(long idEstado);
 }

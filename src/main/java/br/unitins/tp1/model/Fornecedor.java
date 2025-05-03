@@ -10,8 +10,11 @@ import java.util.List;
 @Entity
 public class Fornecedor extends DefaultEntity{
 
-    @Column
+    @Column(length = 60)
     private String nome;
+
+    @Column(length = 14)
+    private String cnpj;
 
     @ManyToMany
     @JoinTable(
@@ -46,5 +49,13 @@ public class Fornecedor extends DefaultEntity{
 
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 }

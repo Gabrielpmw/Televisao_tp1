@@ -14,6 +14,5 @@ public interface TelevisaoService {
     void delete(long id);
     Televisao findById(long id);
     List<TelevisaoResponseDTO> findAll();
-    List<TelevisaoResponseDTO> findTelevisaoByTipoTela(int idTipoTela);
     TelevisaoResponseDTO findTelevisaoByModelo(String modelo);
 }

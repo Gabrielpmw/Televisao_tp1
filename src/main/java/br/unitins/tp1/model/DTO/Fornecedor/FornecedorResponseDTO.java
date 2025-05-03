@@ -9,6 +9,7 @@ import java.util.List;
 public record FornecedorResponseDTO(
         long id,
         String nome,
+        String cnpj,
         List<TelefoneResponseDTO> telefones
 ) {
     public static FornecedorResponseDTO valueOf(Fornecedor fornecedor){
@@ -17,6 +18,7 @@ public record FornecedorResponseDTO(
         return new FornecedorResponseDTO(
                 fornecedor.getId(),
                 fornecedor.getNome(),
+                fornecedor.getCnpj(),
                 fornecedor.getTelefones().stream().map(TelefoneResponseDTO::valueOf).toList());
     }
 }

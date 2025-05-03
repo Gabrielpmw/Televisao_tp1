@@ -20,14 +20,14 @@ public class TelefoneResource {
     }
 
     @PUT
-    @Path("/{id}/atualizar-telefone-por-id")
+    @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, TelefoneRequestDTO dto){
         telefoneService.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/{id}/deletar-telefone-por-id")
+    @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         telefoneService.delete(id);
         return Response.noContent().build();

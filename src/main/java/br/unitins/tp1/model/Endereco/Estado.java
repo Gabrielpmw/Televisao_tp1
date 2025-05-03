@@ -11,10 +11,10 @@
     @Entity
     public class Estado extends DefaultEntity {
 
-        @Column
+        @Column(length = 60)
         private String nome;
 
-        @Column
+        @Column(length = 60)
         private String sigla;
 
         @OneToMany(mappedBy = "estado")

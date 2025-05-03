@@ -1,5 +1,6 @@
 package br.unitins.tp1.service.Municipio;
 
+import br.unitins.tp1.model.DTO.Endereco.Endereco.EnderecoResponseDTO;
 import br.unitins.tp1.model.DTO.Endereco.Municipio.MunicipioRequestDTO;
 import br.unitins.tp1.model.DTO.Endereco.Municipio.MunicipioResponseDTO;
 
@@ -12,5 +13,5 @@ public interface MunicipioService {
     void delete(long id);
     MunicipioResponseDTO findById(long id);
     List<MunicipioResponseDTO> findAll();
-    List<MunicipioResponseDTO> ordenarNomes();
+    List<EnderecoResponseDTO> findEnderecoByMunicipio(long id);
 }

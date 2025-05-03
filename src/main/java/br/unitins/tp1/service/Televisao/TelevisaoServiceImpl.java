@@ -88,10 +88,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
         return tvrepository.listAll().stream().map(TelevisaoResponseDTO::valueOf).toList();
     }
 
-    @Override
-    public List<TelevisaoResponseDTO> findTelevisaoByTipoTela(int idTipoTela) {
-        return tvrepository.findTelevisaoByTipoTela(idTipoTela).stream().map(TelevisaoResponseDTO::valueOf).toList();
-    }
+
 
     @Override
     public TelevisaoResponseDTO findTelevisaoByModelo(String modelo) {
