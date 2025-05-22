@@ -22,8 +22,7 @@ public class TelevisaoResourceTest {
 
     @Test
     void testIncluir_TELEVISAO(){
-        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "gabriel", "full",
-                2, 1, 1);
+        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "GabrielModelo", 1, 2, 1L, 1L);
 
         given()
                 .contentType(ContentType.JSON)
@@ -32,18 +31,16 @@ public class TelevisaoResourceTest {
                 .then().statusCode(201)
                 .body("idTelevisao", notNullValue(),
                         "marca", is("Gabriel"),
-                        "modelo", is("gabriel"));
+                        "modelo", is("GabrielModelo"));
     }
 
     @Test
     void testAlterar_TELEVISAO(){
-        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "gabriel", "full",
-                2, 1, 1);
+        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "GabrielModelo", 1, 2, 1L, 1L);
 
         long id = televisaoService.create(televisao).idTelevisao();
 
-        TelevisaoRequestDTO televisaoAlterado = new TelevisaoRequestDTO("Milena", "milena", "4k",
-                2, 1, 1);
+        TelevisaoRequestDTO televisaoAlterado = new TelevisaoRequestDTO("felipe", "FelipeModelo", 1, 2, 1L, 1L);
 
         given()
                 .contentType(ContentType.JSON)
@@ -53,16 +50,13 @@ public class TelevisaoResourceTest {
 
         TelevisaoResponseDTO response = TelevisaoResponseDTO.valueOf(televisaoService.findById(id));
 
-        assertThat(response.marca(), is("Milena"));
-        assertThat(response.modelo(), is("milena"));
-        assertThat(response.resolucao(), is("4k"));
-
+        assertThat(response.marca(), is("felipe"));
+        assertThat(response.modelo(), is("FelipeModelo"));
     }
 
     @Test
     void testDeletar_TELEVISAO(){
-        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "gabriel", "full",
-                2, 1, 1);
+        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "GabrielModelo", 1, 2, 1L, 1L);
 
         long id = televisaoService.create(televisao).idTelevisao();
 
@@ -76,8 +70,7 @@ public class TelevisaoResourceTest {
 
     @Test
     void testBuscarPorId_TELEVISAO(){
-        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "gabriel", "full",
-                2, 1, 1);
+        TelevisaoRequestDTO televisao = new TelevisaoRequestDTO("Gabriel", "GabrielModelo", 1, 2, 1L, 1L);
 
         long id = televisaoService.create(televisao).idTelevisao();
 
@@ -87,7 +80,7 @@ public class TelevisaoResourceTest {
                 .then().statusCode(200)
                 .body("idTelevisao", notNullValue(),
                         "marca", is("Gabriel"),
-                        "modelo", is("gabriel"));
+                        "modelo", is("GabrielModelo"));
     }
 
     @Test

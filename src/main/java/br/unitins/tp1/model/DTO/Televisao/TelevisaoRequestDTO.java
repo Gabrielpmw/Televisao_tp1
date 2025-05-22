@@ -11,8 +11,8 @@ public record TelevisaoRequestDTO(
         @NotBlank(message = "O modelo não pode estar em branco")
         String modelo,
 
-        @NotBlank(message = "A resolução não pode estar em branco")
-        String resolucao,
+        @NotNull(message = "O tipoe de resolução é obrigatório")
+        Integer idTipoResolucao,
 
         @NotNull(message = "O tipo de tela é obrigatório")
         Integer idTipoTela,

@@ -6,6 +6,7 @@ import br.unitins.tp1.model.Fornecedor;
 import br.unitins.tp1.model.Televisao.Dimensao;
 import br.unitins.tp1.model.Televisao.Televisao;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
+import br.unitins.tp1.model.Televisao.TipoResolucao;
 import br.unitins.tp1.model.Televisao.TipoTela;
 import br.unitins.tp1.repository.DimensaoRepository;
 import br.unitins.tp1.repository.FabricanteRepository;
@@ -37,7 +38,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
         tv.setMarca(dto.marca());
         tv.setModelo(dto.modelo());
-        tv.setResolucao(dto.resolucao());
+        tv.setResolucao(TipoResolucao.valueOf(dto.idTipoResolucao()));
         tv.setTipoTela(TipoTela.valueOf(dto.idTipoTela()));
 
         Fabricante fabricante = fabricanteRepository.findById(dto.idFabricante());
@@ -60,7 +61,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
         tv.setMarca(dto.marca());
         tv.setModelo(dto.modelo());
-        tv.setResolucao(dto.resolucao());
+        tv.setResolucao(TipoResolucao.valueOf(dto.idTipoResolucao()));
         tv.setTipoTela(TipoTela.valueOf(dto.idTipoTela()));
 
         Fabricante fabricante = fabricanteRepository.findById(dto.idFabricante());

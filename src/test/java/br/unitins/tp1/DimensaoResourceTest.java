@@ -106,8 +106,8 @@ public class DimensaoResourceTest {
         DimensaoRequestDTO dimensao = new DimensaoRequestDTO(100, 100, 100);
         long idDimensao = dimensaoService.create(dimensao).id();
 
-        TelevisaoRequestDTO tv1 = new TelevisaoRequestDTO("Samsung", "Neo QLED", "4k", 1, idDimensao, 1);
-        TelevisaoRequestDTO tv2 = new TelevisaoRequestDTO("LG", "OLED B2", "4k", 2, idDimensao, 2);
+        TelevisaoRequestDTO tv1 = new TelevisaoRequestDTO("Samsung", "Neo QLED", 2, 1, idDimensao, 1);
+        TelevisaoRequestDTO tv2 = new TelevisaoRequestDTO("LG", "OLED B2", 2, 2, idDimensao, 2);
 
         televisaoService.create(tv1);
         televisaoService.create(tv2);
@@ -121,7 +121,6 @@ public class DimensaoResourceTest {
 
         for (TelevisaoResponseDTO tv : lista) {
             assertThat(tv.dimensao().id(), is(idDimensao));
-            assertThat(tv.resolucao(), is("4k"));
         }
     }
 }

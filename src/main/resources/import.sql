@@ -31,14 +31,15 @@ INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
 
 -- TELEVISAO
 INSERT INTO Televisao (marca, modelo, resolucao, tipoTela, id_fabricante, id_dimensao) VALUES
-('LG', 'Crystal HUD', '8k', 'LED', 1, 1),
-('Samsung', 'Bravia XR', '4k', 'OLED', 2, 2),
-('Philips', 'Viera TH', '2k', 'PLASMA', 3, 3),
-('Sony', 'OLED Evo', 'full hd', 'OLED', 4, 4),
-('Samsung', 'QLED QN90A', '4k', 'QLED', 1, 5),
-('LG', 'OLED C1', '4k', 'OLED', 2, 6),
-('Sony', 'Bravia X90J', '4k', 'LED', 3, 7),
-('Philips', 'Ambilight OLED806', '4k', 'OLED', 5, 3);
+                                                                                               ('LG', 'Crystal HUD', 'HD', 'LED', 1, 1),
+                                                                                               ('Samsung', 'Bravia XR', 'FULL_HD', 'OLED', 2, 2),
+                                                                                               ('Philips', 'Viera TH', 'FULL_HD', 'PLASMA', 3, 3),
+                                                                                               ('Sony', 'OLED Evo', 'FULL_HD', 'OLED', 4, 4),
+                                                                                               ('Samsung', 'QLED QN90A', 'HD', 'QLED', 1, 5),
+                                                                                               ('LG', 'OLED C1', 'HD', 'OLED', 2, 6),
+                                                                                               ('Sony', 'Bravia X90J', 'HD', 'LED', 3, 7),
+                                                                                               ('Philips', 'Ambilight OLED806', 'HD', 'OLED', 5, 3);
+
 
 -- FORNECEDOR
 INSERT INTO Fornecedor (nome, cnpj) VALUES

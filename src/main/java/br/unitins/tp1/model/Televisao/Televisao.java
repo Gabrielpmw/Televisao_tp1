@@ -17,8 +17,9 @@
         @Column(length = 60, nullable = false)
         private String modelo;
 
+        @Enumerated(EnumType.STRING)
         @Column(length = 60, nullable = false)
-        private String resolucao;
+        private TipoResolucao resolucao;
 
         @Enumerated(EnumType.STRING)
         @Column(length = 60, nullable = false)
@@ -36,6 +37,14 @@
         @ManyToMany(mappedBy = "televisaos")
         private List<Fornecedor> fornecedores = new ArrayList<>();
 
+
+        public TipoResolucao getResolucao() {
+            return resolucao;
+        }
+
+        public void setResolucao(TipoResolucao resolucao) {
+            this.resolucao = resolucao;
+        }
 
         public Fabricante getFabricante() {
             return fabricante;
@@ -67,14 +76,6 @@
 
         public void setModelo(String modelo) {
             this.modelo = modelo;
-        }
-
-        public String getResolucao() {
-            return resolucao;
-        }
-
-        public void setResolucao(String resolucao) {
-            this.resolucao = resolucao;
         }
 
         public TipoTela getTipoTela() {

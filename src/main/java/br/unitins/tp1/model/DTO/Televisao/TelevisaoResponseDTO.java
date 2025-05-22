@@ -1,6 +1,7 @@
 package br.unitins.tp1.model.DTO.Televisao;
 
 import br.unitins.tp1.model.Televisao.Televisao;
+import br.unitins.tp1.model.Televisao.TipoResolucao;
 import br.unitins.tp1.model.Televisao.TipoTela;
 
 
@@ -8,7 +9,7 @@ public record TelevisaoResponseDTO(
         long idTelevisao,
         String marca,
         String modelo,
-        String resolucao,
+        TipoResolucao resolucao,
         TipoTela tipoTela,
         DimensaoResponseDTO dimensao
 ) {
