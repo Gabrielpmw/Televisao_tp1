@@ -32,7 +32,7 @@ public class Pedido extends DefaultEntity {
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pagamento formaPagamento;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 

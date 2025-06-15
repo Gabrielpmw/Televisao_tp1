@@ -10,7 +10,8 @@ public record CartaoResponseDTO(
         double valor,
         String ultimosDigitos,
         StatusPagamento statusPagamento,
-        LocalDateTime dataPagamento
+        LocalDateTime dataPagamento,
+        String titular
 ) {
 
     public static CartaoResponseDTO valueOf(Cartao cartao){
@@ -20,6 +21,7 @@ public record CartaoResponseDTO(
         return new CartaoResponseDTO(cartao.getId(),
                 cartao.getValor(), ultimosDigitos,
                 cartao.getStatusPagamento(),
-                cartao.getDataPagamento());
+                cartao.getDataPagamento(),
+                cartao.getTitular());
     }
 }

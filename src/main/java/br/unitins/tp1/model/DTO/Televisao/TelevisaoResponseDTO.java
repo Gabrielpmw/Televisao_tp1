@@ -13,7 +13,7 @@ public record TelevisaoResponseDTO(
         TipoTela tipoTela,
         DimensaoResponseDTO dimensao,
         Double valor,
-        Integer quantidade
+        Integer estoque
 ) {
     public static TelevisaoResponseDTO valueOf(Televisao tv) {
         if (tv == null) return null;

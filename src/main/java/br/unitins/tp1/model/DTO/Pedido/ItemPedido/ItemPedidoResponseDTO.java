@@ -6,7 +6,7 @@ import br.unitins.tp1.model.Pedido.ItemPedido;
 public record ItemPedidoResponseDTO(
         long id,
         TelevisaoResponseDTO televisao,
-        int quantidade,
+        int quantidadeTelevisao,
         double total
 ) {
 

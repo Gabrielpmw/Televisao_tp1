@@ -12,8 +12,7 @@ import java.util.List;
 public class PedidoRepository implements PanacheRepository<Pedido> {
 
     public List<Pedido> findPedidoByUsername(String username) {
-        return find("usuario.username", username).list();
-    }
+        return find("usuario.username", username).list();    }
 
     public List<Pedido> findPedidoByStatusAndUser(int idUsuario, int num) {
         StatusPedido statusPedido = StatusPedido.valueOf(num);

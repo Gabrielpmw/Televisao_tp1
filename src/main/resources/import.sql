@@ -103,51 +103,216 @@ INSERT INTO Municipio (nome, id_estado) VALUES
 ('Londrina', 5),
 ('Maringá', 5);
 
-
-
--- ENDERECO
-INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio) VALUES
--- Endereços em São Paulo-SP
-('01001000', 'Sé', 100, 'Edifício Commercial', 1),
-('01311000', 'Bela Vista', 200, 'Apartamento 302', 1),
-('01415000', 'Cerqueira César', 300, 'Sala 501', 1),
--- Endereços em Campinas-SP
-('13010000', 'Centro', 400, 'Casa Azul', 2),
-('13010000', 'Cambuí', 500, 'Loja 10', 2),
--- Endereços em Santos-SP
-('11015000', 'Gonzaga', 600, 'Cobertura', 3),
--- Endereços no Rio de Janeiro-RJ
-('20010000', 'Centro', 700, 'Andar 15', 4),
-('22010000', 'Copacabana', 800, 'Bloco B', 4),
--- Endereços em Niterói-RJ
-('24020010', 'Icaraí', 900, 'Casa 2', 5),
--- Endereços em Belo Horizonte-MG
-('30110010', 'Savassi', 1000, 'Sala 201', 7),
--- Endereços em Salvador-BA
-('40010010', 'Comércio', 1100, 'Loja 5', 10),
--- Endereços em Curitiba-PR
-('80010010', 'Centro', 1200, 'Conjunto 304', 13),
-('80060000', 'Batel', 1300, 'Casa dos Fundos', 13);
-
-
 -- ADM
 INSERT INTO Funcionario (nome, cpf) VALUES
 ('Gabriel Vieira', '12345678900');
 INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
 ('gabriel', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', '12345678900', 1);
 
---USER
-INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
-INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '115648');
-INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('milena', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '7984561');
-
 --senha: 123456
 --hash: SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==
 
+--USER
+INSERT INTO Usuario (username, senha, perfil, cpf)
+VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
 
+INSERT INTO Usuario (username, senha, perfil, cpf)
+VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
+
+INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio, id_usuario) VALUES
+-- Endereços do usuário 1 (italo)
+('01001000', 'Sé', 100, 'Edifício Comercial', 1, 2),
+('01311000', 'Bela Vista', 200, 'Apartamento 302', 1, 2),
+('01415000', 'Cerqueira César', 300, 'Sala 501', 1, 2),
+
+-- Endereços do usuário 2 (felipe)
+('13010000', 'Centro', 400, 'Casa Azul', 2, 3),
+('13010000', 'Cambuí', 500, 'Loja 10', 2, 3),
+('11015000', 'Gonzaga', 600, 'Cobertura', 3, 3);
+
+-- Pedido 1 (Italo)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 200.00, 'PEDIDO_EM_PROCESSO', 2);
+
+-- Endereço de entrega
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (1, 1); -- Endereço: Sé
+
+-- Pagamento pendente
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (200.00, 'PAGAMENTO_PENDENTE', NOW(), 1);
+
+-- Pix vinculado ao pagamento id = 1
+INSERT INTO Pix (id, chave)
+VALUES (1, 'pix-italo-001');
+
+-- Itens
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (1, 1, 200.00, 1);
+
+-- Pedido 2 (Italo)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 300.00, 'PEDIDO_EM_PROCESSO', 2);
+
+-- Endereço de entrega
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (2, 2); -- Endereço: Bela Vista
+
+-- Pagamento pendente
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (300.00, 'PAGAMENTO_PENDENTE', NOW(), 2);
+
+-- Boleto vinculado ao pagamento id = 2
+INSERT INTO Boleto (id, codigoBarras)
+VALUES (2, '34191.79001 01043.510047 91020.150008 8 79410000030000');
+
+-- Itens
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (2, 2, 300.00, 1);
+
+-- Pedido 3 (Italo)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 400.00, 'PEDIDO_EM_PROCESSO', 2);
+
+-- Endereço de entrega
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (3, 3); -- Endereço: Cerqueira César
+
+-- Pagamento pendente
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (400.00, 'PAGAMENTO_PENDENTE', NOW(), 3);
+
+-- Cartão vinculado ao pagamento id = 3
+INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
+VALUES (3, 'Italo Ribeiro', '4111111111111111', NOW() + INTERVAL '1 year', '123');
+
+-- Itens
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (3, 3, 400.00, 1);
+
+-- Pedido 4 (Italo)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 500.00, 'CANCELADO', 2);
+
+-- Endereço de entrega
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (4, 1); -- Endereço: Sé
+
+-- Pagamento cancelado
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (500.00, 'PAGAMENTO_PENDENTE', NOW(), 4); -- Você pode criar outro status se desejar
+
+-- Pix vinculado ao pagamento id = 4
+INSERT INTO Pix (id, chave)
+VALUES (4, 'pix-cancelado-italo');
+
+-- Itens
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (4, 4, 500.00, 1);
+
+-- Pedido 5 (Italo)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 600.00, 'ENTREGUE', 2);
+
+-- Endereço de entrega
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (5, 2); -- Endereço: Bela Vista
+
+-- Pagamento efetuado
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (600.00, 'PAGAMENTO_EFETUADO', NOW(), 5);
+
+-- Boleto vinculado ao pagamento id = 5
+INSERT INTO Boleto (id, codigoBarras)
+VALUES (5, '23793.38127 60007.439370 78000.421010 6 83580000060000');
+
+-- Itens
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (5, 5, 600.00, 1);
+
+-- Pedido 6 (Felipe)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 150.00, 'PEDIDO_EM_PROCESSO', 3);
+
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (6, 4);  -- endereço Centro (Felipe)
+
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (150.00, 'PAGAMENTO_PENDENTE', NOW(), 6);
+
+INSERT INTO Pix (id, chave)
+VALUES (6, 'pix-felipe-001');
+
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (6, 1, 150.00, 1);
+
+
+-- Pedido 7 (Felipe)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 200.00, 'PEDIDO_EM_PROCESSO', 3);
+
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (7, 5);  -- endereço Cambuí (Felipe)
+
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (200.00, 'PAGAMENTO_PENDENTE', NOW(), 7);
+
+INSERT INTO Boleto (id, codigoBarras)
+VALUES (7, '23793.38127 60007.439370 78000.421010 6 83580000020000');
+
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (7, 2, 200.00, 1);
+
+
+-- Pedido 8 (Felipe)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 250.00, 'PEDIDO_EM_PROCESSO', 3);
+
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (8, 6);  -- endereço Gonzaga (Felipe)
+
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (250.00, 'PAGAMENTO_PENDENTE', NOW(), 8);
+
+INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
+VALUES (8, 'Felipe Silva', '4222222222222222', DATE_ADD(CURDATE(), INTERVAL 1 YEAR), '456');
+
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (8, 3, 250.00, 1);
+
+
+-- Pedido 9 (Felipe)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 300.00, 'CANCELADO', 3);
+
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (9, 4);  -- endereço Centro (Felipe)
+
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (300.00, 'PAGAMENTO_PENDENTE', NOW(), 9);
+
+INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
+VALUES (9, 'Felipe Silva', '4333333333333333', DATE_ADD(CURDATE(), INTERVAL 2 YEAR), '789');
+
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (9, 4, 300.00, 1);
+
+
+-- Pedido 10 (Felipe)
+INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+VALUES (NOW(), 350.00, 'ENTREGUE', 3);
+
+INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+VALUES (10, 5);  -- endereço Cambuí (Felipe)
+
+INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+VALUES (350.00, 'PAGAMENTO_EFETUADO', NOW(), 10);
+
+INSERT INTO Pix (id, chave)
+VALUES (10, 'pix-felipe-002');
+
+INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+VALUES (10, 5, 350.00, 1);
 
 
 
