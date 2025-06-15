@@ -10,7 +10,7 @@ public class Fabricante extends DefaultEntity{
     @Column(length = 60, nullable = false)
     private String nome;
 
-    @Column(length = 14, nullable = false)
+    @Column(length = 14, nullable = false, unique = true)
     private String cnpj;
 
     @Column(length = 60, nullable = false)

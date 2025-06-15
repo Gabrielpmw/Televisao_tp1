@@ -1,6 +1,7 @@
 package br.unitins.tp1.model.Endereco;
 
 import br.unitins.tp1.model.DefaultEntity;
+import br.unitins.tp1.model.Usuario;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -26,6 +27,18 @@ public class Endereco extends DefaultEntity {
     //cascade = CascadeType.ALL, orphanRemoval = true
     @OneToMany(mappedBy = "endereco")
     private List<EnderecoEntrega> enderecosEntrega;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public List<EnderecoEntrega> getEnderecosEntrega() {
         return enderecosEntrega;

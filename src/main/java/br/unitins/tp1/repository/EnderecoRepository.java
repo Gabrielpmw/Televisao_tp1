@@ -14,9 +14,11 @@ public class EnderecoRepository implements PanacheRepository<Endereco> {
         return list("cep", cep);
     }
 
-    public Municipio findMunicipioByCep(String cep) {
-        return find("SELECT e.municipio FROM Endereco e WHERE e.cep = ?1", cep)
-                .project(Municipio.class)
-                .firstResult();
+    public List<Endereco> findByUsername(String username) {
+        return find("usuario.username", username).list();
+    }
+
+    public List<Endereco> findByUsuarioId(Long idUsuario) {
+        return list("usuario.id", idUsuario);
     }
 }

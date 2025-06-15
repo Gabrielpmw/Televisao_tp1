@@ -13,7 +13,7 @@ public class Fornecedor extends DefaultEntity{
     @Column(length = 60)
     private String nome;
 
-    @Column(length = 14)
+    @Column(length = 14, unique = true)
     private String cnpj;
 
     @ManyToMany

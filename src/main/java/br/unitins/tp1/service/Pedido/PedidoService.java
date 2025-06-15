@@ -11,19 +11,20 @@ import br.unitins.tp1.model.DTO.Pedido.PedidoupdateRequestDTO;
 import java.util.List;
 
 public interface PedidoService {
-    PedidoResponseDTO create(PedidoRequestDTO dto, String username);
+    PedidoResponseDTO create(PedidoRequestDTO dto);
     void update_user(long id, PedidoupdateRequestDTO dto);
     void update_admin(long id, PedidoRequestDTO dto);
     void updateStatusPedido(long id, int status);
     void delete(long id);
-    PixResponseDTO gerarPix(Long idPedido, String username);
-    BoletoResponseDTO gerarBoleto(Long idPedido, String username);
-    PixResponseDTO registrarPagamentoPix(Long idPix, String username);
-    BoletoResponseDTO registrarPagamentoBoleto(Long idBoleto, String username);
+    PixResponseDTO gerarPix(Long idPedido);
+    BoletoResponseDTO gerarBoleto(Long idPedido);
+    PixResponseDTO registrarPagamentoPix(Long idPix);
+    BoletoResponseDTO registrarPagamentoBoleto(Long idBoleto);
     CartaoResponseDTO registrarPagamentoCartao(long idPedido ,CartaoRequestDTO dto);
     PedidoResponseDTO findById(Long id);
     List<PedidoResponseDTO> findAll();
-    List<PedidoResponseDTO> findByUsername(String username);
+    List<PedidoResponseDTO> findMyPedidos();
+    List<PedidoResponseDTO> findPedidosByUsername(String username);
 //    List<PedidoResponseDTO> findPedidoByStatusPedido(int idUsuario, int idStatus);
 //    List<PedidoResponseDTO> findPedidoByStatuPagamento(int idUsuario, int status);
 }

@@ -17,6 +17,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
 
 import static jakarta.ws.rs.core.Response.status;
 
@@ -25,6 +29,7 @@ import static jakarta.ws.rs.core.Response.status;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthResource {
 
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(AuthResource.class);
     @Inject
     HashService hashService;
 
@@ -36,10 +41,17 @@ public class AuthResource {
     @Inject
     UsuarioRepository usuarioRepository;
 
+    @Inject
+    JsonWebToken jwt;
+
+    private static final Logger logger = Logger.getLogger(AuthResource.class.getName());
+
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-
     public Response login(AuthRequestDTO dto) throws Exception {
+        String username = jwt.getSubject();
+        logger.info("Usuário responsável: " + username);
+
         String hash = null;
         
         try {
@@ -51,8 +63,12 @@ public class AuthResource {
         Usuario usuario = usuarioRepository.findByUsernameAndSenha(dto.username(), hash);
         UsuarioResponseDTO usuarioResponseDTO = UsuarioResponseDTO.valueOf(usuario);
         if (usuario == null) {
+            logger.warning("Usuário não encontrado: " + dto.username());
+
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("Cliente não encontrado").build();
+        }else {
+            logger.info("Login efetuado por: " + dto.username());
         }
             String token = jwtService.generateJwt(usuarioResponseDTO.username(), usuarioResponseDTO.perfil().getNOME());
             return Response.ok().header("Authorization", token).build();

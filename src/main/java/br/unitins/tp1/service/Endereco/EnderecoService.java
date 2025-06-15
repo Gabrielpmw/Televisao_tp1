@@ -10,7 +10,8 @@ import java.util.List;
 public interface EnderecoService {
     EnderecoResponseDTO create(EnderecoRequestDTO dto);
     void update(long id, EnderecoRequestDTO dto);
-    void delete(long id);
+    void delete(long idEndereco);
     EnderecoResponseDTO findById(long id);
     List<EnderecoResponseDTO> findAll();
+    List<EnderecoResponseDTO> findMyEndereco();
 }

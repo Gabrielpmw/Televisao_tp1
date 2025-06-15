@@ -6,7 +6,8 @@ public record EnderecoEntregaResponseDTO(
         long id,
         String cep,
         String complemento,
-        int numero
+        int numero,
+        String username
 ) {
 
 
@@ -14,6 +15,7 @@ public record EnderecoEntregaResponseDTO(
         return new EnderecoEntregaResponseDTO(enderecoEntrega.getId(),
                 enderecoEntrega.getEndereco().getCep(),
                 enderecoEntrega.getEndereco().getComplemento(),
-                enderecoEntrega.getEndereco().getNumero());
+                enderecoEntrega.getEndereco().getNumero(),
+                enderecoEntrega.getEndereco().getUsuario().getUsername());
     }
 }

@@ -57,7 +57,8 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     @Transactional
-    public PedidoResponseDTO create(PedidoRequestDTO dto, String username) {
+    public PedidoResponseDTO create(PedidoRequestDTO dto) {
+        String username = jwt.getSubject();
         Pedido pedido = new Pedido();
 
         Usuario usuario = usuarioRepository.findByUsername(username);
@@ -110,10 +111,27 @@ public class PedidoServiceImpl implements PedidoService{
     @Override
     @Transactional
     public void update_user(long id, PedidoupdateRequestDTO dto) {
+        String username = jwt.getSubject();
+        Usuario usuario = usuarioRepository.findByUsername(username);
+
+        if (usuario == null){
+            throw new ValidationException("Usuario", "Usuário inválido");
+        }
         Pedido pedido = pedidoRepository.findById(id);
 
+        if (!usuario.getUsername().equalsIgnoreCase(pedido.getUsuario().getUsername())){
+            throw new ValidationException("pedido" ,"Este pedido não é seu");
+        }
         if (!pedido.getStatusPedido().equals(StatusPedido.PEDIDO_EM_PROCESSO)){
             throw new ValidationException("pedido", "Este pedido não é mais possível atualizar");
+        }
+
+        if (id <= 0){
+            throw new ValidationException("Id pedido", "Id do pedido está inválido");
+        }
+
+        if (pedido == null){
+            throw new ValidationException("Pedido", "Pedido não encontrado");
         }
 
         Endereco endereco = enderecoRepository.findById(dto.idEndereco());
@@ -132,6 +150,14 @@ public class PedidoServiceImpl implements PedidoService{
     @Transactional
     public void update_admin(long idPedido, PedidoRequestDTO dto) {
         Pedido pedido = pedidoRepository.findById(idPedido);
+
+        if (idPedido <= 0){
+            throw new ValidationException("Id pedido", "Id do pedido está inválido");
+        }
+
+        if (pedido == null){
+            throw new ValidationException("Pedido", "Pedido não encontrado");
+        }
 
         Endereco endereco = enderecoRepository.findById(dto.idEndereco());
         EnderecoEntrega enderecoEntrega = pedido.getEnderecoEntrega();
@@ -174,20 +200,54 @@ public class PedidoServiceImpl implements PedidoService{
     public void updateStatusPedido(long id, int num) {
         Pedido pedido = pedidoRepository.findById(id);
 
+        if (id <= 0){
+            throw new ValidationException("Id pedido", "Id do pedido está inválido");
+        }
+
+        if (pedido == null){
+            throw new ValidationException("Pedido", "Pedido não encontrado");
+        }
+
         pedido.setStatusPedido(StatusPedido.valueOf(num));
     }
 
     @Override
     @Transactional
     public void delete(long id) {
+        Pedido pedido = pedidoRepository.findById(id);
+
+        if (id <= 0){
+            throw new ValidationException("Id pedido", "Id do pedido está inválido");
+        }
+
+        if (pedido == null){
+            throw new ValidationException("Pedido", "Pedido não encontrado");
+        }
         pedidoRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public PixResponseDTO gerarPix(Long idPedido, String username) {
+    public PixResponseDTO gerarPix(Long idPedido) {
         Pix pix = new Pix();
         Pedido pedido = pedidoRepository.findById(idPedido);
+
+        if (pedido == null) {
+            throw new ValidationException("Pedido", "Pedido não encontrado");
+        }
+
+        String username = jwt.getSubject();
+        Usuario usuario = usuarioRepository.findByUsername(username);
+        if (usuario == null){
+            throw new ValidationException("usuario", "Usuário inválido");
+        }
+        if (!usuario.getUsername().equalsIgnoreCase(pedido.getUsuario().getUsername())){
+            throw new ValidationException("pedido" ,"Este pedido não é seu");
+        }
+
+        if (pedido.getFormaPagamento() != null){
+            throw new ValidationException("Pedido", "Este pedido está pendente em outra forma de pagamento");
+        }
 
         double total = pedido.getValorTotal();
 
@@ -205,9 +265,23 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     @Transactional
-    public BoletoResponseDTO gerarBoleto(Long idPedido, String username) {
+    public BoletoResponseDTO gerarBoleto(Long idPedido) {
+        String username = jwt.getSubject();
+
+        Usuario usuario = usuarioRepository.findByUsername(username);
         Boleto boleto = new Boleto();
         Pedido pedido = pedidoRepository.findById(idPedido);
+        if (usuario == null){
+            throw new ValidationException("Usuario", "Usuário não encontrado");
+        }
+
+        if (!usuario.getUsername().equalsIgnoreCase(pedido.getUsuario().getUsername())){
+            throw new ValidationException("pedido" ,"Este pedido não é seu");
+        }
+
+        if (pedido.getFormaPagamento() != null){
+            throw new ValidationException("Pedido", "Este pedido está pendente em outra forma de pagamento");
+        }
 
         double total = pedidoRepository.findById(idPedido).getValorTotal();
 
@@ -225,14 +299,23 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     @Transactional
-    public PixResponseDTO registrarPagamentoPix(Long idPix, String username) {
-        //Usuario usuario = usuarioRepository.findByUsername(username);
+    public PixResponseDTO registrarPagamentoPix(Long idPix) {
+        String username = jwt.getSubject();
+        Usuario usuario = usuarioRepository.findByUsername(username);
         Pix pix = (Pix) pagamentoRepository.findById(idPix);
         LocalDateTime dataAtual = LocalDateTime.now();
         Pedido pedido = pedidoRepository.findById(pix.getPedido().getId());
-//        if (usuario == null){
-//            throw new IllegalArgumentException("Usuario não encontrado");
-//        }
+        if (usuario == null){
+            throw new IllegalArgumentException("Usuario não encontrado");
+        }
+
+        if (!usuario.getUsername().equalsIgnoreCase(pedido.getUsuario().getUsername())){
+            throw new ValidationException("pedido" ,"Este pedido não é seu");
+        }
+
+        if (!(pedido.getFormaPagamento() instanceof Pix)){
+            throw new ValidationException("Pedido", "Este pedido está pendente em outra forma de pagamento");
+        }
 
         pix.setStatusPagamento(StatusPagamento.PAGAMENTO_EFETUADO);
         pix.setDataPagamento(dataAtual);
@@ -247,14 +330,29 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     @Transactional
-    public BoletoResponseDTO registrarPagamentoBoleto(Long idBoleto, String username) {
-        //Usuario usuario = usuarioRepository.findByUsername(username);
+    public BoletoResponseDTO registrarPagamentoBoleto(Long idBoleto) {
+        String username = jwt.getSubject();
+
+        Usuario usuario = usuarioRepository.findByUsername(username);
         Boleto boleto = (Boleto) pagamentoRepository.findById(idBoleto);
         LocalDateTime dataAtual = LocalDateTime.now();
         Pedido pedido = pedidoRepository.findById(boleto.getPedido().getId());
-//        if (usuario == null){
-//            throw new IllegalArgumentException("Usuario não encontrado");
-//        }
+        if (usuario == null){
+            throw new IllegalArgumentException("Usuario não encontrado");
+        }
+
+        if (!usuario.getUsername().equalsIgnoreCase(pedido.getUsuario().getUsername())){
+            throw new ValidationException("pedido" ,"Este pedido não é seu");
+        }
+
+        Pagamento pagamentoExistente = pedido.getFormaPagamento();
+
+        if (!(pagamentoExistente instanceof Boleto)) {
+            throw new ValidationException("Pedido", "Este pedido já está vinculado a outro pagamento.");
+        }
+
+        Pagamento pagamento = pagamentoRepository.findById(idBoleto);
+
 
         boleto.setStatusPagamento(StatusPagamento.PAGAMENTO_EFETUADO);
         boleto.setDataPagamento(dataAtual);
@@ -271,14 +369,24 @@ public class PedidoServiceImpl implements PedidoService{
     @Override
     @Transactional
     public CartaoResponseDTO registrarPagamentoCartao(long idPedido, CartaoRequestDTO dto) {
+        String username = jwt.getSubject();
+
         Pedido pedido = pedidoRepository.findById(idPedido);
-        //Usuario usuario = pedido.getUsuario();
+        Usuario usuario = usuarioRepository.findByUsername(username);
         LocalDateTime dataAtual = LocalDateTime.now();
         Cartao cartao = CartaoRequestDTO.convertToCartao(dto);
 
-//        if (usuario == null){
-//            throw new IllegalArgumentException("Usuario não encontrado");
-//        }
+        if (!(pedido.getFormaPagamento() instanceof Cartao) ){
+            throw new ValidationException("Pedido", "Este pedido está pendente em outra forma de pagamento");
+        }
+
+        if (usuario == null){
+            throw new ValidationException("Usuário", "Usuário não encontrado");
+        }
+
+        if (!usuario.getUsername().equalsIgnoreCase(pedido.getUsuario().getUsername())){
+            throw new ValidationException("pedido" ,"Este pedido não é seu");
+        }
 
         cartao.setValor(pedido.getValorTotal());
         cartao.setDataPagamento(dataAtual);
@@ -293,6 +401,15 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     public PedidoResponseDTO findById(Long id) {
+        Pedido pedido = pedidoRepository.findById(id);
+        if (pedido == null){
+            throw new ValidationException("Pedido", "Pedido não encontrado");
+        }
+
+        if (id <= 0){
+            throw new ValidationException("Id", "Id inválido");
+        }
+
         return PedidoResponseDTO.valueOf(pedidoRepository.findById(id));
     }
 
@@ -302,8 +419,19 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
-    public List<PedidoResponseDTO> findByUsername(String username) {
+    public List<PedidoResponseDTO> findMyPedidos() {
+        String username = jwt.getSubject();
+        return  pedidoRepository.findPedidoByUsername(username).stream().map(PedidoResponseDTO::valueOf).toList();
+    }
+
+    @Override
+    public List<PedidoResponseDTO> findPedidosByUsername(String username) {
+
         Usuario usuario = usuarioRepository.findByUsername(username);
+
+        if (username == null || usuario == null){
+            throw new ValidationException("Usuario", "Usuário inválido");
+        }
 
         return  pedidoRepository.findPedidoByUsername(username).stream().map(PedidoResponseDTO::valueOf).toList();
     }

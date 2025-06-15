@@ -39,6 +39,7 @@ public class FuncionarioServiceImpl implements FuncionarioService{
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
         usuario.setPerfil(Perfil.ADM);
 
+        usuario.setFuncionario(funcionario);
         funcionario.setUsuario(usuario);
 
         usuarioRepository.persist(usuario);

@@ -129,15 +129,23 @@ INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio) VALUES
 ('80010010', 'Centro', 1200, 'Conjunto 304', 13),
 ('80060000', 'Batel', 1300, 'Casa dos Fundos', 13);
 
--- Gabriel como administrador
+
+-- ADM
+INSERT INTO Funcionario (nome, cpf) VALUES
+('Gabriel Vieira', '12345678900');
+INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
+('gabriel', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', '12345678900', 1);
+
+--USER
 INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('gabriel', '123456', 'ADM', '12345678900');
-
--- Ítalo como cliente comum
+VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
 INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('italo', '123456', 'USER', '98765432100');
+VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '115648');
+INSERT INTO Usuario (username, senha, perfil, cpf)
+VALUES ('milena', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '7984561');
 
-
+--senha: 123456
+--hash: SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==
 
 
 

@@ -11,6 +11,7 @@ import br.unitins.tp1.model.Televisao.TipoTela;
 import br.unitins.tp1.repository.DimensaoRepository;
 import br.unitins.tp1.repository.FabricanteRepository;
 import br.unitins.tp1.repository.TelevisaoRepository;
+import br.unitins.tp1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -35,6 +36,25 @@ public class TelevisaoServiceImpl implements TelevisaoService {
     public TelevisaoResponseDTO create(TelevisaoRequestDTO dto) {
         Televisao tv = new Televisao();
 
+        if (dto == null){
+            throw new ValidationException("DTO", "DTO não pode ser null");
+        }
+
+        if (dto.idDimensao() <= 0){
+            throw new ValidationException("Id dimensão", "Apenas valores positivo para id dimensão");
+        }
+
+        if (dto.idFabricante() <= 0){
+            throw new ValidationException("Id fabricante", "Apenas valores positivos para id fabricante");
+        }
+
+        if (dto.idTipoResolucao() <= 0 || dto.idTipoResolucao() > 4){
+            throw new ValidationException("Id tipo resolução", "Tipo de resolução inválida");
+        }
+
+        if (dto.idTipoTela() <= 0 || dto.idTipoTela() > 5){
+            throw new ValidationException("Id tipo tela", "Tipo de tela inválida");
+        }
 
         tv.setMarca(dto.marca());
         tv.setModelo(dto.modelo());
@@ -60,6 +80,30 @@ public class TelevisaoServiceImpl implements TelevisaoService {
     @Override
     public void update(long id, TelevisaoRequestDTO dto) {
         Televisao tv = tvrepository.findById(id);
+
+        if (dto == null){
+            throw new ValidationException("DTO", "DTO não pode ser null");
+        }
+
+        if (tv == null){
+            throw new ValidationException("Televisão", "Televisão não encontrada");
+        }
+
+        if (dto.idDimensao() <= 0){
+            throw new ValidationException("Id dimensão", "Apenas valores positivo para id dimensão");
+        }
+
+        if (dto.idFabricante() <= 0){
+            throw new ValidationException("Id fabricante", "Apenas valores positivos para id fabricante");
+        }
+
+        if (dto.idTipoResolucao() <= 0 || dto.idTipoResolucao() > 4){
+            throw new ValidationException("Id tipo resolução", "Tipo de resolução inválida");
+        }
+
+        if (dto.idTipoTela() <= 0 || dto.idTipoTela() > 5){
+            throw new ValidationException("Id tipo tela", "Tipo de tela inválida");
+        }
 
         tv.setMarca(dto.marca());
         tv.setModelo(dto.modelo());

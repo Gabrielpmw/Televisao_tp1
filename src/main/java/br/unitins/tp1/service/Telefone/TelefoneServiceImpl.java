@@ -4,6 +4,7 @@ import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
 import br.unitins.tp1.model.DTO.Telefone.TelefoneResponseDTO;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.repository.TelefoneRepository;
+import br.unitins.tp1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,10 @@ public class TelefoneServiceImpl implements TelefoneService{
     public TelefoneResponseDTO create(TelefoneRequestDTO dto) {
         Telefone telefone = new Telefone();
 
+        if (dto ==  null){
+            throw new ValidationException("DTO", "DTO não pode ser null");
+        }
+
         telefone.setDdd(dto.ddd());
         telefone.setNumero(dto.numero());
 
@@ -32,6 +37,13 @@ public class TelefoneServiceImpl implements TelefoneService{
     @Transactional
     public void update(long id, TelefoneRequestDTO dto) {
         Telefone telefone = telefoneRepository.findById(id);
+        if (dto ==  null){
+            throw new ValidationException("DTO", "DTO não pode ser null");
+        }
+
+        if (telefone == null){
+            throw new ValidationException("Telefone", "Telefone não encontrado");
+        }
 
         telefone.setDdd(dto.ddd());
         telefone.setNumero(dto.numero());
@@ -40,11 +52,21 @@ public class TelefoneServiceImpl implements TelefoneService{
     @Override
     @Transactional
     public void delete(long id) {
+        Telefone telefone = telefoneRepository.findById(id);
+        if (telefone == null){
+            throw new ValidationException("Telefone", "Telefone não encontrado");
+        }
+
         telefoneRepository.deleteById(id);
     }
 
     @Override
     public TelefoneResponseDTO findById(long id) {
+        Telefone telefone = telefoneRepository.findById(id);
+        if (telefone == null){
+            throw new ValidationException("Telefone", "Telefone não encontrado");
+        }
+
         return TelefoneResponseDTO.valueOf(telefoneRepository.findById(id));
     }
 

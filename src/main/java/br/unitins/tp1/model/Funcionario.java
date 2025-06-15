@@ -3,18 +3,19 @@ package br.unitins.tp1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToOne;
 
 @Entity
 public class Funcionario extends DefaultEntity{
 
-    @OneToOne(mappedBy = "funcionario")
+    @OneToOne(mappedBy = "funcionario", fetch = FetchType.EAGER)
     private Usuario usuario;
 
     @Column
     private String nome;
 
-    @Column
+    @Column(unique = true)
     private String cpf;
 
     public Usuario getUsuario() {

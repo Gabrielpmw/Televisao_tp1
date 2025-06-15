@@ -9,7 +9,8 @@ public record EnderecoResponseDTO(
         String bairro,
         long numero,
         String complemento,
-        MunicipioResponseDTO municipio
+        MunicipioResponseDTO municipio,
+        String proprietário
 ) {
 
     public static EnderecoResponseDTO valueOf(Endereco endereco){
@@ -17,6 +18,7 @@ public record EnderecoResponseDTO(
 
         return new EnderecoResponseDTO(endereco.getId(), endereco.getCep(),
                                         endereco.getBairro(), endereco.getNumero(), endereco.getComplemento(),
-                                        MunicipioResponseDTO.valueOf(endereco.getMunicipio()));
+                                        MunicipioResponseDTO.valueOf(endereco.getMunicipio()),
+                                        endereco.getUsuario().getUsername());
     }
 }

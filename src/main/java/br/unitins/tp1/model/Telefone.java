@@ -11,7 +11,7 @@ public class Telefone extends DefaultEntity{
     @Column(length = 2)
     String ddd;
 
-    @Column(length = 9)
+    @Column(length = 9, unique = true)
     String numero;
 
     @ManyToOne
