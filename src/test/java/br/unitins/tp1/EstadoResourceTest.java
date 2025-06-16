@@ -2,9 +2,12 @@ package br.unitins.tp1;
 
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoRequestDTO;
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoResponseDTO;
+import br.unitins.tp1.service.Auth.JwtServiceImpl;
 import br.unitins.tp1.service.Estado.EstadoServiceImpl;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
@@ -21,67 +24,92 @@ public class EstadoResourceTest {
     @Inject
     EstadoServiceImpl estadoService;
 
+    @Inject
+    JwtServiceImpl jwtService;
+
     @Test
-    void testIncluir_ESTADO(){
-        EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins 2", "TO-2");
+    void testIncluir_ESTADO() {
+        EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins", "TO");
+
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .body(estadoRequestDTO)
-                .when().post("/Estado")
+                .when()
+                .post("/Estado") // Certifique-se de que o endpoint está correto (case-sensitive)
                 .then()
-                    .statusCode(201).body("idEstado", notNullValue(),
-                        "nome", is("Tocantins 2"),
-                        "sigla", is("TO-2"));
+                .statusCode(201)
+                .body("idEstado", notNullValue(),  // <- nome correto
+                        "nome", is("Tocantins"),
+                        "sigla", is("TO"));
     }
 
-    static Long id = null;
-
     @Test
-    void testAlterar_ESTADO(){
-        EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins 3", "TO-2");
+    void testAlterar_ESTADO() {
+        EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins", "TO");
+        Long id = estadoService.create(estadoRequestDTO).idEstado();
 
-        id = estadoService.create(estadoRequestDTO).idEstado();
+        EstadoRequestDTO estadoAlterado = new EstadoRequestDTO("Tocantins - Alterado", "TA");
 
-        EstadoRequestDTO estadoAlterado = new EstadoRequestDTO("Tocantins - Alterado", "TO - Alterado");
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .body(estadoAlterado)
-                .when().put("/Estado/" + id + "/atualizar")
+                .when()
+                .put("/Estado/" + id + "/atualizar")
                 .then()
                 .statusCode(204);
 
+        // Verifica se a atualização foi aplicada corretamente
         EstadoResponseDTO responseDTO = estadoService.findById(id);
         assertThat(responseDTO.nome(), is("Tocantins - Alterado"));
-        assertThat(responseDTO.sigla(), is("TO - Alterado"));
+        assertThat(responseDTO.sigla(), is("TA"));
     }
 
     @Test
-    void testDeletar_ESTADO(){
+    void testDeletar_ESTADO() {
+        EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Tocantins", "TO");
+        Long id = estadoService.create(estadoRequestDTO).idEstado();
+
+        String token = jwtService.generateJwt("gabriel", "adm");
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .when()
                 .delete("/Estado/" + id + "/deletar")
-                .then().statusCode(204);
+                .then()
+                .statusCode(204);
 
         EstadoResponseDTO responseDTO = estadoService.findById(id);
         assertNull(responseDTO);
     }
 
     @Test
-    void testBuscarTodos_ESTADO(){
+    void testBuscarTodos_ESTADO() {
+        String token = jwtService.generateJwt("gabriel", "adm");
+
         given()
-                .when().get("/Estado")
-                .then().statusCode(200);
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/Estado")
+                .then()
+                .statusCode(200);
     }
 
 
     @Test
-    void testBucarPorId_ESTADO(){
+    void testBucarPorId_ESTADO() {
         EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Bahia", "BA");
-        id = estadoService.create(estadoRequestDTO).idEstado();
+        Long id = estadoService.create(estadoRequestDTO).idEstado();
+
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .when()
                 .get("/Estado/" + id + "/buscar-id")
                 .then()
@@ -94,12 +122,14 @@ public class EstadoResourceTest {
     }
 
     @Test
-    void testBuscarPorNome_ESTADO(){
-
+    void testBuscarPorNome_ESTADO() {
         EstadoRequestDTO estadoRequestDTO = new EstadoRequestDTO("Acre-test", "AC");
         Long id = estadoService.create(estadoRequestDTO).idEstado();
 
+        String token = jwtService.generateJwt("gabriel", "adm");
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get("/Estado/Acre-test/buscar-nome")
@@ -111,13 +141,18 @@ public class EstadoResourceTest {
     }
 
     @Test
-    void testBuscarMunicipioPorEstado_ESTADO(){
-        Long id = 1L;
+    void testBuscarMunicipioPorEstado_ESTADO() {
+        Long id = 1L; // Estado São Paulo, por exemplo
+
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
-                .when().get("/Estado/" + id + "/buscar-municipio")
-                .then().statusCode(200)
+                .when()
+                .get("/Estado/" + id + "/buscar-municipio")
+                .then()
+                .statusCode(200)
                 .body("$", not(empty()))
                 .body("municipio", everyItem(notNullValue()))
                 .body("estado.nome", everyItem(equalTo("São Paulo")))

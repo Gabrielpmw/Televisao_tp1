@@ -26,6 +26,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -60,7 +61,7 @@ public class PedidoServiceImpl implements PedidoService{
     public PedidoResponseDTO create(PedidoRequestDTO dto) {
         String username = jwt.getSubject();
         Pedido pedido = new Pedido();
-
+        Set<String> grupos = jwt.getGroups();
         Usuario usuario = usuarioRepository.findByUsername(username);
         Endereco endereco = enderecoRepository.findById(dto.idEndereco());
         EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
@@ -77,7 +78,12 @@ public class PedidoServiceImpl implements PedidoService{
 
         double valorTotal = 0.0;
 
-
+        if (grupos.contains("ADM")) {
+            throw new ValidationException("Permissão", "Administradores não podem criar pedidos.");
+        }
+        if (!endereco.getUsuario().getUsername().equalsIgnoreCase(username)) {
+            throw new ValidationException("Endereço", "O endereço informado não pertence ao usuário autenticado.");
+        }
 
         for (ItemPedidoRequestDTO itemPedidoRequestDTO : dto.itens()){
             ItemPedido item = new ItemPedido();

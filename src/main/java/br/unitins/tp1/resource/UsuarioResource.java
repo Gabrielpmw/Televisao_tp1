@@ -38,7 +38,7 @@ public class UsuarioResource {
     }
 
     @PATCH
-    @RolesAllowed({"user"})
+    @RolesAllowed({"cliente", "adm"})
     @Path("/atualizar")
     public Response atualizarusuario(UsuarioUpdateRequestDTO dto){
         logger.info("Usuário atualizado: " + dto.usernameAntigo());
@@ -51,7 +51,7 @@ public class UsuarioResource {
     }
 
     @DELETE
-    @RolesAllowed({"user"})
+    @RolesAllowed({"cliente", "adm"})
     @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         String username1 = jwt.getSubject();

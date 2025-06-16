@@ -1,3 +1,17 @@
+-- USUÁRIO ADM: 'gabriel', '123456', 'adm'
+-- USUÁRIO USER: 'italo', '123456', 'user'
+-- USUÁRIO ADM: 'gabriel', '123456', 'adm'
+-- USUÁRIO USER: 'italo', '123456', 'user'
+-- USUÁRIO ADM: 'gabriel', '123456', 'adm'
+-- USUÁRIO USER: 'italo', '123456', 'user'
+-- USUÁRIO ADM: 'gabriel', '123456', 'adm'
+-- USUÁRIO USER: 'italo', '123456', 'user'
+-- USUÁRIO ADM: 'gabriel', '123456', 'adm'
+-- USUÁRIO USER: 'italo', '123456', 'user'
+-- USUÁRIO ADM: 'gabriel', '123456', 'adm'
+-- USUÁRIO USER: 'italo', '123456', 'user'
+
+
 -- DIMENSÃO
 INSERT INTO Dimensao (comprimento, altura, polegada) VALUES
 (120, 70, 50),
@@ -116,19 +130,19 @@ INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
 INSERT INTO Usuario (username, senha, perfil, cpf)
 VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
 
-INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
+-- INSERT INTO Usuario (username, senha, perfil, cpf)
+-- VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
 
 INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio, id_usuario) VALUES
 -- Endereços do usuário 1 (italo)
 ('01001000', 'Sé', 100, 'Edifício Comercial', 1, 2),
 ('01311000', 'Bela Vista', 200, 'Apartamento 302', 1, 2),
-('01415000', 'Cerqueira César', 300, 'Sala 501', 1, 2),
+('01415000', 'Cerqueira César', 300, 'Sala 501', 1, 2);
 
--- Endereços do usuário 2 (felipe)
-('13010000', 'Centro', 400, 'Casa Azul', 2, 3),
-('13010000', 'Cambuí', 500, 'Loja 10', 2, 3),
-('11015000', 'Gonzaga', 600, 'Cobertura', 3, 3);
+-- -- Endereços do usuário 2 (felipe)
+-- ('13010000', 'Centro', 400, 'Casa Azul', 2, 3),
+-- ('13010000', 'Cambuí', 500, 'Loja 10', 2, 3),
+-- ('11015000', 'Gonzaga', 600, 'Cobertura', 3, 3);
 
 -- Pedido 1 (Italo)
 INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
@@ -230,90 +244,90 @@ VALUES (5, '23793.38127 60007.439370 78000.421010 6 83580000060000');
 INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
 VALUES (5, 5, 600.00, 1);
 
--- Pedido 6 (Felipe)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 150.00, 'PEDIDO_EM_PROCESSO', 3);
-
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (6, 4);  -- endereço Centro (Felipe)
-
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (150.00, 'PAGAMENTO_PENDENTE', NOW(), 6);
-
-INSERT INTO Pix (id, chave)
-VALUES (6, 'pix-felipe-001');
-
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (6, 1, 150.00, 1);
-
-
--- Pedido 7 (Felipe)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 200.00, 'PEDIDO_EM_PROCESSO', 3);
-
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (7, 5);  -- endereço Cambuí (Felipe)
-
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (200.00, 'PAGAMENTO_PENDENTE', NOW(), 7);
-
-INSERT INTO Boleto (id, codigoBarras)
-VALUES (7, '23793.38127 60007.439370 78000.421010 6 83580000020000');
-
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (7, 2, 200.00, 1);
-
-
--- Pedido 8 (Felipe)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 250.00, 'PEDIDO_EM_PROCESSO', 3);
-
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (8, 6);  -- endereço Gonzaga (Felipe)
-
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (250.00, 'PAGAMENTO_PENDENTE', NOW(), 8);
-
-INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
-VALUES (8, 'Felipe Silva', '4222222222222222', DATE_ADD(CURDATE(), INTERVAL 1 YEAR), '456');
-
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (8, 3, 250.00, 1);
-
-
--- Pedido 9 (Felipe)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 300.00, 'CANCELADO', 3);
-
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (9, 4);  -- endereço Centro (Felipe)
-
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (300.00, 'PAGAMENTO_PENDENTE', NOW(), 9);
-
-INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
-VALUES (9, 'Felipe Silva', '4333333333333333', DATE_ADD(CURDATE(), INTERVAL 2 YEAR), '789');
-
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (9, 4, 300.00, 1);
-
-
--- Pedido 10 (Felipe)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 350.00, 'ENTREGUE', 3);
-
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (10, 5);  -- endereço Cambuí (Felipe)
-
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (350.00, 'PAGAMENTO_EFETUADO', NOW(), 10);
-
-INSERT INTO Pix (id, chave)
-VALUES (10, 'pix-felipe-002');
-
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (10, 5, 350.00, 1);
-
+-- -- Pedido 6 (Felipe)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 150.00, 'PEDIDO_EM_PROCESSO', 3);
+--
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (6, 4);  -- endereço Centro (Felipe)
+--
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (150.00, 'PAGAMENTO_PENDENTE', NOW(), 6);
+--
+-- INSERT INTO Pix (id, chave)
+-- VALUES (6, 'pix-felipe-001');
+--
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (6, 1, 150.00, 1);
+--
+--
+-- -- Pedido 7 (Felipe)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 200.00, 'PEDIDO_EM_PROCESSO', 3);
+--
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (7, 5);  -- endereço Cambuí (Felipe)
+--
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (200.00, 'PAGAMENTO_PENDENTE', NOW(), 7);
+--
+-- INSERT INTO Boleto (id, codigoBarras)
+-- VALUES (7, '23793.38127 60007.439370 78000.421010 6 83580000020000');
+--
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (7, 2, 200.00, 1);
+--
+--
+-- -- Pedido 8 (Felipe)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 250.00, 'PEDIDO_EM_PROCESSO', 3);
+--
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (8, 6);  -- endereço Gonzaga (Felipe)
+--
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (250.00, 'PAGAMENTO_PENDENTE', NOW(), 8);
+--
+-- INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
+-- VALUES (8, 'Felipe Silva', '4222222222222222', DATE_ADD(CURDATE(), INTERVAL 1 YEAR), '456');
+--
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (8, 3, 250.00, 1);
+--
+--
+-- -- Pedido 9 (Felipe)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 300.00, 'CANCELADO', 3);
+--
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (9, 4);  -- endereço Centro (Felipe)
+--
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (300.00, 'PAGAMENTO_PENDENTE', NOW(), 9);
+--
+-- INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
+-- VALUES (9, 'Felipe Silva', '4333333333333333', DATE_ADD(CURDATE(), INTERVAL 2 YEAR), '789');
+--
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (9, 4, 300.00, 1);
+--
+--
+-- -- Pedido 10 (Felipe)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 350.00, 'ENTREGUE', 3);
+--
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (10, 5);  -- endereço Cambuí (Felipe)
+--
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (350.00, 'PAGAMENTO_EFETUADO', NOW(), 10);
+--
+-- INSERT INTO Pix (id, chave)
+-- VALUES (10, 'pix-felipe-002');
+--
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (10, 5, 350.00, 1);
+--
 
 
 

@@ -2,9 +2,11 @@ package br.unitins.tp1;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
+import br.unitins.tp1.service.Auth.JwtServiceImpl;
 import br.unitins.tp1.service.Fabricante.FabricanteServiceImpl;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
@@ -24,24 +26,36 @@ public class FabricanteResourceTest {
     @Inject
     FabricanteServiceImpl fabricanteService;
 
+    @Inject
+    JwtServiceImpl jwtService;
+
     @Test
     void testIncluir_FABRICANTE(){
-
         List<Long> telefone = new ArrayList<>();
         telefone.add(1L);
         telefone.add(2L);
 
-        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel","123", "Brasil", telefone);
+        FabricanteRequestDTO fabricante = new FabricanteRequestDTO(
+                "Gabriel",
+                "12345678901234",
+                "Brasil",
+                telefone
+        );
+
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .body(fabricante)
-                .when().post("/fabricante")
-                .then().statusCode(201)
-                .body("id", notNullValue(),
-                        "nome", is("Gabriel"),
-                        "cnpj", is("123"),
-                        "paisSede", is("Brasil"));
+                .when()
+                .post("/fabricante")
+                .then()
+                .statusCode(201)
+                .body("id", notNullValue())
+                .body("nome", is("Gabriel"))
+                .body("cnpj", is("12345678901234"))
+                .body("paisSede", is("Brasil"));
     }
 
     @Test
@@ -50,7 +64,7 @@ public class FabricanteResourceTest {
         telefone_fabricante.add(1L);
         telefone_fabricante.add(2L);
 
-        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel","123", "Brasil", telefone_fabricante);
+        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel", "123", "Brasil", telefone_fabricante);
 
         long id = fabricanteService.create(fabricante).id();
 
@@ -58,13 +72,18 @@ public class FabricanteResourceTest {
         telefone_alterado.add(1L);
         telefone_alterado.add(2L);
 
-        FabricanteRequestDTO fabricanteAlterado = new FabricanteRequestDTO("Milena","321", "Japão", telefone_alterado);
+        FabricanteRequestDTO fabricanteAlterado = new FabricanteRequestDTO("Milena", "321", "Japão", telefone_alterado);
+
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .body(fabricanteAlterado)
-                .when().put("/fabricante/" + id + "/atualizar")
-                .then().statusCode(204);
+                .when()
+                .put("/fabricante/" + id + "/atualizar")
+                .then()
+                .statusCode(204);
 
         FabricanteResponseDTO response = fabricanteService.findById(id);
 
@@ -79,13 +98,18 @@ public class FabricanteResourceTest {
         telefone_fabricante.add(1L);
         telefone_fabricante.add(2L);
 
-        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel","123", "Brasil", telefone_fabricante);
+        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel", "123", "Brasil", telefone_fabricante);
 
         long id = fabricanteService.create(fabricante).id();
 
+        String token = jwtService.generateJwt("gabriel", "adm");
+
         given()
-                .when().delete("/fabricante/" + id + "/apagar")
-                .then().statusCode(204);
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .delete("/fabricante/" + id + "/apagar")
+                .then()
+                .statusCode(204);
 
         FabricanteResponseDTO response = fabricanteService.findById(id);
         assertNull(response);
@@ -97,14 +121,19 @@ public class FabricanteResourceTest {
         telefone_fabricante.add(1L);
         telefone_fabricante.add(2L);
 
-        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel","123", "Brasil", telefone_fabricante);
+        FabricanteRequestDTO fabricante = new FabricanteRequestDTO("Gabriel", "123", "Brasil", telefone_fabricante);
 
         long id = fabricanteService.create(fabricante).id();
 
+        String token = jwtService.generateJwt("gabriel", "adm");
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
-                .when().get("/fabricante/" + id + "/buscar-fabricante-por-id")
-                .then().statusCode(200)
+                .when()
+                .get("/fabricante/" + id + "/buscar-fabricante-por-id")
+                .then()
+                .statusCode(200)
                 .body("id", notNullValue(),
                         "nome", is("Gabriel"),
                         "cnpj", is("123"),
@@ -113,29 +142,42 @@ public class FabricanteResourceTest {
 
     @Test
     void buscarTodos_FABRICANTE(){
+        String token = jwtService.generateJwt("gabriel", "adm");
+
         given()
-                .when().get("/fabricante")
-                .then().statusCode(200);
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/fabricante")
+                .then()
+                .statusCode(200)
+                .body("$.size()", greaterThan(0));
     }
 
     @Test
     void buscarTelevisaoPorFabricante_FABRICANTE(){
-        long fabricante = 1L;
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
-                .when().get("/fabricante/" + fabricante + "/buscar-televisao-por-id_fabricante")
-                .then().statusCode(200)
-                .body("$.size()", greaterThan(0));
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/fabricante/1/buscar-televisao-por-id_fabricante")
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
     }
 
     @Test
     void buscarFabricantePorNome_FABRICANTE(){
         String nome = "Samsung";
+        String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
-                .when().get("/fabricante/" + nome + "/buscar-fabricante-por-nome")
-                .then().statusCode(200)
-                .body("nome", is("Samsung"),
-                "cnpj", is("12345678000199"));
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/fabricante/" + nome + "/buscar-fabricante-por-nome")
+                .then()
+                .statusCode(200)
+                .body("nome", is("Samsung"))
+                .body("cnpj", is("12345678000199"));
     }
 }
