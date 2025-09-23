@@ -1,6 +1,6 @@
 package br.unitins.tp1.repository;
 
-import br.unitins.tp1.model.Fornecedor;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import br.unitins.tp1.model.Televisao.Televisao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;

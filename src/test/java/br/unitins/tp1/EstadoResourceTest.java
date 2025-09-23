@@ -38,7 +38,7 @@ public class EstadoResourceTest {
                 .contentType(ContentType.JSON)
                 .body(estadoRequestDTO)
                 .when()
-                .post("/Estado") // Certifique-se de que o endpoint está correto (case-sensitive)
+                .post("/Estado")
                 .then()
                 .statusCode(201)
                 .body("idEstado", notNullValue(),  // <- nome correto
@@ -64,7 +64,6 @@ public class EstadoResourceTest {
                 .then()
                 .statusCode(204);
 
-        // Verifica se a atualização foi aplicada corretamente
         EstadoResponseDTO responseDTO = estadoService.findById(id);
         assertThat(responseDTO.nome(), is("Tocantins - Alterado"));
         assertThat(responseDTO.sigla(), is("TA"));

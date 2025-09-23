@@ -30,8 +30,8 @@ public class FuncionarioResourceTest {
 
         FuncionarioRequestDTO funcionario = new FuncionarioRequestDTO(
                 "João Silva",
-                "98765432199",       // CPF novo
-                "joaosilva_test2",   // username novo
+                "98765432199",
+                "joaosilva_test2",
                 "senha123"
         );
 
@@ -92,7 +92,6 @@ public class FuncionarioResourceTest {
     void testDeletar_FUNCIONARIO() {
         String token = jwtService.generateJwt("gabriel", "adm");
 
-        // Primeiro, cria um funcionário para deletar depois
         FuncionarioRequestDTO funcionarioCriado = new FuncionarioRequestDTO(
                 "Carlos Pereira",
                 "11122233344",
@@ -154,15 +153,15 @@ public class FuncionarioResourceTest {
                 .get("/funcionario")
                 .then()
                 .statusCode(200)
-                .body("size()", greaterThan(0));  // Verifica que retornou pelo menos um funcionário
+                .body("size()", greaterThan(0));
     }
 
     @Test
     void testBuscarFuncionarioPorUsername() {
         FuncionarioRequestDTO funcionario = new FuncionarioRequestDTO(
                 "João da Silva",
-                "12345678999",      // CPF único
-                "joaosilva_test",   // Username único
+                "12345678999",
+                "joaosilva_test",
                 "senha123"
         );
 

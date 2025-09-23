@@ -1,8 +1,8 @@
         package br.unitins.tp1.model.Televisao;
 
         import br.unitins.tp1.model.DefaultEntity;
-        import br.unitins.tp1.model.Fabricante;
-        import br.unitins.tp1.model.Fornecedor;
+        import br.unitins.tp1.model.PessoaJuridica.Fabricante;
+        import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
         import br.unitins.tp1.model.Pedido.ItemPedido;
         import com.fasterxml.jackson.annotation.JsonIgnore;
         import jakarta.persistence.*;

@@ -1,26 +1,33 @@
 package br.unitins.tp1.model.DTO.Fornecedor;
 
+import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
+import br.unitins.tp1.model.Telefone;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record FornecedorRequestDTO(
-        @NotBlank(message = "Nome do fornecedor deve ser informado")
-        @Size(max = 60, message = "Máximo 60 caracteres")
-        String nome,
+        @NotBlank(message = "CNPJ deve ser informado")
+        String razaoSocial,
 
-        @NotBlank(message = "CNPJ do fornecedor deve ser informado")
-        @Size(max = 11, message = "Máximo 11 caracteres")
+        @NotBlank(message = "CNPJ deve ser informado")
+        @Size(max = 14, message = "Máximo de 14 caracteres")
         String cnpj,
 
-        @NotBlank(message = "O id telefone deve ser informado")
-        @Positive(message = "Deve informar apenas valores positivos")
-        List<Long> idTelefone,
+        boolean status,
+
+        String email,
 
         @NotBlank(message = "O id televisao deve ser informado")
         @Positive(message = "Deve informar apenas valores positivos")
-        List<Long> idTelevisao
+        List<Long> idTelevisao,
+
+        @NotBlank(message = "O id televisao deve ser informado")
+        @Positive(message = "Deve informar apenas valores positivos")
+        List<TelefoneRequestDTO> telefones
 ) {
 }

@@ -1,7 +1,4 @@
-  - nome: String
-
 @startuml
-
 'PEDIDO'
 class Pedido{
   - id: long
@@ -22,8 +19,6 @@ enum StatusPedido{
   - ENTREGUE
   - CANCELADO
 }
-
-
 
 'PAGAMENTO'
 abstract Pagamento{
@@ -80,14 +75,13 @@ enum Perfil{
   - ADM
 }
 
-
-
 'TELEVISAO'
 class Televisao{
   - id: long
-  - marca: String
-  - modelo: String
   - tela: TipoTela
+  - resolucao: Resolucao
+  - versao: String
+  - descricao: String
   - valor: Double
 }
 
@@ -102,11 +96,32 @@ enum Resolucao{
     - escala: String
 }
 
-class Dimensões{
+class Dimensao{
     - id: long
     - altura: double
     - largura: double
     - polegada: int
+}
+
+class CaracteristicasGerais{
+  - id: long
+  - sistemaOperacional: String
+  - quantidadePortasHDMI: int
+  - quantidadePortasUSB: int
+  - smartTv: boolean
+}
+
+class Marca{
+  - id: long
+  - nomeMarca: String
+  - descricao: String
+}
+
+class Modelo{
+  - id: long
+  - modelo: String
+  - garantia: int
+  - anoLancamento: LocalDate
 }
 
 'ENDERECO'
@@ -143,20 +158,27 @@ enum TipoEndereco{
     - COMERCIAL
 }
 
-'Fabricante'
+'FABRICANTE'
+abstract PessoaJuridica{
+    - id: long
+    - razaoSocial: String
+    - cnpj: String 
+    - status: boolean 
+}
+
 class Fabricante{
     - id: long
-    - nome: String
-    - cnpj: String
+    - anoFundacao: LocalDate
     - paisSede: String
 }
 
+'FORNECEDOR'
 class  Fornecedor{
     - id: long
-    - nome: String
+    - email: String
 }
 
-
+'TELEFONE'
 class Telefone{
     - id: long
     - ddd: String
@@ -169,6 +191,7 @@ Pedido "1" --> "1" Pagamento
 Pedido "1" --> "1" EnderecoEntrega
 Pedido "1" --> "1" StatusPedido
 Pedido "1" --> "1" Usuario
+ItemPedido "1" --> "1" Televisao 
 
 'RELACIONAMENTO DO PAGAMENTO'
 Pagamento <|-- Pix
@@ -177,19 +200,20 @@ Pagamento <|-- Cartao
 Pagamento --> StatusPagamento
 
 'RELACIONAMENTO DA TELEVISAO'
-Televisao "1" --> "*" Resolucao
-Televisao "1" --> "1" Dimensões
-Televisao "1" --> "1" TipoTela
-Televisao "*" --> "1" Fabricante
-Fornecedor "*" --> "*" Televisao
+Televisao "*" --> "1" Resolucao
+Televisao "1" *--> "1" Dimensao
+Televisao "*" --> "1" TipoTela
+Televisao "*" --> "1" Modelo
+Modelo "*" --> "1" Marca
+Modelo "1" --> "*" CaracteristicasGerais
 
 'RELACIONAMENTO DO USUARIO'
 Usuario "1" <-- "1" Funcionario
 Usuario "1" --> "1" Perfil
 
 'RELACIONAMENTO DO TELEFONE'
-Telefone "*" <-- "1" Fabricante
-Telefone "*" <-- "1" Fornecedor
+Telefone "*" <--* "1" Fabricante
+Telefone "*" <--* "1" Fornecedor
 
 'RELACIONAMENTO DO ENDERECO'
 Endereco "*" --> "1" Usuario
@@ -198,4 +222,11 @@ Municipio "*" --> "1" Estado
 Endereco "1" --> "1" TipoEndereco
 EnderecoEntrega "1" --> "1" Endereco 
 
+'RELACIONAMENTO DO FABRICANTE'
+Fabricante <|-- PessoaJuridica
+Fabricante "1" --> "*" Marca
+
+'RELACIONAMENTO DO FORNECEDOR'
+Fornecedor <|-- PessoaJuridica
+Fornecedor "*" --> "*" Marca
 @enduml

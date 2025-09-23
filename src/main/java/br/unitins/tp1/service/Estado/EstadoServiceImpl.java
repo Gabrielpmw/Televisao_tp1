@@ -4,6 +4,7 @@ import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoRequestDTO;
 import br.unitins.tp1.model.DTO.Endereco.Estado.EstadoResponseDTO;
 import br.unitins.tp1.model.DTO.Endereco.Municipio.MunicipioResponseDTO;
 import br.unitins.tp1.model.Endereco.Estado;
+import br.unitins.tp1.model.Endereco.Regiao;
 import br.unitins.tp1.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -23,6 +24,7 @@ public class EstadoServiceImpl implements EstadoService{
 
         estado.setNome(dto.estado());
         estado.setSigla(dto.sigla());
+        estado.setRegiao(Regiao.valueOf(dto.idRegiao()));
 
         estadoRepository.persist(estado);
 

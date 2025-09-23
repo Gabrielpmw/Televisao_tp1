@@ -2,8 +2,6 @@ package br.unitins.tp1.service.Televisao;
 
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
-import br.unitins.tp1.model.Fabricante;
-import br.unitins.tp1.model.Fornecedor;
 import br.unitins.tp1.model.Televisao.Televisao;
 
 import java.util.List;

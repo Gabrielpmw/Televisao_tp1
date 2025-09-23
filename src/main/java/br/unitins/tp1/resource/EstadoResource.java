@@ -11,7 +11,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.logging.Logger;
 
-@Path("/Estado")
+@Path("/estados")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EstadoResource {
@@ -25,7 +25,7 @@ public class EstadoResource {
     JsonWebToken jwt;
 
     @POST
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     public Response incluir(EstadoRequestDTO dto){
         logger.info("Novo estado criado: " + dto);
         String username = jwt.getSubject();
@@ -34,7 +34,7 @@ public class EstadoResource {
     }
 
     @PUT
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, EstadoRequestDTO dto){
         logger.info("Estado com id: " + id + ", atualizado para: " + dto);
@@ -46,7 +46,7 @@ public class EstadoResource {
     }
 
     @DELETE
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/deletar")
     public Response deletar(@PathParam("id") long id){
         logger.info("Estado apagado com id: " + id);
@@ -58,7 +58,7 @@ public class EstadoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     public Response buscarTodos(){
         logger.info("Buscando todos os Estados");
         String username = jwt.getSubject();
@@ -67,7 +67,7 @@ public class EstadoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/buscar-id")
     public Response buscarPorId(@PathParam("id") long id){
         logger.info("Buscando estado com id: " + id);
@@ -77,7 +77,7 @@ public class EstadoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{nome}/buscar-nome")
     public Response buscarPorNome(@PathParam("nome") String nome){
         logger.info("Buscando estado por nome de: " + nome);
@@ -87,7 +87,7 @@ public class EstadoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/buscar-municipio")
     public Response buscarMunicipioPorEstado(@PathParam("id") long id){
         logger.info("Buscando município por estado id: " + id);

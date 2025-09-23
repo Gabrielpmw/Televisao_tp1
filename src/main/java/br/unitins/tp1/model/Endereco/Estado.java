@@ -1,9 +1,7 @@
     package br.unitins.tp1.model.Endereco;
 
     import br.unitins.tp1.model.DefaultEntity;
-    import jakarta.persistence.Column;
-    import jakarta.persistence.Entity;
-    import jakarta.persistence.OneToMany;
+    import jakarta.persistence.*;
 
     import java.util.ArrayList;
     import java.util.List;
@@ -16,6 +14,10 @@
 
         @Column(length = 60)
         private String sigla;
+
+        @Column
+        @Enumerated(EnumType.STRING)
+        private Regiao regiao;
 
         @OneToMany(mappedBy = "estado")
         private List<Municipio> municipios = new ArrayList<>();
@@ -43,5 +45,13 @@
 
         public void setSigla(String sigla) {
             this.sigla = sigla;
+        }
+
+        public Regiao getRegiao() {
+            return regiao;
+        }
+
+        public void setRegiao(Regiao regiao) {
+            this.regiao = regiao;
         }
     }

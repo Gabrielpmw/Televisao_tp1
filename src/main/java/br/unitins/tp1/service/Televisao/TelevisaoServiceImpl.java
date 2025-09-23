@@ -1,8 +1,7 @@
 package br.unitins.tp1.service.Televisao;
 
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
-import br.unitins.tp1.model.Fabricante;
-import br.unitins.tp1.model.Fornecedor;
+import br.unitins.tp1.model.PessoaJuridica.Fabricante;
 import br.unitins.tp1.model.Televisao.Dimensao;
 import br.unitins.tp1.model.Televisao.Televisao;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
@@ -11,6 +10,7 @@ import br.unitins.tp1.model.Televisao.TipoTela;
 import br.unitins.tp1.repository.DimensaoRepository;
 import br.unitins.tp1.repository.FabricanteRepository;
 import br.unitins.tp1.repository.TelevisaoRepository;
+import br.unitins.tp1.service.Dimensao.DimensaoServiceImpl;
 import br.unitins.tp1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -30,6 +30,10 @@ public class TelevisaoServiceImpl implements TelevisaoService {
     @Inject
     protected DimensaoRepository dimensaoRepository;
 
+    @Inject
+    protected DimensaoServiceImpl dimensaoService;
+    @Inject
+    TelevisaoRepository televisaoRepository;
 
     @Transactional
     @Override
@@ -38,10 +42,6 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
         if (dto == null){
             throw new ValidationException("DTO", "DTO não pode ser null");
-        }
-
-        if (dto.idDimensao() <= 0){
-            throw new ValidationException("Id dimensão", "Apenas valores positivo para id dimensão");
         }
 
         if (dto.idFabricante() <= 0){
@@ -67,10 +67,15 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
         tv.setFabricante(fabricante);
 
-        Dimensao dimensao = dimensaoRepository.findById(dto.idDimensao());
+        Dimensao dimensao = new Dimensao();
+
+        dimensao.setAltura(dto.altura());
+        dimensao.setComprimento(dto.largura());
+        dimensao.setPolegada(dto.polegada());
 
         tv.setDimensao(dimensao);
 
+        dimensaoRepository.persist(dimensao);
         tvrepository.persist(tv);
 
         return TelevisaoResponseDTO.valueOf(tv);
@@ -89,10 +94,6 @@ public class TelevisaoServiceImpl implements TelevisaoService {
             throw new ValidationException("Televisão", "Televisão não encontrada");
         }
 
-        if (dto.idDimensao() <= 0){
-            throw new ValidationException("Id dimensão", "Apenas valores positivo para id dimensão");
-        }
-
         if (dto.idFabricante() <= 0){
             throw new ValidationException("Id fabricante", "Apenas valores positivos para id fabricante");
         }
@@ -116,7 +117,11 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
         tv.setFabricante(fabricante);
 
-        Dimensao dimensao = dimensaoRepository.findById(dto.idDimensao());
+        Dimensao dimensao = televisaoRepository.findById(id).getDimensao();
+
+        dimensao.setAltura(dto.altura());
+        dimensao.setComprimento(dto.largura());
+        dimensao.setPolegada(dto.polegada());
 
         tv.setDimensao(dimensao);
     }

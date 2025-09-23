@@ -85,12 +85,12 @@ INSERT INTO Telefone (ddd, numero, id_fornecedor) VALUES
 
 
 -- ESTADO
-INSERT INTO Estado (nome, sigla) VALUES
-('São Paulo', 'SP'),
-('Rio de Janeiro', 'RJ'),
-('Minas Gerais', 'MG'),
-('Bahia', 'BA'),
-('Paraná', 'PR');
+INSERT INTO Estado (nome, sigla, regiao) VALUES
+('São Paulo', 'SP', 'SUDESTE'),
+('Rio de Janeiro', 'RJ', 'SUDESTE'),
+('Minas Gerais', 'MG', 'CENTRO_OESTE'),
+('Bahia', 'BA', 'NORDESTE'),
+('Paraná', 'PR', 'SUL');
 
 
 

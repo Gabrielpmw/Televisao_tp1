@@ -10,6 +10,8 @@ public record EstadoRequestDTO(
 
         @NotBlank(message = "O campo sigla é obrigatório")
         @Size(max = 2, message = "O campo Estado deve ter no máximo 2 caracteres.")
-        String sigla
+        String sigla,
+
+        Integer idRegiao
 ) {
 }

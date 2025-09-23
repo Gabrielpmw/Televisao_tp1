@@ -27,12 +27,21 @@ public record TelevisaoRequestDTO(
         @Positive(message = "Informe apenas valores positivos")
         Integer estoque,
 
-        @NotNull(message = "A dimensão é obrigatória")
+        @NotNull(message = "O fabricante é obrigatório")
         @Positive(message = "Informe apenas valores positivos")
-        long idDimensao,
+        long idFabricante,
 
         @NotNull(message = "O fabricante é obrigatório")
         @Positive(message = "Informe apenas valores positivos")
-        long idFabricante) {
+        int altura,
+
+        @NotNull(message = "O fabricante é obrigatório")
+        @Positive(message = "Informe apenas valores positivos")
+        int largura,
+
+        @NotNull(message = "O fabricante é obrigatório")
+        @Positive(message = "Informe apenas valores positivos")
+        int polegada
+) {
 
 }

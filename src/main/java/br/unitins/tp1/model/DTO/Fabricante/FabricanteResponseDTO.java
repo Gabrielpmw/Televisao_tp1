@@ -1,24 +1,30 @@
 package br.unitins.tp1.model.DTO.Fabricante;
 
 import br.unitins.tp1.model.DTO.Telefone.TelefoneResponseDTO;
-import br.unitins.tp1.model.Fabricante;
+import br.unitins.tp1.model.PessoaJuridica.Fabricante;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record FabricanteResponseDTO(
         long id,
-        String nome,
+        String razaoSocial,
         String cnpj,
+        LocalDate dataAbertura,
         String paisSede,
+        boolean status,
         List<TelefoneResponseDTO> telefones
 ) {
     public static FabricanteResponseDTO valueOf(Fabricante fabricante){
         if (fabricante == null) return null;
 
+
         return new FabricanteResponseDTO(fabricante.getId(),
-                fabricante.getNome(),
+                fabricante.getRazaoSocial(),
                 fabricante.getCnpj(),
+                fabricante.getAnoFundacao(),
                 fabricante.getPaisSede(),
+                fabricante.isStatus(),
                 fabricante.getTelefones().stream().map(TelefoneResponseDTO::valueOf).toList());
     }
 }

@@ -1,19 +1,19 @@
-package br.unitins.tp1.model;
+package br.unitins.tp1.model.PessoaJuridica;
 
+import br.unitins.tp1.model.Telefone;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Fabricante extends DefaultEntity{
-    @Column(length = 60, nullable = false)
-    private String nome;
+public class Fabricante extends PessoaJuridica {
 
-    @Column(length = 14, nullable = false, unique = true)
-    private String cnpj;
+    @Column
+    private LocalDate anoFundacao;
 
-    @Column(length = 60, nullable = false)
+    @Column
     private String paisSede;
 
     @OneToMany(mappedBy = "fabricante" ,cascade = CascadeType.ALL, orphanRemoval = true)
@@ -27,20 +27,12 @@ public class Fabricante extends DefaultEntity{
         return telefones;
     }
 
-    public String getNome() {
-        return nome;
+    public LocalDate getAnoFundacao() {
+        return anoFundacao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setAnoFundacao(LocalDate anoFundacao) {
+        this.anoFundacao = anoFundacao;
     }
 
     public String getPaisSede() {
@@ -50,5 +42,6 @@ public class Fabricante extends DefaultEntity{
     public void setPaisSede(String paisSede) {
         this.paisSede = paisSede;
     }
+
 
 }

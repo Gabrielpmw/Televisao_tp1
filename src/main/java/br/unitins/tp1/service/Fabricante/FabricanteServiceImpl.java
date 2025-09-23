@@ -2,8 +2,9 @@ package br.unitins.tp1.service.Fabricante;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
+import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
-import br.unitins.tp1.model.Fabricante;
+import br.unitins.tp1.model.PessoaJuridica.Fabricante;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.repository.FabricanteRepository;
 import br.unitins.tp1.repository.TelefoneRepository;
@@ -12,7 +13,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @ApplicationScoped
 public class FabricanteServiceImpl implements FabricanteService {
@@ -26,22 +26,24 @@ public class FabricanteServiceImpl implements FabricanteService {
     public FabricanteResponseDTO create(FabricanteRequestDTO dto) {
         Fabricante fabricante = new Fabricante();
 
-        fabricante.setNome(dto.nome());
+        fabricante.setRazaoSocial(dto.razaoSocial());
+        fabricante.setAnoFundacao(dto.dataAbertura());
         fabricante.setCnpj(dto.cnpj());
+        fabricante.setStatus(dto.status());
         fabricante.setPaisSede(dto.paisSede());
 
-        List<Telefone> telefones = dto.idTelefone().stream()
-                .map(telefoneRepository::findById)
-                .filter(Objects::nonNull)
-                .toList();
+        fabricanteRepository.persist(fabricante);
 
-        for (Telefone telefone : telefones) {
+        for (TelefoneRequestDTO requestDTO : dto.telefones()) {
+            Telefone telefone = new Telefone();
+            telefone.setDdd(requestDTO.ddd());
+            telefone.setNumero(requestDTO.numero());
             telefone.setFabricante(fabricante);
+            fabricante.getTelefones().add(telefone);
+
+            telefoneRepository.persist(telefone);
         }
 
-        fabricante.setTelefones(telefones);
-
-        fabricanteRepository.persist(fabricante);
 
         return FabricanteResponseDTO.valueOf(fabricante);
     }
@@ -52,17 +54,17 @@ public class FabricanteServiceImpl implements FabricanteService {
     public void update(long id, FabricanteRequestDTO dto) {
         Fabricante edicao = fabricanteRepository.findById(id);
 
-        edicao.setNome(dto.nome());
+        edicao.setRazaoSocial(dto.razaoSocial());
+        edicao.setAnoFundacao(dto.dataAbertura());
         edicao.setCnpj(dto.cnpj());
+        edicao.setStatus(dto.status());
         edicao.setPaisSede(dto.paisSede());
 
-        List<Telefone> novosTelefones = dto.idTelefone().stream()
-                .map(telefoneRepository::findById)
-                .filter(Objects::nonNull)
-                .toList();
-
         edicao.getTelefones().clear();
-        for (Telefone telefone : novosTelefones) {
+        for (TelefoneRequestDTO requestDTO : dto.telefones()) {
+            Telefone telefone = new Telefone();
+            telefone.setDdd(requestDTO.ddd());
+            telefone.setNumero(requestDTO.numero());
             telefone.setFabricante(edicao);
             edicao.getTelefones().add(telefone);
         }

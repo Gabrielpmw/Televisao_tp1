@@ -1,15 +1,17 @@
 package br.unitins.tp1.model.DTO.Fornecedor;
 
 import br.unitins.tp1.model.DTO.Telefone.TelefoneResponseDTO;
-import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
-import br.unitins.tp1.model.Fornecedor;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record FornecedorResponseDTO(
         long id,
-        String nome,
+        String razaoSocial,
         String cnpj,
+        boolean status,
+        String email,
         List<TelefoneResponseDTO> telefones
 ) {
     public static FornecedorResponseDTO valueOf(Fornecedor fornecedor){
@@ -17,8 +19,10 @@ public record FornecedorResponseDTO(
 
         return new FornecedorResponseDTO(
                 fornecedor.getId(),
-                fornecedor.getNome(),
+                fornecedor.getRazaoSocial(),
                 fornecedor.getCnpj(),
+                fornecedor.isStatus(),
+                fornecedor.getEmail(),
                 fornecedor.getTelefones().stream().map(TelefoneResponseDTO::valueOf).toList());
     }
 }

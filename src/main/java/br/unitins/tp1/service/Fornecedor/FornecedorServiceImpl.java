@@ -2,9 +2,9 @@ package br.unitins.tp1.service.Fornecedor;
 
 import br.unitins.tp1.model.DTO.Fornecedor.FornecedorRequestDTO;
 import br.unitins.tp1.model.DTO.Fornecedor.FornecedorResponseDTO;
-import br.unitins.tp1.model.DTO.Telefone.TelefoneResponseDTO;
+import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
-import br.unitins.tp1.model.Fornecedor;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.model.Televisao.Televisao;
 import br.unitins.tp1.repository.FornecedorRepository;
@@ -15,7 +15,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @ApplicationScoped
 public class FornecedorServiceImpl implements FornecedorService {
@@ -33,25 +32,24 @@ public class FornecedorServiceImpl implements FornecedorService {
     public FornecedorResponseDTO create(FornecedorRequestDTO dto) {
         Fornecedor fornecedor = new Fornecedor();
 
-        fornecedor.setNome(dto.nome());
-
+        fornecedor.setRazaoSocial(dto.razaoSocial());
+        fornecedor.setEmail(dto.email());
+        fornecedor.setStatus(dto.status());
         fornecedor.setCnpj(dto.cnpj());
 
         fornecedorRepository.persist(fornecedor);
-
-        List<Telefone> telefones = dto.idTelefone().stream()
-                .map(telefoneRepository::findById)
-                .filter(Objects::nonNull)
-                .toList();
-
-        for (Telefone telefone : telefones){
+        for (TelefoneRequestDTO request : dto.telefones()){
+            Telefone telefone = new Telefone();
+            telefone.setDdd(request.ddd());
+            telefone.setNumero(request.numero());
             telefone.setFornecedor(fornecedor);
             fornecedor.getTelefones().add(telefone);
+            telefoneRepository.persist(telefone);
         }
 
         List<Televisao> televisoes = televisaoRepository.findByIds(dto.idTelevisao());
-
         fornecedor.setTelevisaos(televisoes);
+
 
         return FornecedorResponseDTO.valueOf(fornecedor);
     }
@@ -61,20 +59,19 @@ public class FornecedorServiceImpl implements FornecedorService {
     public void update(long id, FornecedorRequestDTO dto) {
         Fornecedor novoFornecedor = fornecedorRepository.findById(id);
 
-        novoFornecedor.setNome(dto.nome());
-
+        novoFornecedor.setRazaoSocial(dto.razaoSocial());
+        novoFornecedor.setEmail(dto.email());
+        novoFornecedor.setStatus(dto.status());
         novoFornecedor.setCnpj(dto.cnpj());
 
         novoFornecedor.getTelefones().clear();
+        for (TelefoneRequestDTO telefoneDTO : dto.telefones()){
+            Telefone telefone = new Telefone();
 
-        List<Telefone> novosTelefones = dto.idTelefone().stream()
-                .map(telefoneRepository::findById)
-                .filter(Objects::nonNull)
-                .toList();
-
-
-        for (Telefone telefone : novosTelefones){
+            telefone.setNumero(telefoneDTO.numero());
+            telefone.setDdd(telefoneDTO.ddd());
             telefone.setFornecedor(novoFornecedor);
+
             novoFornecedor.getTelefones().add(telefone);
         }
 

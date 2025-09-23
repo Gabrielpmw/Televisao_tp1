@@ -26,7 +26,7 @@ public class TelevisaoResource {
     JsonWebToken jwt;
 
     @POST
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     public Response incluir(TelevisaoRequestDTO dto) {
         logger.info("Nova televisão criada: " + dto);
         String username = jwt.getSubject();
@@ -35,7 +35,7 @@ public class TelevisaoResource {
     }
 
     @PUT
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, TelevisaoRequestDTO tv) {
         logger.info("Televisão com id: " + id + " atualizada para " + tv);
@@ -46,7 +46,7 @@ public class TelevisaoResource {
     }
 
     @DELETE
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/apagar")
     public Response apagar(@PathParam("id") long id) {
         logger.info("Televisão deletada com o id: " + id);
@@ -57,7 +57,7 @@ public class TelevisaoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/buscar-por-id/{id}")
     public Response buscarPorId(@PathParam("id") long id){
         logger.info("Buscando televisão pelo id: " + id);
@@ -68,7 +68,7 @@ public class TelevisaoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     public Response buscarTodos() {
         logger.info("Buscando todas as televisões");
         String username = jwt.getSubject();
@@ -77,7 +77,7 @@ public class TelevisaoResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{modelo}/buscar-televisao-por-modelo")
     public Response buscarTelevisaoPorModelo(@PathParam("modelo") String modelo){
         logger.info("Buscando televião pelo modelo: " + modelo);

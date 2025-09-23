@@ -35,7 +35,7 @@ public class MunicipioResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token)  // token com usuário gabriel
+                .header("Authorization", "Bearer " + token)
                 .body(requestDTO)
                 .when().post("municipio")
                 .then().statusCode(201)
@@ -58,7 +58,7 @@ public class MunicipioResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token)  // token com usuário gabriel
+                .header("Authorization", "Bearer " + token)
                 .body(municipioAlterado)
                 .when().put("municipio/" + id + "/atualizar")
                 .then()
@@ -77,7 +77,7 @@ public class MunicipioResourceTest {
         String token = jwtService.generateJwt("gabriel", "adm");
 
         given()
-                .header("Authorization", "Bearer " + token)  // token com usuário gabriel
+                .header("Authorization", "Bearer " + token)
                 .when().delete("municipio/" + id + "/deletar")
                 .then().statusCode(204);
 
@@ -104,7 +104,7 @@ public class MunicipioResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token)  // adiciona token aqui
+                .header("Authorization", "Bearer " + token)
                 .when()
                 .get("/municipio/" + id + "/procurar-id")
                 .then()

@@ -1,20 +1,18 @@
-package br.unitins.tp1.model;
+package br.unitins.tp1.model.PessoaJuridica;
 
+import br.unitins.tp1.model.DefaultEntity;
+import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.model.Televisao.Televisao;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Fornecedor extends DefaultEntity{
+public class Fornecedor extends PessoaJuridica {
 
     @Column(length = 60)
-    private String nome;
-
-    @Column(length = 14, unique = true)
-    private String cnpj;
+    private String email;
 
     @ManyToMany
     @JoinTable(
@@ -26,14 +24,6 @@ public class Fornecedor extends DefaultEntity{
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones = new ArrayList<>();
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public List<Televisao> getTelevisaos() {
         return televisaos;
@@ -51,11 +41,11 @@ public class Fornecedor extends DefaultEntity{
         this.telefones = telefones;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

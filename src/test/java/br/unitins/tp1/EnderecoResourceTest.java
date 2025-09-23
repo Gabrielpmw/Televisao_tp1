@@ -141,13 +141,11 @@ public class EnderecoResourceTest {
                 .then()
                 .statusCode(204);
 
-        // Agora vamos confirmar que o endereço foi deletado
         try {
             EnderecoResponseDTO responseDTO = enderecoService.findById(id);
             fail("Esperava que o endereço não fosse encontrado, mas encontrou: " + responseDTO);
         } catch (Exception e) {
-            // Pode ser um NoResultException, NotFoundException ou outro do seu serviço
-            // Aqui o teste passa porque a exceção é esperada
+
         }
     }
 

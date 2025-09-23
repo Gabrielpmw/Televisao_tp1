@@ -1,5 +1,7 @@
 package br.unitins.tp1.model;
 
+import br.unitins.tp1.model.PessoaJuridica.Fabricante;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
