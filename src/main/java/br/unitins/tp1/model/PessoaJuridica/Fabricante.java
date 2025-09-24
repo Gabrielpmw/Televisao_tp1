@@ -1,5 +1,6 @@
 package br.unitins.tp1.model.PessoaJuridica;
 
+import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.Telefone;
 import jakarta.persistence.*;
 
@@ -18,6 +19,9 @@ public class Fabricante extends PessoaJuridica {
 
     @OneToMany(mappedBy = "fabricante" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones = new ArrayList<>();
+
+    @OneToMany(mappedBy = "fabricante")
+    private List<Marca> marcas;
 
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
@@ -43,5 +47,11 @@ public class Fabricante extends PessoaJuridica {
         this.paisSede = paisSede;
     }
 
+    public List<Marca> getMarcas() {
+        return marcas;
+    }
 
+    public void setMarcas(List<Marca> marcas) {
+        this.marcas = marcas;
+    }
 }

@@ -17,8 +17,6 @@ public record FabricanteResponseDTO(
 ) {
     public static FabricanteResponseDTO valueOf(Fabricante fabricante){
         if (fabricante == null) return null;
-
-
         return new FabricanteResponseDTO(fabricante.getId(),
                 fabricante.getRazaoSocial(),
                 fabricante.getCnpj(),
