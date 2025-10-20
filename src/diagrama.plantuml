@@ -205,7 +205,7 @@ Televisao "1" *--> "1" Dimensao
 Televisao "*" --> "1" TipoTela
 Televisao "*" --> "1" Modelo
 Modelo "*" --> "1" Marca
-Modelo "1" --> "*" CaracteristicasGerais
+Modelo "*" --> "*" CaracteristicasGerais
 
 'RELACIONAMENTO DO USUARIO'
 Usuario "1" <-- "1" Funcionario

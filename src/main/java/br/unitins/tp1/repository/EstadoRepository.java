@@ -2,6 +2,7 @@ package br.unitins.tp1.repository;
 
 import br.unitins.tp1.model.Endereco.Estado;
 import br.unitins.tp1.model.Endereco.Municipio;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -13,6 +14,8 @@ public class EstadoRepository implements PanacheRepository<Estado> {
     public Estado findEstadoByNome(String nome) {
         return find("UPPER(nome) = UPPER(?1)", nome).firstResult();
     }
+
+    public PanacheQuery<Estado> findBy
 
     public List<Municipio> findMunicipiosByEstadoId(Long idEstado) {
         return getEntityManager()
