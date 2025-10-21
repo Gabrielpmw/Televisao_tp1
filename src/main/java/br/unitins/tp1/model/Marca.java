@@ -1,6 +1,7 @@
 package br.unitins.tp1.model;
 
 import br.unitins.tp1.model.PessoaJuridica.Fabricante;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ public class Marca extends DefaultEntity{
     @ManyToOne
     @JoinColumn(name = "id_fabricante", nullable = false)
     private Fabricante fabricante;
+
+    @ManyToMany(mappedBy = "marcas")
+    private List<Fornecedor> fornecedores = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "marca")
     private List<Modelo> modelos = new ArrayList<>();

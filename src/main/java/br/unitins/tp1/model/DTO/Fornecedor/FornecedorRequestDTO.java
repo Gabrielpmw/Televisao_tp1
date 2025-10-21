@@ -24,10 +24,6 @@ public record FornecedorRequestDTO(
 
         @NotBlank(message = "O id televisao deve ser informado")
         @Positive(message = "Deve informar apenas valores positivos")
-        List<Long> idTelevisao,
-
-        @NotBlank(message = "O id televisao deve ser informado")
-        @Positive(message = "Deve informar apenas valores positivos")
         List<TelefoneRequestDTO> telefones
 ) {
 }

@@ -1,6 +1,7 @@
         package br.unitins.tp1.model.Televisao;
 
         import br.unitins.tp1.model.DefaultEntity;
+        import br.unitins.tp1.model.Modelo;
         import br.unitins.tp1.model.PessoaJuridica.Fabricante;
         import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
         import br.unitins.tp1.model.Pedido.ItemPedido;
@@ -12,12 +13,6 @@
 
         @Entity
         public class Televisao extends DefaultEntity {
-
-            @Column(length = 60, nullable = false)
-            private String marca;
-
-            @Column(length = 60, nullable = false)
-            private String modelo;
 
             @Column
             private Double valor;
@@ -33,12 +28,12 @@
             @Column
             private Integer estoque;
 
-            @ManyToMany(mappedBy = "televisaos")
-            private List<Fornecedor> fornecedores = new ArrayList<>();
+            @Column
+            private String descricao;
 
             @ManyToOne
-            @JoinColumn(name = "id_fabricante")
-            private Fabricante fabricante;
+            @JoinColumn(name = "id_modelo")
+            private Modelo modelo;
 
             @ManyToOne
             @JoinColumn(name = "id_dimensao")
@@ -63,38 +58,6 @@
 
             public void setResolucao(TipoResolucao resolucao) {
                 this.resolucao = resolucao;
-            }
-
-            public Fabricante getFabricante() {
-                return fabricante;
-            }
-
-            public void setFabricante(Fabricante fabricante) {
-                this.fabricante = fabricante;
-            }
-
-            public List<Fornecedor> getFornecedores() {
-                return fornecedores;
-            }
-
-            public void setFornecedores(List<Fornecedor> fornecedores) {
-                this.fornecedores = fornecedores;
-            }
-
-            public String getMarca() {
-                return marca;
-            }
-
-            public void setMarca(String marca) {
-                this.marca = marca;
-            }
-
-            public String getModelo() {
-                return modelo;
-            }
-
-            public void setModelo(String modelo) {
-                this.modelo = modelo;
             }
 
             public TipoTela getTipoTela() {
@@ -127,5 +90,21 @@
 
             public void setItensPedidos(List<ItemPedido> itensPedidos) {
                 this.itensPedidos = itensPedidos;
+            }
+
+            public Modelo getModelo() {
+                return modelo;
+            }
+
+            public void setModelo(Modelo modelo) {
+                this.modelo = modelo;
+            }
+
+            public String getDescricao() {
+                return descricao;
+            }
+
+            public void setDescricao(String descricao) {
+                this.descricao = descricao;
             }
         }

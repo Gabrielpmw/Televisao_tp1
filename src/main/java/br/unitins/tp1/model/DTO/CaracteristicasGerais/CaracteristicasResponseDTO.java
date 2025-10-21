@@ -11,7 +11,7 @@ public record CaracteristicasResponseDTO(
 ) {
     public static CaracteristicasResponseDTO valueOf(CaracteristicasGerais caracteristicasGerais){
         return new CaracteristicasResponseDTO(caracteristicasGerais.getId(),
-                caracteristicasGerais.getSistemaOperacioanl(),
+                caracteristicasGerais.getSistemaOperacional(),
                 caracteristicasGerais.getQuantidadeHDMI(),
                 caracteristicasGerais.getQuantidadeHDMI(),
                 caracteristicasGerais.isSmartTV());

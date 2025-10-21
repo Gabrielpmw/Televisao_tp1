@@ -1,9 +1,12 @@
 package br.unitins.tp1.service.Modelo;
 
+import br.unitins.tp1.model.CaracteristicasGerais;
+import br.unitins.tp1.model.DTO.CaracteristicasGerais.CaracteristicasResponseDTO;
 import br.unitins.tp1.model.DTO.Modelo.ModeloRequestDTO;
 import br.unitins.tp1.model.DTO.Modelo.ModeloResponseDTO;
 import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.Modelo;
+import br.unitins.tp1.repository.CaracteristicasGeraisRepository;
 import br.unitins.tp1.repository.MarcaRepository;
 import br.unitins.tp1.repository.ModeloRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,15 +24,20 @@ public class ModeloServiceImpl implements ModeloService{
 
     @Inject
     MarcaRepository marcaRepository;
+    @Inject
+    CaracteristicasGeraisRepository caracteristicasGeraisRepository;
 
     @Override
     @Transactional
     public ModeloResponseDTO create(ModeloRequestDTO dto) {
         Modelo modelo = new Modelo();
+        CaracteristicasGerais caracteristicasGerais = caracteristicasGeraisRepository.findById(dto.idCaracteristicas());
 
         modelo.setModelo(dto.modelo());
         modelo.setMesesGarantia(dto.mesesGarantia());
         modelo.setAnoLancamento(dto.anoLancamento());
+
+        modelo.setCaracteristicas(caracteristicasGerais);
 
         Marca marca = marcaRepository.findById(dto.idMarca());
 
@@ -42,14 +50,27 @@ public class ModeloServiceImpl implements ModeloService{
 
     @Override
     @Transactional
+    public CaracteristicasResponseDTO caracteristicaForModelo(long idModelo, long idCaracteristica) {
+        Modelo modelo = modeloRepository.findById(idModelo);
+        CaracteristicasGerais caracteristicasGerais = caracteristicasGeraisRepository.findById(idCaracteristica);
+
+        modelo.setCaracteristicas(caracteristicasGerais);
+
+        return CaracteristicasResponseDTO.valueOf(caracteristicasGerais);
+    }
+
+    @Override
+    @Transactional
     public void update(long id, ModeloRequestDTO dto) {
         Modelo modelo = modeloRepository.findById(id);
         Marca marca = marcaRepository.findById(dto.idMarca());
+        CaracteristicasGerais caracteristicasGerais = caracteristicasGeraisRepository.findById(dto.idCaracteristicas());
 
         modelo.setModelo(dto.modelo());
         modelo.setMesesGarantia(dto.mesesGarantia());
         modelo.setAnoLancamento(dto.anoLancamento());
         modelo.setMarca(marca);
+        modelo.setCaracteristicas(caracteristicasGerais);
     }
 
     @Override

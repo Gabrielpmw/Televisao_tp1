@@ -6,6 +6,7 @@ public record ModeloRequestDTO(
         String modelo,
         int mesesGarantia,
         LocalDate anoLancamento,
-        long idMarca
+        long idMarca,
+        long idCaracteristicas
 ) {
 }

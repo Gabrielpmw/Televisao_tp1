@@ -15,6 +15,7 @@ public class TelevisaoRepository implements PanacheRepository<Televisao> {
     }
 
     public Televisao findTelevisaoByModelo(String modelo) {
-        return find("UPPER(modelo) = UPPER(?1)", modelo).firstResult();
+        // Correto: "procure pelo campo 'modelo' DENTRO do objeto 'modelo'"
+        return find("UPPER(modelo.modelo) = UPPER(?1)", modelo).firstResult();
     }
 }

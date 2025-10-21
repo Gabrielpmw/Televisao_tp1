@@ -2,18 +2,22 @@ package br.unitins.tp1.service.Fornecedor;
 
 import br.unitins.tp1.model.DTO.Fornecedor.FornecedorRequestDTO;
 import br.unitins.tp1.model.DTO.Fornecedor.FornecedorResponseDTO;
+import br.unitins.tp1.model.DTO.Marca.MarcaResponseDTO;
 import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
+import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.model.Televisao.Televisao;
 import br.unitins.tp1.repository.FornecedorRepository;
+import br.unitins.tp1.repository.MarcaRepository;
 import br.unitins.tp1.repository.TelefoneRepository;
 import br.unitins.tp1.repository.TelevisaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -26,6 +30,9 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Inject
     TelevisaoRepository televisaoRepository;
+
+    @Inject
+    MarcaRepository marcaRepository;
 
     @Override
     @Transactional
@@ -46,10 +53,6 @@ public class FornecedorServiceImpl implements FornecedorService {
             fornecedor.getTelefones().add(telefone);
             telefoneRepository.persist(telefone);
         }
-
-        List<Televisao> televisoes = televisaoRepository.findByIds(dto.idTelevisao());
-        fornecedor.setTelevisaos(televisoes);
-
 
         return FornecedorResponseDTO.valueOf(fornecedor);
     }
@@ -74,9 +77,6 @@ public class FornecedorServiceImpl implements FornecedorService {
 
             novoFornecedor.getTelefones().add(telefone);
         }
-
-        List<Televisao> novasTelevisoes = televisaoRepository.findByIds(dto.idTelevisao());
-        novoFornecedor.setTelevisaos(novasTelevisoes);
     }
 
     @Override
@@ -106,5 +106,23 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     public FornecedorResponseDTO findFornecedorByTelefone(long idTelefone) {
         return FornecedorResponseDTO.valueOf(fornecedorRepository.findFornecedorByTelefone(idTelefone));
+    }
+
+    @Override
+    @Transactional
+    public List<MarcaResponseDTO> marcaForFornecedor(long idFornecedor, List<Long> idMarcas) {
+        Fornecedor fornecedor = fornecedorRepository.findById(idFornecedor);
+
+        for (Long idMarca : idMarcas){
+            Marca marca = marcaRepository.findById(idMarca);
+            fornecedor.getMarcas().add(marca);
+        }
+
+        List<MarcaResponseDTO> response = new ArrayList<>();
+        for (Marca marca : fornecedor.getMarcas()){
+            response.add(MarcaResponseDTO.valueOf(marca));
+        }
+
+        return response;
     }
 }

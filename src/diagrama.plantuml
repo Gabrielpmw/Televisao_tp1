@@ -78,11 +78,14 @@ enum Perfil{
 'TELEVISAO'
 class Televisao{
   - id: long
+  - marca: String
+  - modelo: String
   - tela: TipoTela
   - resolucao: Resolucao
   - versao: String
   - descricao: String
   - valor: Double
+  - estoque: int
 }
 
 enum TipoTela{
@@ -205,7 +208,7 @@ Televisao "1" *--> "1" Dimensao
 Televisao "*" --> "1" TipoTela
 Televisao "*" --> "1" Modelo
 Modelo "*" --> "1" Marca
-Modelo "*" --> "*" CaracteristicasGerais
+Modelo "*" --> "1" CaracteristicasGerais
 
 'RELACIONAMENTO DO USUARIO'
 Usuario "1" <-- "1" Funcionario

@@ -1,6 +1,7 @@
 package br.unitins.tp1.model.PessoaJuridica;
 
 import br.unitins.tp1.model.DefaultEntity;
+import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.model.Televisao.Televisao;
 import jakarta.persistence.*;
@@ -16,21 +17,21 @@ public class Fornecedor extends PessoaJuridica {
 
     @ManyToMany
     @JoinTable(
-            name = "fornecedor_televisao",
+            name = "fornecedor_marca",
             joinColumns = @JoinColumn(name = "fornecedor_id"),
-            inverseJoinColumns = @JoinColumn(name = "televisao_id")
+            inverseJoinColumns = @JoinColumn(name = "marca_id")
     )
-    private List<Televisao> televisaos = new ArrayList<>();
+    private List<Marca> marcas = new ArrayList<>();
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones = new ArrayList<>();
 
-    public List<Televisao> getTelevisaos() {
-        return televisaos;
+    public List<Marca> getMarcas() {
+        return marcas;
     }
 
-    public void setTelevisaos(List<Televisao> televisaos) {
-        this.televisaos = televisaos;
+    public void setMarcas(List<Marca> marcas) {
+        this.marcas = marcas;
     }
 
     public List<Telefone> getTelefones() {

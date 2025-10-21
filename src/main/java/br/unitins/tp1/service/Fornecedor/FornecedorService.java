@@ -2,6 +2,7 @@ package br.unitins.tp1.service.Fornecedor;
 
 import br.unitins.tp1.model.DTO.Fornecedor.FornecedorRequestDTO;
 import br.unitins.tp1.model.DTO.Fornecedor.FornecedorResponseDTO;
+import br.unitins.tp1.model.DTO.Marca.MarcaResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 
 
@@ -15,4 +16,5 @@ public interface FornecedorService {
     List<FornecedorResponseDTO> findAll();
     List<TelevisaoResponseDTO> findTelevisaoByFornecedor(long idFornecedor);
     FornecedorResponseDTO findFornecedorByTelefone(long idTelefone);
+    List<MarcaResponseDTO> marcaForFornecedor(long idFornecedor, List<Long> idMarcas);
 }

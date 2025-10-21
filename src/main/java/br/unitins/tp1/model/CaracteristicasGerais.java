@@ -1,13 +1,18 @@
 package br.unitins.tp1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class CaracteristicasGerais extends DefaultEntity{
 
     @Column
-    private String sistemaOperacioanl;
+    private String sistemaOperacional;
 
     @Column
     private int quantidadeHDMI;
@@ -18,12 +23,24 @@ public class CaracteristicasGerais extends DefaultEntity{
     @Column
     private boolean smartTV;
 
-    public String getSistemaOperacioanl() {
-        return sistemaOperacioanl;
+    @OneToMany(mappedBy = "caracteristicas")
+    @JsonIgnore
+    private List<Modelo> modelos = new ArrayList<>();
+
+    public List<Modelo> getModelos() {
+        return modelos;
     }
 
-    public void setSistemaOperacioanl(String sistemaOperacioanl) {
-        this.sistemaOperacioanl = sistemaOperacioanl;
+    public void setModelos(List<Modelo> modelos) {
+        this.modelos = modelos;
+    }
+
+    public String getSistemaOperacional() {
+        return sistemaOperacional;
+    }
+
+    public void setSistemaOperacional(String sistemaOperacional) {
+        this.sistemaOperacional = sistemaOperacional;
     }
 
     public int getQuantidadeHDMI() {

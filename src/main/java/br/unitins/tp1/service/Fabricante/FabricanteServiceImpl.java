@@ -2,16 +2,21 @@ package br.unitins.tp1.service.Fabricante;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
+import br.unitins.tp1.model.DTO.Marca.MarcaResponseDTO;
 import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
+import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.PessoaJuridica.Fabricante;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.repository.FabricanteRepository;
+import br.unitins.tp1.repository.MarcaRepository;
 import br.unitins.tp1.repository.TelefoneRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -20,6 +25,9 @@ public class FabricanteServiceImpl implements FabricanteService {
     FabricanteRepository fabricanteRepository;
     @Inject
     TelefoneRepository telefoneRepository;
+
+    @Inject
+    MarcaRepository marcaRepository;
 
     @Override
     @Transactional
@@ -98,4 +106,5 @@ public class FabricanteServiceImpl implements FabricanteService {
         Fabricante fabricante = fabricanteRepository.findByNome(nome);
         return FabricanteResponseDTO.valueOf(fabricante);
     }
+
 }

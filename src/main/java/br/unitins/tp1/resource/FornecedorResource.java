@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Path("/fornecedor")
@@ -31,6 +32,13 @@ public class FornecedorResource {
         String username = jwt.getSubject();
         logger.info("Usuário responsável: " + username);
         return Response.status(Response.Status.CREATED).entity(fornecedorService.create(dto)).build();
+    }
+
+    @POST
+    @RolesAllowed("adm")
+    @Path("/{idFornecedor}/associar-marcas")
+    public Response marcaForFornecedor(@PathParam("idFornecedor")long idFornecedor, List<Long> idMarcas){
+        return Response.status(Response.Status.CREATED).entity(fornecedorService.marcaForFornecedor(idFornecedor, idMarcas)).build();
     }
 
     @PUT

@@ -11,78 +11,165 @@
 -- USUÁRIO ADM: 'gabriel', '123456', 'adm'
 -- USUÁRIO USER: 'italo', '123456', 'user'
 
-
--- DIMENSÃO
-INSERT INTO Dimensao (comprimento, altura, polegada) VALUES
-(120, 70, 50),
-(90, 55, 40),
-(135, 80, 55),
-(160, 95, 65),
-(75, 45, 32),
-(100, 60, 43),
-(180, 105, 75);
-
-
+-- PESSOA JURÍDICA PARA FABRICANTE
+INSERT INTO PessoaJuridica (id, razaoSocial, cnpj, status) VALUES
+(1, 'Samsung Electronics', '12345678000199', true),
+(2, 'LG Electronics', '98765432000188', true),
+(3, 'Sony Corporation', '45678912000177', true),
+(4, 'Panasonic Corporation', '65432198000166', true),
+(5, 'Philips N.V.', '32165487000155', true);
 
 -- FABRICANTE
-INSERT INTO Fabricante (nome, cnpj, paisSede) VALUES
-('Samsung', '12345678000199', 'Coreia do Sul'),
-('LG', '98765432000188', 'Coreia do Sul'),
-('Sony', '45678912000177', 'Japão'),
-('Panasonic', '65432198000166', 'Japão'),
-('Philips', '32165487000155', 'Holanda');
+INSERT INTO Fabricante (id, anoFundacao, paisSede) VALUES
+(1, '1938-03-01', 'Coreia do Sul'),
+(2, '1958-10-01', 'Coreia do Sul'),
+(3, '1946-05-07', 'Japão'),
+(4, '1918-03-13', 'Japão'),
+(5, '1891-05-15', 'Holanda');
 
-
-
--- TELEFONE PARAA FABRICANTE
+-- TELEFONE PARA FABRICANTE
 INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
 ('63', '123456789', 1),
 ('66', '985275291', 1),
 ('12', '987654321', 2),
 ('11', '909090909', 2);
 
-
-
--- TELEVISAO
-INSERT INTO Televisao (marca, modelo, resolucao, tipoTela, id_fabricante, id_dimensao, valor, estoque) VALUES
-    ('LG', 'Crystal HUD', 'HD', 'LED', 1, 1, 50, 30),
-    ('Samsung', 'Bravia XR', 'FULL_HD', 'OLED', 2, 2, 60, 25),
-    ('Philips', 'Viera TH', 'FULL_HD', 'PLASMA', 3, 3, 70, 15),
-    ('Sony', 'OLED Evo', 'FULL_HD', 'OLED', 4, 4, 80, 20),
-    ('Samsung', 'QLED QN90A', 'HD', 'QLED', 1, 5, 90, 10),
-    ('LG', 'OLED C1', 'HD', 'OLED', 2, 6, 100, 12),
-    ('Sony', 'Bravia X90J', 'HD', 'LED', 3, 7, 110, 18),
-    ('Philips', 'Ambilight OLED806', 'HD', 'OLED', 5, 3, 120, 8);
+-- PESSOA JURÍDICA PARA FORNECEDOR
+INSERT INTO PessoaJuridica (id, razaoSocial, cnpj, status) VALUES
+(6, 'FastShop Eletrônicos S.A.', '11222333000144', true),
+(7, 'Magazine Luiza S/A', '44555666000177', true),
+(8, 'Via Varejo S/A', '77888999000100', true),
+(9, 'B2W Digital', '00111222000133', true),
+(10, 'Importadora Eletro XYZ Ltda', '12121212000155', true);
 
 -- FORNECEDOR
-INSERT INTO Fornecedor (nome, cnpj) VALUES
-('Eletro Distribuidora', '12345678000190'),
-('Mega Importados', '23456789000101'),
-('TechHouse Comércio', '34567890000112'),
-('Digital Center', '45678901000123'),
-('Eletro Sul Atacado', '56789012000134');
+INSERT INTO Fornecedor (id, email) VALUES
+(6, 'compras@fastshop.com.br'),
+(7, 'parceiros@magalu.com.br'),
+(8, 'contato@via.com.br'),
+(9, 'comercial@b2w.digital'),
+(10, 'import@eletroxyz.com');
 
-
--- ADICIONANDO TELEVISÃO PARA FORNECEDORES
-INSERT INTO fornecedor_televisao (fornecedor_id, televisao_id) VALUES
-(1, 1), (1, 2), (1, 5),  -- Eletro Distribuidora fornece TVs 1, 2 e 5
-(2, 3), (2, 6),          -- Mega Importados fornece TVs 3 e 6
-(3, 4), (3, 7), (3, 8),  -- TechHouse fornece TVs 4, 7 e 8
-(4, 5), (4, 6), (4, 7),  -- Digital Center fornece TVs 5, 6 e 7
-(5, 1), (5, 8);          -- Eletro Sul fornece TVs 1 e 8
-
-
-
--- TELEFONE PARA FORNECEDORES
 INSERT INTO Telefone (ddd, numero, id_fornecedor) VALUES
-('11', '987654321', 1),
-('21', '998877665', 1),
-('31', '912345678', 2),
-('41', '923456789', 3),
-('51', '934567890', 4),
-('61', '945678901', 5);
+('11', '111111111', 6), -- Telefone do Fornecedor 6 (FastShop)
+('11', '222222222', 6), -- Outro telefone do Fornecedor 6
+('16', '333333333', 7), -- Telefone do Fornecedor 7 (Magalu)
+('11', '444444444', 8), -- Telefone do Fornecedor 8 (Via Varejo)
+('21', '555555555', 9), -- Telefone do Fornecedor 9 (B2W)
+('41', '666666666', 10); -- Telefone do Fornecedor 10 (Importadora XYZ)
 
+-- MARCA
+INSERT INTO Marca (id, nomemarca, descricao, id_fabricante) VALUES
+(1, 'Samsung Electronics', 'Marca principal de TVs e eletrônicos da Samsung', 1),
+(2, 'LG Electronics', 'Marca principal de TVs e eletrônicos da LG', 2),
+(3, 'Sony', 'Marca de eletrônicos, incluindo TVs Bravia', 3),
+(4, 'Panasonic', 'Marca de eletrônicos, incluindo TVs Viera', 4),
+(5, 'Philips', 'Marca de eletrônicos e TVs (agora licenciada)', 5);
 
+INSERT INTO fornecedor_marca (fornecedor_id, marca_id) VALUES
+-- Fornecedor 6 (FastShop) vende Samsung, LG e Sony
+(6, 1),
+(6, 2),
+(6, 3),
+-- Fornecedor 7 (Magazine Luiza) vende Samsung, LG, Sony e Philips
+(7, 1),
+(7, 2),
+(7, 3),
+(7, 5),
+-- Fornecedor 8 (Via Varejo) vende Samsung, LG e Panasonic
+(8, 1),
+(8, 2),
+(8, 4),
+-- Fornecedor 9 (B2W Digital) vende todas as 5 marcas
+(9, 1),
+(9, 2),
+(9, 3),
+(9, 4),
+(9, 5),
+-- Fornecedor 10 (Importadora XYZ) vende apenas Sony e Panasonic
+(10, 3),
+(10, 4);
+
+-- CARACTERÍSTICAS GERAIS PARA MODELO
+INSERT INTO CaracteristicasGerais (id, sistemaOperacional, quantidadeHDMI, quantidadeUSB, smartTV) VALUES
+(1, 'Tizen', 4, 2, true),
+(2, 'WebOS', 4, 2, true),
+(3, 'Google TV', 3, 2, true),
+(4, 'Básico', 2, 1, false);
+
+--MODELO
+INSERT INTO Modelo (id, modelo, mesesgarantia, anolancamento, marca_id, caracteristicas_id) VALUES
+-- Modelos da Marca 1 (Samsung)
+(1, 'QN90C Neo QLED', 12, '2023-03-10', 1, 1), -- Usa Tizen (Carac 1)
+(2, 'Crystal UHD CU8000', 12, '2023-04-15', 1, 1), -- Usa Tizen (Carac 1)
+
+-- Modelos da Marca 2 (LG)
+(3, 'OLED C3 Evo', 12, '2023-03-15', 2, 2), -- Usa WebOS (Carac 2)
+(4, 'QNED80 4K', 12, '2023-05-01', 2, 2), -- Usa WebOS (Carac 2)
+
+-- Modelos da Marca 3 (Sony)
+(5, 'Bravia X90L', 12, '2023-04-20', 3, 3), -- Usa Google TV (Carac 3)
+(6, 'Bravia X75L', 12, '2023-06-01', 3, 3), -- Usa Google TV (Carac 3)
+
+-- Modelos da Marca 4 (Panasonic)
+(7, 'Viera MX800', 12, '2023-05-01', 4, 3), -- Usa Google TV (Carac 3)
+(8, 'Viera M300 (Não-Smart)', 6, '2022-10-01', 4, 4), -- Usa Básico (Carac 4)
+
+-- Modelos da Marca 5 (Philips)
+(9, 'The One 8808 (Ambilight)', 12, '2023-04-01', 5, 3), -- Usa Google TV (Carac 3)
+(10, 'Série 5000 LED (Não-Smart)', 6, '2022-11-15', 5, 4);
+
+-- DIMENSÃO
+INSERT INTO Dimensao (id, comprimento, altura, polegada) VALUES
+(1, 75, 45, 32),
+(2, 90, 55, 40),
+(3, 100, 60, 43),
+(4, 120, 70, 50),
+(5, 135, 80, 55),
+(6, 160, 95, 65),
+(7, 180, 105, 75);
+
+-- TELEVISÃO
+INSERT INTO Televisao (id, valor, resolucao, tipoTela, estoque, descricao, id_modelo, id_dimensao) VALUES
+-- TVs do Modelo 1 (Samsung QN90C)
+(1, 4599.99, 'UHD_4K', 'QLED', 50, 'TV Samsung 55 Polegadas QN90C Neo QLED 4K', 1, 5),
+(2, 6899.99, 'UHD_4K', 'QLED', 30, 'TV Samsung 65 Polegadas QN90C Neo QLED 4K', 1, 6),
+
+-- TVs do Modelo 2 (Samsung CU8000)
+(3, 2199.99, 'UHD_4K', 'LED', 100, 'TV Samsung 50 Polegadas Crystal UHD CU8000 4K', 2, 4),
+(4, 2499.99, 'UHD_4K', 'LED', 80, 'TV Samsung 55 Polegadas Crystal UHD CU8000 4K', 2, 5),
+(5, 3199.99, 'UHD_4K', 'LED', 60, 'TV Samsung 65 Polegadas Crystal UHD CU8000 4K', 2, 6),
+
+-- TVs do Modelo 3 (LG OLED C3)
+(6, 4899.99, 'UHD_4K', 'OLED', 45, 'TV LG 55 Polegadas OLED C3 Evo 4K', 3, 5),
+(7, 7499.99, 'UHD_4K', 'OLED', 25, 'TV LG 65 Polegadas OLED C3 Evo 4K', 3, 6),
+
+-- TVs do Modelo 4 (LG QNED80)
+(8, 3099.99, 'UHD_4K', 'QLED', 70, 'TV LG 50 Polegadas QNED80 4K', 4, 4),
+(9, 3599.99, 'UHD_4K', 'QLED', 50, 'TV LG 55 Polegadas QNED80 4K', 4, 5),
+
+-- TVs do Modelo 5 (Sony X90L)
+(10, 5999.99, 'UHD_4K', 'LED', 30, 'TV Sony 55 Polegadas Bravia X90L 4K Full Array', 5, 5),
+(11, 8499.99, 'UHD_4K', 'LED', 20, 'TV Sony 65 Polegadas Bravia X90L 4K Full Array', 5, 6),
+
+-- TVs do Modelo 6 (Sony X75L)
+(12, 2699.99, 'UHD_4K', 'LED', 60, 'TV Sony 50 Polegadas Bravia X75L 4K', 6, 4),
+(13, 3099.99, 'UHD_4K', 'LED', 50, 'TV Sony 55 Polegadas Bravia X75L 4K', 6, 5),
+
+-- TVs do Modelo 7 (Panasonic MX800)
+(14, 2799.99, 'UHD_4K', 'LED', 40, 'TV Panasonic 55 Polegadas Viera MX800 4K', 7, 5),
+(15, 3499.99, 'UHD_4K', 'LED', 30, 'TV Panasonic 65 Polegadas Viera MX800 4K', 7, 6),
+
+-- TVs do Modelo 8 (Panasonic M300)
+(16, 1699.99, 'FULL_HD', 'LED', 80, 'TV Panasonic 43 Polegadas Viera M300 (Não-Smart)', 8, 3),
+
+-- TVs do Modelo 9 (Philips The One)
+(17, 2899.99, 'UHD_4K', 'LED', 55, 'TV Philips 55 Polegadas The One 8808 Ambilight 4K', 9, 5),
+(18, 3699.99, 'UHD_4K', 'LED', 35, 'TV Philips 65 Polegadas The One 8808 Ambilight 4K', 9, 6),
+
+-- TVs do Modelo 10 (Philips Série 5000)
+(19, 1499.99, 'FULL_HD', 'LED', 90, 'TV Philips 43 Polegadas Série 5000 (Não-Smart)', 10, 3),
+(20, 1899.99, 'FULL_HD', 'LED', 70, 'TV Philips 50 Polegadas Série 5000 (Não-Smart)', 10, 4);
 
 -- ESTADO
 INSERT INTO Estado (nome, sigla, regiao) VALUES
@@ -91,8 +178,6 @@ INSERT INTO Estado (nome, sigla, regiao) VALUES
 ('Minas Gerais', 'MG', 'CENTRO_OESTE'),
 ('Bahia', 'BA', 'NORDESTE'),
 ('Paraná', 'PR', 'SUL');
-
-
 
 -- MUNICIPIO
 INSERT INTO Municipio (nome, id_estado) VALUES
@@ -198,7 +283,7 @@ VALUES (400.00, 'PAGAMENTO_PENDENTE', NOW(), 3);
 
 -- Cartão vinculado ao pagamento id = 3
 INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
-VALUES (3, 'Italo Ribeiro', '4111111111111111', NOW() + INTERVAL '1 year', '123');
+VALUES (3, 'Italo Ribeiro', '4111111111111111', '2026-10-21', '123');
 
 -- Itens
 INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)

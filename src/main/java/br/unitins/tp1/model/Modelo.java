@@ -1,11 +1,12 @@
 package br.unitins.tp1.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import br.unitins.tp1.model.Televisao.Televisao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Modelo extends DefaultEntity{
@@ -20,8 +21,25 @@ public class Modelo extends DefaultEntity{
     private LocalDate anoLancamento;
 
     @ManyToOne
-    @JoinColumn(name = "id_marca", nullable = false)
+    @JoinColumn(name = "caracteristicas_id")
+    private CaracteristicasGerais caracteristicas;
+
+    @ManyToOne
+    @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
+
+    @OneToMany(mappedBy = "modelo")
+    @JsonIgnore
+    private List<Televisao> televisoes = new ArrayList<>();
+
+    public CaracteristicasGerais getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(CaracteristicasGerais caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
     public String getModelo() {
         return modelo;
     }
@@ -52,5 +70,13 @@ public class Modelo extends DefaultEntity{
 
     public void setMarca(Marca marca) {
         this.marca = marca;
+    }
+
+    public List<Televisao> getTelevisoes() {
+        return televisoes;
+    }
+
+    public void setTelevisoes(List<Televisao> televisoes) {
+        this.televisoes = televisoes;
     }
 }

@@ -7,13 +7,13 @@ public record MarcaResponseDTO(
         long id,
         String marca,
         String descricao,
-        FabricanteResponseDTO response
+        String fabricante
 ){
     public static MarcaResponseDTO valueOf(Marca marca){
         if (marca == null) return null;
 
         FabricanteResponseDTO fabricante = FabricanteResponseDTO.valueOf(marca.getFabricante());
 
-        return new MarcaResponseDTO(marca.getId(), marca.getNomeMarca(), marca.getDescricao(), fabricante);
+        return new MarcaResponseDTO(marca.getId(), marca.getNomeMarca(), marca.getDescricao(), fabricante.razaoSocial());
     }
 }

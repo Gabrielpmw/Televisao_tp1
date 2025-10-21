@@ -15,7 +15,6 @@ public class EstadoRepository implements PanacheRepository<Estado> {
         return find("UPPER(nome) = UPPER(?1)", nome).firstResult();
     }
 
-    public PanacheQuery<Estado> findBy
 
     public List<Municipio> findMunicipiosByEstadoId(Long idEstado) {
         return getEntityManager()

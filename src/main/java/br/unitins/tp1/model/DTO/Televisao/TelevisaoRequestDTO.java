@@ -6,12 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record TelevisaoRequestDTO(
-        @NotBlank(message = "A marca não pode estar em branco")
-        String marca,
-
-        @NotBlank(message = "O modelo não pode estar em branco")
-        String modelo,
-
         @NotNull(message = "O valor não pode estar em branco")
         @Positive(message = "Informe apenas valore positivos")
         Double valor,
@@ -23,13 +17,12 @@ public record TelevisaoRequestDTO(
         @Positive(message = "Informe apenas valores positivos")
         Integer idTipoTela,
 
+        @NotNull(message = "A descrição da televisão é obrigatório")
+        String descricao,
+
         @NotNull(message = "O estoque é obrigatório")
         @Positive(message = "Informe apenas valores positivos")
         Integer estoque,
-
-        @NotNull(message = "O fabricante é obrigatório")
-        @Positive(message = "Informe apenas valores positivos")
-        long idFabricante,
 
         @NotNull(message = "O fabricante é obrigatório")
         @Positive(message = "Informe apenas valores positivos")
@@ -41,7 +34,11 @@ public record TelevisaoRequestDTO(
 
         @NotNull(message = "O fabricante é obrigatório")
         @Positive(message = "Informe apenas valores positivos")
-        int polegada
+        int polegada,
+
+        @NotNull(message = "O idModelo é obrigatório")
+        @Positive(message = "Informe apenas valores positivos")
+        long idModelo
 ) {
 
 }
