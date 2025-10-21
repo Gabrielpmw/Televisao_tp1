@@ -3,6 +3,7 @@ package br.unitins.tp1.service.Marca;
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
 import br.unitins.tp1.model.DTO.Marca.MarcaRequestDTO;
 import br.unitins.tp1.model.DTO.Marca.MarcaResponseDTO;
+import br.unitins.tp1.model.DTO.Modelo.ModeloResponseDTO;
 import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.PessoaJuridica.Fabricante;
 import br.unitins.tp1.repository.FabricanteRepository;
@@ -62,5 +63,10 @@ public class MarcaServiceImpl implements MarcaService{
     @Override
     public List<MarcaResponseDTO> findAll() {
         return marcaRepository.findAll().list().stream().map(MarcaResponseDTO::valueOf).toList();
+    }
+
+    @Override
+    public List<ModeloResponseDTO> findModeloByMarca(long idMarca) {
+        return marcaRepository.findModelosByMarca(idMarca).stream().map(ModeloResponseDTO::valueOf).toList();
     }
 }

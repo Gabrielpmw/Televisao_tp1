@@ -34,17 +34,6 @@ public class ModeloResource {
         return Response.status(Response.Status.CREATED).entity(modeloService.create(dto)).build();
     }
 
-    @PATCH
-    //@RolesAllowed("adm")
-    @Path("/{idModelo}/caracteristica-para-modelo")
-    public Response atualizar(@PathParam("idModelo") long idModelo, long idCaracteristica) {
-//        logger.info("Modelo com id: " + id + " atualizado para: " + dto);
-//        String username = jwt.getSubject();
-//        logger.info("Usuário responsável: " + username);
-        modeloService.caracteristicaForModelo(idModelo, idCaracteristica);
-        return Response.noContent().build();
-    }
-
     @PUT
     @RolesAllowed("adm")
     @Path("/{id}/atualizar")

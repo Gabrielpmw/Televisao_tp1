@@ -14,7 +14,7 @@ public interface FornecedorService {
     void delete(long id);
     FornecedorResponseDTO findById(long id);
     List<FornecedorResponseDTO> findAll();
-    List<TelevisaoResponseDTO> findTelevisaoByFornecedor(long idFornecedor);
-    FornecedorResponseDTO findFornecedorByTelefone(long idTelefone);
+//    FornecedorResponseDTO findFornecedorByTelefone(long idTelefone);
     List<MarcaResponseDTO> marcaForFornecedor(long idFornecedor, List<Long> idMarcas);
+    List<MarcaResponseDTO> findMarcaByFornecedor(long idFornecedor);
 }

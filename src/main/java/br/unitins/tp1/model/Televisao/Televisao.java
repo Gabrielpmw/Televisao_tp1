@@ -1,6 +1,6 @@
-        package br.unitins.tp1.model.Televisao;
+package br.unitins.tp1.model.Televisao;
 
-        import br.unitins.tp1.model.DefaultEntity;
+import br.unitins.tp1.model.DefaultEntity;
         import br.unitins.tp1.model.Modelo;
         import br.unitins.tp1.model.PessoaJuridica.Fabricante;
         import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
@@ -10,7 +10,6 @@
 
         import java.util.ArrayList;
         import java.util.List;
-
         @Entity
         public class Televisao extends DefaultEntity {
 

@@ -1,5 +1,6 @@
 package br.unitins.tp1.repository;
 
+import br.unitins.tp1.model.Modelo;
 import br.unitins.tp1.model.Televisao.Televisao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -14,8 +15,13 @@ public class TelevisaoRepository implements PanacheRepository<Televisao> {
         return find("SELECT t from Televisao t WHERE t.id in ?1", id).stream().toList();
     }
 
-    public Televisao findTelevisaoByModelo(String modelo) {
-        // Correto: "procure pelo campo 'modelo' DENTRO do objeto 'modelo'"
-        return find("UPPER(modelo.modelo) = UPPER(?1)", modelo).firstResult();
+    public Modelo findModeloByTelevisao(Long televisaoId) {
+        Televisao tv = findByIdOptional(televisaoId)
+                .orElse(null);
+
+        if (tv != null) {
+            return tv.getModelo();
+        }
+        return null;
     }
 }

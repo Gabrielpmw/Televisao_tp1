@@ -97,8 +97,8 @@ public class FabricanteServiceImpl implements FabricanteService {
     }
 
     @Override
-    public List<TelevisaoResponseDTO> findTelevisaoByFabricante(long idFabricante) {
-        return fabricanteRepository.findTelevisaoByFabricante(idFabricante).stream().map(TelevisaoResponseDTO::valueOf).toList();
+    public List<MarcaResponseDTO> findMarcasByFabricante(long idFabricante) {
+        return fabricanteRepository.findMarcasByFabricante(idFabricante).stream().map(MarcaResponseDTO::valueOf).toList();
     }
 
     @Override

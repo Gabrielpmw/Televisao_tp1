@@ -78,11 +78,11 @@ public class TelevisaoResource {
 
     @GET
     //@RolesAllowed("adm")
-    @Path("/{modelo}/buscar-televisao-por-modelo")
-    public Response buscarTelevisaoPorModelo(@PathParam("modelo") String modelo){
-        logger.info("Buscando televião pelo modelo: " + modelo);
+    @Path("/{idTelevisao}/buscar-televisao-por-modelo")
+    public Response buscarTelevisaoPorModelo(@PathParam("idTelevisao") long idModelo){
+        logger.info("Buscando televião pelo idModelo: " + idModelo);
         String username = jwt.getSubject();
         logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(service.findTelevisaoByModelo(modelo)).build();
+        return Response.ok().entity(service.findTelevisaoByModelo(idModelo)).build();
     }
 }

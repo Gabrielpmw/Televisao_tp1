@@ -1,6 +1,5 @@
 package br.unitins.tp1.resource;
 
-import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
 import br.unitins.tp1.model.DTO.Marca.MarcaRequestDTO;
 import br.unitins.tp1.service.Marca.MarcaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
@@ -73,4 +72,15 @@ public class MarcaResource {
         logger.info("Usuário responsável: " + username);
         return Response.ok().entity(marcaService.findAll()).build();
     }
+
+    @GET
+    @RolesAllowed("adm")
+    @Path("/{idMarca}/buscar-modelo-por-marca")
+    public Response buscarModeloPorMarca(@PathParam("idMarca") long idMarca){
+//        logger.info("Buscando todos as marcas");
+//        String username = jwt.getSubject();
+//        logger.info("Usuário responsável: " + username);
+        return Response.ok().entity(marcaService.findModeloByMarca(idMarca)).build();
+    }
+
 }

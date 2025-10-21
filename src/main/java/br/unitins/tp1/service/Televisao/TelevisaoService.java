@@ -1,5 +1,6 @@
 package br.unitins.tp1.service.Televisao;
 
+import br.unitins.tp1.model.DTO.Modelo.ModeloResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Televisao.Televisao;
@@ -12,5 +13,5 @@ public interface TelevisaoService {
     void delete(long id);
     Televisao findById(long id);
     List<TelevisaoResponseDTO> findAll();
-    TelevisaoResponseDTO findTelevisaoByModelo(String modelo);
+    ModeloResponseDTO findTelevisaoByModelo(long idTelevisao);
 }

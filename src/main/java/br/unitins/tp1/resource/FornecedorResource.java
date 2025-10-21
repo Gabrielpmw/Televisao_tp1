@@ -83,23 +83,25 @@ public class FornecedorResource {
         return Response.ok().entity(fornecedorService.findById(id)).build();
     }
 
-    @GET
-    @RolesAllowed("adm")
-    @Path("/{id}/buscar-televisao-por-id_fornecedor")
-    public Response buscarTelevisaoPorIdFornecedor(@PathParam("id") long idFornecedor){
-        logger.info("Buscando televisão por id fornecedor: " + idFornecedor);
-        String username = jwt.getSubject();
-        logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(fornecedorService.findTelevisaoByFornecedor(idFornecedor)).build();
-    }
+
 
     @GET
     @RolesAllowed("adm")
-    @Path("/{id}/buscar-fornecedor-por-id_telefone")
-    public Response busarFornecedorPorIdTelefone(@PathParam("id") long idTelefone){
-        logger.info("Buscando fornecedor por id telefone: " + idTelefone);
+    @Path("/{id}/buscar-marca-por-fornecedor")
+    public Response buscarMarcaPorFornecedor(@PathParam("id") long idFornecedor){
+        logger.info("Buscando marca por id fornecedor: " + idFornecedor);
         String username = jwt.getSubject();
         logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(fornecedorService.findFornecedorByTelefone(idTelefone)).build();
+        return Response.ok().entity(fornecedorService.findMarcaByFornecedor(idFornecedor)).build();
     }
+
+//    @GET
+//    @RolesAllowed("adm")
+//    @Path("/{id}/buscar-fornecedor-por-id_telefone")
+//    public Response busarFornecedorPorIdTelefone(@PathParam("id") long idTelefone){
+//        logger.info("Buscando fornecedor por id telefone: " + idTelefone);
+//        String username = jwt.getSubject();
+//        logger.info("Usuário responsável: " + username);
+//        return Response.ok().entity(fornecedorService.findFornecedorByTelefone(idTelefone)).build();
+//    }
 }

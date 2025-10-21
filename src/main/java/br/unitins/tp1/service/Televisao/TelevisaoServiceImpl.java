@@ -1,5 +1,6 @@
 package br.unitins.tp1.service.Televisao;
 
+import br.unitins.tp1.model.DTO.Modelo.ModeloResponseDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Modelo;
 import br.unitins.tp1.model.PessoaJuridica.Fabricante;
@@ -37,6 +38,8 @@ public class TelevisaoServiceImpl implements TelevisaoService {
 
     @Inject
     ModeloRepository modeloRepository;
+    @Inject
+    TelevisaoRepository televisaoRepository;
 
     @Transactional
     @Override
@@ -129,9 +132,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
     }
 
     @Override
-    public TelevisaoResponseDTO findTelevisaoByModelo(String modelo) {
-        Televisao televisao = tvrepository.findTelevisaoByModelo(modelo);
-
-        return TelevisaoResponseDTO.valueOf(televisao);
+    public ModeloResponseDTO findTelevisaoByModelo(long idTelevisao) {
+        return ModeloResponseDTO.valueOf(televisaoRepository.findModeloByTelevisao(idTelevisao));
     }
 }

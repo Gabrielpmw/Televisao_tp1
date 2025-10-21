@@ -77,12 +77,12 @@ public class FabricanteResource {
 
     @GET
     @RolesAllowed("adm")
-    @Path("/{id}/buscar-televisao-por-id_fabricante")
-    public Response buscarTelevisaoPorIdFabricante(@PathParam("id") long idFabricante){
-        logger.info("Buscando televisão por id fabricante: " + idFabricante);
+    @Path("/{id}/buscar-marca-por-fabricante")
+    public Response buscarMarcaPorFabricante(@PathParam("id") long idFabricante){
+        logger.info("Buscando marca por id fabricante: " + idFabricante);
         String username = jwt.getSubject();
         logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(serviceFabricante.findTelevisaoByFabricante(idFabricante)).build();
+        return Response.ok().entity(serviceFabricante.findMarcasByFabricante(idFabricante)).build();
     }
 
     @GET
