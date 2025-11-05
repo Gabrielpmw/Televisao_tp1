@@ -11,47 +11,67 @@
 -- USUÁRIO ADM: 'gabriel', '123456', 'adm'
 -- USUÁRIO USER: 'italo', '123456', 'user'
 
--- PESSOA JURÍDICA PARA FABRICANTE
 INSERT INTO PessoaJuridica (id, razaoSocial, cnpj, status) VALUES
+-- FABRICANTES (1–18)
 (1, 'Samsung Electronics', '12345678000199', true),
 (2, 'LG Electronics', '98765432000188', true),
 (3, 'Sony Corporation', '45678912000177', true),
 (4, 'Panasonic Corporation', '65432198000166', true),
 (5, 'Philips N.V.', '32165487000155', true),
-(11, 'Apple Inc.', '11223344000101', true),
-(12, 'Dell Technologies', '22334455000112', true),
-(13, 'HP Inc.', '33445566000123', true),
-(14, 'Lenovo Group Ltd.', '44556677000134', true),
-(15, 'AsusTek Computer Inc.', '55667788000145', true),
-(16, 'Acer Inc.', '66778899000156', true),
-(17, 'Microsoft Corporation', '77889900000167', true),
-(18, 'Huawei Technologies Co., Ltd.', '88990011000178', true),
-(19, 'Kabum Comércio Eletrônico S/A', '99887766000122', true),
-(20, 'Ponto Frio S/A', '55443322000199', true),
-(21, 'Casas Bahia Ltda', '66778855000111', true),
-(22, 'Submarino S/A', '33221144000155', true),
-(23, 'Amazon Brasil Ltda', '77445566000133', true),
-(24, 'Mercado Livre do Brasil Ltda', '88667788000144', true),
-(25, 'Extra.com.br S/A', '99886655000177', true),
-(26, 'Carrefour Comércio e Indústria Ltda', '22331144000188', true),
-(27, 'Americanas S/A', '33557788000122', true),
-(28, 'ShopTime S/A', '66779900000155', true);
+(6, 'Apple Inc.', '11223344000101', true),
+(7, 'Dell Technologies', '22334455000112', true),
+(8, 'HP Inc.', '33445566000123', true),
+(9, 'Lenovo Group Ltd.', '44556677000134', true),
+(10, 'AsusTek Computer Inc.', '55667788000145', true),
+(11, 'Acer Inc.', '66778899000156', true),
+(12, 'Microsoft Corporation', '77889900000167', true),
+(13, 'Huawei Technologies Co., Ltd.', '88990011000178', true),
+(14, 'Kabum Comércio Eletrônico S/A', '99887766000122', true),
+(15, 'Ponto Frio S/A', '55443322000199', true),
+(16, 'Casas Bahia Ltda', '66778855000111', true),
+(17, 'Submarino S/A', '33221144000155', true),
+(18, 'Amazon Brasil Ltda', '77445566000133', true),
 
--- FABRICANTE
+-- FORNECEDORES (19–36)
+(19, 'FastShop Eletrônicos S.A.', '11222333000144', true),
+(20, 'Magazine Luiza S/A', '44555666000177', true),
+(21, 'Via Varejo S/A', '77888999000100', true),
+(22, 'B2W Digital', '00111222000133', true),
+(23, 'Importadora Eletro XYZ Ltda', '12121212000155', true),
+(24, 'Kabum Comércio Eletrônico S/A', '99887766000122', true),
+(25, 'Ponto Frio S/A', '55443322000199', true),
+(26, 'Casas Bahia Ltda', '66778855000111', true),
+(27, 'Submarino S/A', '33221144000155', true),
+(28, 'Amazon Brasil Ltda', '77445566000133', true),
+(29, 'Mercado Livre do Brasil Ltda', '88667788000144', true),
+(30, 'Extra.com.br S/A', '99886655000177', true),
+(31, 'Carrefour Comércio e Indústria Ltda', '22331144000188', true),
+(32, 'Americanas S/A', '33557788000122', true),
+(33, 'ShopTime S/A', '66779900000155', true),
+(34, 'Magazine House Imports Ltda', '99884455000177', true),
+(35, 'EletroStar Brasil Ltda', '11335577000199', true),
+(36, 'NovaTech Global S/A', '77665588000144', true);
+
+
 INSERT INTO Fabricante (id, anoFundacao, paisSede) VALUES
 (1, '1938-03-01', 'Coreia do Sul'),
 (2, '1958-10-01', 'Coreia do Sul'),
 (3, '1946-05-07', 'Japão'),
 (4, '1918-03-13', 'Japão'),
 (5, '1891-05-15', 'Holanda'),
-(11, '1976-04-01', 'Estados Unidos'),
-(12, '1984-02-01', 'Estados Unidos'),
-(13, '1939-01-01', 'Estados Unidos'),
-(14, '1984-11-01', 'China'),
-(15, '1989-04-02', 'Taiwan'),
-(16, '1976-08-01', 'Taiwan'),
-(17, '1975-04-04', 'Estados Unidos'),
-(18, '1987-09-15', 'China');
+(6, '1976-04-01', 'Estados Unidos'),
+(7, '1984-02-01', 'Estados Unidos'),
+(8, '1939-01-01', 'Estados Unidos'),
+(9, '1984-11-01', 'China'),
+(10, '1989-04-02', 'Taiwan'),
+(11, '1976-08-01', 'Taiwan'),
+(12, '1975-04-04', 'Estados Unidos'),
+(13, '1987-09-15', 'China'),
+(14, '2003-01-16', 'Brasil'),
+(15, '1946-11-15', 'Brasil'),
+(16, '1952-01-01', 'Brasil'),
+(17, '1999-08-01', 'Brasil'),
+(18, '2012-12-01', 'Brasil');
 
 -- TELEFONE PARA FABRICANTE
 INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
@@ -60,31 +80,26 @@ INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
 ('12', '987654321', 2),
 ('11', '909090909', 2);
 
--- PESSOA JURÍDICA PARA FORNECEDOR
-INSERT INTO PessoaJuridica (id, razaoSocial, cnpj, status) VALUES
-(6, 'FastShop Eletrônicos S.A.', '11222333000144', true),
-(7, 'Magazine Luiza S/A', '44555666000177', true),
-(8, 'Via Varejo S/A', '77888999000100', true),
-(9, 'B2W Digital', '00111222000133', true),
-(10, 'Importadora Eletro XYZ Ltda', '12121212000155', true);
-
--- FORNECEDOR
 INSERT INTO Fornecedor (id, email) VALUES
-(6, 'compras@fastshop.com.br'),
-(7, 'parceiros@magalu.com.br'),
-(8, 'contato@via.com.br'),
-(9, 'comercial@b2w.digital'),
-(10, 'import@eletroxyz.com'),
-(19, 'vendas@kabum.com.br'),
-(20, 'contato@pontofrio.com.br'),
-(21, 'suporte@casasbahia.com.br'),
-(22, 'atendimento@submarino.com'),
-(23, 'parceiros@amazon.com.br'),
-(24, 'suporte@mercadolivre.com.br'),
-(25, 'vendas@extra.com.br'),
-(26, 'comercial@carrefour.com.br'),
-(27, 'relacionamento@americanas.com.br'),
-(28, 'contato@shoptime.com.br');
+(19, 'compras@fastshop.com.br'),
+(20, 'parceiros@magalu.com.br'),
+(21, 'contato@via.com.br'),
+(22, 'comercial@b2w.digital'),
+(23, 'import@eletroxyz.com'),
+(24, 'vendas@kabum.com.br'),
+(25, 'contato@pontofrio.com.br'),
+(26, 'suporte@casasbahia.com.br'),
+(27, 'atendimento@submarino.com'),
+(28, 'parceiros@amazon.com.br'),
+(29, 'suporte@mercadolivre.com.br'),
+(30, 'vendas@extra.com.br'),
+(31, 'comercial@carrefour.com.br'),
+(32, 'relacionamento@americanas.com.br'),
+(33, 'contato@shoptime.com.br'),
+(34, 'compras@magazinehouse.com'),
+(35, 'vendas@eletrostar.com.br'),
+(36, 'contato@novatech.com.br');
+
 
 INSERT INTO Telefone (ddd, numero, id_fornecedor) VALUES
 ('11', '111111111', 6), -- Telefone do Fornecedor 6 (FastShop)
@@ -452,3 +467,4 @@ VALUES (5, 5, 600.00, 1);
 
 
 
+SELECT setval('pessoajuridica_id_seq', (SELECT MAX(id) FROM PessoaJuridica), true);

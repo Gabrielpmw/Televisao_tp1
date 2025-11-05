@@ -25,12 +25,14 @@ public class FornecedorRepository implements PanacheRepository<Fornecedor> {
         return fornecedor.getMarcas();
     }
 
+    // Correto
     public PanacheQuery<Fornecedor> findByNome(String nome) {
         if (nome == null || nome.isBlank()) {
             return findAll();
         }
 
-        return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%");
+        // Altere 'nome' para 'razaoSocial' aqui
+        return find("UPPER(razaoSocial) LIKE ?1", "%" + nome.toUpperCase() + "%");
     }
 
 //    public Fornecedor findFornecedorByTelefone(Long idTelefone) {
