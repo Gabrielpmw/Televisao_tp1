@@ -12,7 +12,8 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Path("/fornecedor")
+// 1. Path atualizado para o plural, por consistência
+@Path("/fornecedores")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class FornecedorResource {
@@ -26,7 +27,7 @@ public class FornecedorResource {
     JsonWebToken jwt;
 
     @POST
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     public Response create(FornecedorRequestDTO dto){
         logger.info("Novo fornecedor criado: " + dto);
         String username = jwt.getSubject();
@@ -35,14 +36,14 @@ public class FornecedorResource {
     }
 
     @POST
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{idFornecedor}/associar-marcas")
     public Response marcaForFornecedor(@PathParam("idFornecedor")long idFornecedor, List<Long> idMarcas){
         return Response.status(Response.Status.CREATED).entity(fornecedorService.marcaForFornecedor(idFornecedor, idMarcas)).build();
     }
 
     @PUT
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, FornecedorRequestDTO dto){
         logger.info("Fornecedor com id: " + id + " atualizado para: " + dto);
@@ -53,8 +54,9 @@ public class FornecedorResource {
     }
 
     @DELETE
-    @RolesAllowed("adm")
-    @Path("/{id}/deletar")
+    //@RolesAllowed("adm")
+    // 2. Path atualizado para /apagar, por consistência
+    @Path("/{id}/apagar")
     public Response deletar(@PathParam("id") long id){
         logger.info("Fornecedor deletado com id: " + id);
         String username = jwt.getSubject();
@@ -65,16 +67,28 @@ public class FornecedorResource {
 
 
     @GET
-    @RolesAllowed("adm")
-    public Response buscarTodos(){
-        logger.info("Buscando todos os fornecedores");
+    //@RolesAllowed("adm")
+    // 3. Método buscarTodos ATUALIZADO com paginação
+    public Response buscarTodos(@QueryParam("page")     @DefaultValue("0")   int page,
+                                @QueryParam("pageSize") @DefaultValue("10")  int pageSize) {
+
+        logger.info("Buscando todos os fornecedores (paginado)");
         String username = jwt.getSubject();
         logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(fornecedorService.findAll()).build();
+
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
+
+        // 4. Assumindo que o service terá findAll(page, pageSize) e count()
+        return Response.ok(fornecedorService.findAll(page, pageSize))
+                .header("X-Page", page)
+                .header("X-Page-Size", pageSize)
+                .header("X-Total-Count", fornecedorService.count())
+                .build();
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/buscar-fornecedor-por-id")
     public Response buscarPorId(@PathParam("id") long id){
         logger.info("Buscando fornecedor com id: " + id);
@@ -86,7 +100,7 @@ public class FornecedorResource {
 
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/buscar-marca-por-fornecedor")
     public Response buscarMarcaPorFornecedor(@PathParam("id") long idFornecedor){
         logger.info("Buscando marca por id fornecedor: " + idFornecedor);
@@ -95,13 +109,18 @@ public class FornecedorResource {
         return Response.ok().entity(fornecedorService.findMarcaByFornecedor(idFornecedor)).build();
     }
 
-//    @GET
-//    @RolesAllowed("adm")
-//    @Path("/{id}/buscar-fornecedor-por-id_telefone")
-//    public Response busarFornecedorPorIdTelefone(@PathParam("id") long idTelefone){
-//        logger.info("Buscando fornecedor por id telefone: " + idTelefone);
-//        String username = jwt.getSubject();
-//        logger.info("Usuário responsável: " + username);
-//        return Response.ok().entity(fornecedorService.findFornecedorByTelefone(idTelefone)).build();
-//    }
+    @GET
+    @Path("/nome/{nome}")
+    public Response buscarPorNome(@PathParam("nome") String nome,
+                                  @QueryParam("page")     @DefaultValue("0")   int page,
+                                  @QueryParam("pageSize") @DefaultValue("10")  int pageSize) {
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
+
+        return Response.ok(fornecedorService.findByNome(nome, page, pageSize))
+                .header("X-Page", page)
+                .header("X-Page-Size", pageSize)
+                .header("X-Total-Count", fornecedorService.count(nome))
+                .build();
+    }
 }

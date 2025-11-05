@@ -13,4 +13,6 @@ public interface MarcaService {
     MarcaResponseDTO findById(long id);
     List<MarcaResponseDTO> findAll();
     List<ModeloResponseDTO> findModeloByMarca(long idMarca);
+    long count();
+    long count(String nome);
 }

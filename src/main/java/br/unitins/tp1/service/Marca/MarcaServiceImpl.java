@@ -69,4 +69,14 @@ public class MarcaServiceImpl implements MarcaService{
     public List<ModeloResponseDTO> findModeloByMarca(long idMarca) {
         return marcaRepository.findModelosByMarca(idMarca).stream().map(ModeloResponseDTO::valueOf).toList();
     }
+
+    @Override
+    public long count() {
+        return marcaRepository.findAll().count();
+    }
+
+    @Override
+    public long count(String nome) {
+        return 0;
+    }
 }

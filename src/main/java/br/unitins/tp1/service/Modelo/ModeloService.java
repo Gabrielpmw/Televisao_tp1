@@ -13,4 +13,6 @@ public interface ModeloService {
     ModeloResponseDTO findById(long id);
     List<ModeloResponseDTO> findAll();
     CaracteristicasResponseDTO caracteristicaForModelo(long idModelo, long idCaracteristica);
+    long count();
+    long count(String nome);
 }

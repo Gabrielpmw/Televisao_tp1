@@ -3,6 +3,7 @@ package br.unitins.tp1.repository;
 import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import br.unitins.tp1.model.Televisao.Televisao;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -24,6 +25,13 @@ public class FornecedorRepository implements PanacheRepository<Fornecedor> {
         return fornecedor.getMarcas();
     }
 
+    public PanacheQuery<Fornecedor> findByNome(String nome) {
+        if (nome == null || nome.isBlank()) {
+            return findAll();
+        }
+
+        return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%");
+    }
 
 //    public Fornecedor findFornecedorByTelefone(Long idTelefone) {
 //        return find("SELECT f FROM Fornecedor f JOIN f.telefones t WHERE t.id = ?1", idTelefone)

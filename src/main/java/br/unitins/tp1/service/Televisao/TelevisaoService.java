@@ -14,4 +14,6 @@ public interface TelevisaoService {
     Televisao findById(long id);
     List<TelevisaoResponseDTO> findAll();
     ModeloResponseDTO findTelevisaoByModelo(long idTelevisao);
+    long count();
+    long count(String nome);
 }

@@ -17,7 +17,25 @@ INSERT INTO PessoaJuridica (id, razaoSocial, cnpj, status) VALUES
 (2, 'LG Electronics', '98765432000188', true),
 (3, 'Sony Corporation', '45678912000177', true),
 (4, 'Panasonic Corporation', '65432198000166', true),
-(5, 'Philips N.V.', '32165487000155', true);
+(5, 'Philips N.V.', '32165487000155', true),
+(11, 'Apple Inc.', '11223344000101', true),
+(12, 'Dell Technologies', '22334455000112', true),
+(13, 'HP Inc.', '33445566000123', true),
+(14, 'Lenovo Group Ltd.', '44556677000134', true),
+(15, 'AsusTek Computer Inc.', '55667788000145', true),
+(16, 'Acer Inc.', '66778899000156', true),
+(17, 'Microsoft Corporation', '77889900000167', true),
+(18, 'Huawei Technologies Co., Ltd.', '88990011000178', true),
+(19, 'Kabum Comércio Eletrônico S/A', '99887766000122', true),
+(20, 'Ponto Frio S/A', '55443322000199', true),
+(21, 'Casas Bahia Ltda', '66778855000111', true),
+(22, 'Submarino S/A', '33221144000155', true),
+(23, 'Amazon Brasil Ltda', '77445566000133', true),
+(24, 'Mercado Livre do Brasil Ltda', '88667788000144', true),
+(25, 'Extra.com.br S/A', '99886655000177', true),
+(26, 'Carrefour Comércio e Indústria Ltda', '22331144000188', true),
+(27, 'Americanas S/A', '33557788000122', true),
+(28, 'ShopTime S/A', '66779900000155', true);
 
 -- FABRICANTE
 INSERT INTO Fabricante (id, anoFundacao, paisSede) VALUES
@@ -25,7 +43,15 @@ INSERT INTO Fabricante (id, anoFundacao, paisSede) VALUES
 (2, '1958-10-01', 'Coreia do Sul'),
 (3, '1946-05-07', 'Japão'),
 (4, '1918-03-13', 'Japão'),
-(5, '1891-05-15', 'Holanda');
+(5, '1891-05-15', 'Holanda'),
+(11, '1976-04-01', 'Estados Unidos'),
+(12, '1984-02-01', 'Estados Unidos'),
+(13, '1939-01-01', 'Estados Unidos'),
+(14, '1984-11-01', 'China'),
+(15, '1989-04-02', 'Taiwan'),
+(16, '1976-08-01', 'Taiwan'),
+(17, '1975-04-04', 'Estados Unidos'),
+(18, '1987-09-15', 'China');
 
 -- TELEFONE PARA FABRICANTE
 INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
@@ -48,7 +74,17 @@ INSERT INTO Fornecedor (id, email) VALUES
 (7, 'parceiros@magalu.com.br'),
 (8, 'contato@via.com.br'),
 (9, 'comercial@b2w.digital'),
-(10, 'import@eletroxyz.com');
+(10, 'import@eletroxyz.com'),
+(19, 'vendas@kabum.com.br'),
+(20, 'contato@pontofrio.com.br'),
+(21, 'suporte@casasbahia.com.br'),
+(22, 'atendimento@submarino.com'),
+(23, 'parceiros@amazon.com.br'),
+(24, 'suporte@mercadolivre.com.br'),
+(25, 'vendas@extra.com.br'),
+(26, 'comercial@carrefour.com.br'),
+(27, 'relacionamento@americanas.com.br'),
+(28, 'contato@shoptime.com.br');
 
 INSERT INTO Telefone (ddd, numero, id_fornecedor) VALUES
 ('11', '111111111', 6), -- Telefone do Fornecedor 6 (FastShop)

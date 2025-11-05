@@ -14,4 +14,6 @@ public interface MunicipioService {
     MunicipioResponseDTO findById(long id);
     List<MunicipioResponseDTO> findAll();
     List<EnderecoResponseDTO> findEnderecoByMunicipio(long id);
+    long count();
+    long count(String nome);
 }

@@ -14,7 +14,9 @@ public interface FabricanteService {
     void update(long id, FabricanteRequestDTO dto);
     void delete(long id);
     FabricanteResponseDTO findById(long id);
-    List<FabricanteResponseDTO> findAll();
-    FabricanteResponseDTO findByNome(String nome);
+    List<FabricanteResponseDTO> findAll(int page, int pageSize);
+    List<FabricanteResponseDTO> findByNome(String nome, int page, int pageSize);
     List<MarcaResponseDTO> findMarcasByFabricante(long idFabricante);
+    long count();
+    long count(String nome);
 }

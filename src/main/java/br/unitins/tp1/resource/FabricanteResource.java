@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
-@Path("/fabricante")
+@Path("/fabricantes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class FabricanteResource {
@@ -26,7 +26,7 @@ public class FabricanteResource {
     private static final Logger logger = Logger.getLogger(AuthResource.class.getName());
 
     @POST
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     public Response incluir(FabricanteRequestDTO dto) {
         logger.info("Novo fabricante criado: " + dto);
         String username = jwt.getSubject();
@@ -35,7 +35,7 @@ public class FabricanteResource {
     }
 
     @PUT
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, FabricanteRequestDTO dto) {
         logger.info("Fabricante com id: " + id + " atualizado para: " + dto);
@@ -46,7 +46,7 @@ public class FabricanteResource {
     }
 
     @DELETE
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/apagar")
     public Response apagar(@PathParam("id") long id) {
         logger.info("Fabricante apagado com id: " + id);
@@ -57,7 +57,7 @@ public class FabricanteResource {
     }
 
     @GET
-    @RolesAllowed("adm")
+   // @RolesAllowed("adm")
     @Path("/{id}/buscar-fabricante-por-id")
     public Response buscarPorId(@PathParam("id") long id){
         logger.info("Procurando fabricante com id: " + id);
@@ -67,16 +67,20 @@ public class FabricanteResource {
     }
 
     @GET
-    @RolesAllowed("adm")
-    public Response buscarTodos(){
-        logger.info("Buscando todos os usuários");
-        String username = jwt.getSubject();
-        logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(serviceFabricante.findAll()).build();
+    public Response buscarTodos(@QueryParam("page")     @DefaultValue("0")   int page,
+                                @QueryParam("pageSize") @DefaultValue("10")  int pageSize) {
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
+
+        return Response.ok(serviceFabricante.findAll(page, pageSize))
+                .header("X-Page", page)
+                .header("X-Page-Size", pageSize)
+                .header("X-Total-Count", serviceFabricante.count())
+                .build();
     }
 
     @GET
-    @RolesAllowed("adm")
+    //@RolesAllowed("adm")
     @Path("/{id}/buscar-marca-por-fabricante")
     public Response buscarMarcaPorFabricante(@PathParam("id") long idFabricante){
         logger.info("Buscando marca por id fabricante: " + idFabricante);
@@ -86,12 +90,17 @@ public class FabricanteResource {
     }
 
     @GET
-    @RolesAllowed("adm")
-    @Path("/{id}/buscar-fabricante-por-nome")
-    public Response buscarFabricantePorNome(@PathParam("id") String nome){
-        logger.info("Buscando fabricante por nome de: " + nome);
-        String username = jwt.getSubject();
-        logger.info("Usuário responsável: " + username);
-        return Response.ok().entity(serviceFabricante.findByNome(nome)).build();
+    @Path("/nome/{nome}")
+    public Response buscarPorNome(@PathParam("nome") String nome,
+                                  @QueryParam("page")     @DefaultValue("0")   int page,
+                                  @QueryParam("pageSize") @DefaultValue("10")  int pageSize) {
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
+
+        return Response.ok(serviceFabricante.findByNome(nome, page, pageSize))
+                .header("X-Page", page)
+                .header("X-Page-Size", pageSize)
+                .header("X-Total-Count", serviceFabricante.count(nome))
+                .build();
     }
 }

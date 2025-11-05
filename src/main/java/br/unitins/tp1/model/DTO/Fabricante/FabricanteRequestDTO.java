@@ -1,6 +1,7 @@
 package br.unitins.tp1.model.DTO.Fabricante;
 
 import br.unitins.tp1.model.DTO.Telefone.TelefoneRequestDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -15,6 +16,7 @@ public record FabricanteRequestDTO(
         String razaoSocial,
 
         @NotNull(message = "Data de abertura deve ser informada")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate dataAbertura,
 
         @NotBlank(message = "CNPJ deve ser informado")

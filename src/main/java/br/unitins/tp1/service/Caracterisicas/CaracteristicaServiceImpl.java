@@ -22,7 +22,7 @@ public class CaracteristicaServiceImpl implements CaracteristicasService{
         CaracteristicasGerais caracteristicasGerais = new CaracteristicasGerais();
 
 
-        caracteristicasGerais.setSistemaOperacioanl(dto.sistemaOperacional());
+        caracteristicasGerais.setSistemaOperacional(dto.sistemaOperacional());
         caracteristicasGerais.setQuantidadeHDMI(dto.quantidadeHDMI());
         caracteristicasGerais.setQuantidadeUSB(dto.quantidadeUSB());
         caracteristicasGerais.setSmartTV(dto.smartTV());
@@ -37,7 +37,7 @@ public class CaracteristicaServiceImpl implements CaracteristicasService{
     public void update(long id, CaracteristicasRequestDTO dto) {
         CaracteristicasGerais caracteristicas = caracteristicasGeraisRepository.findById(id);
 
-        caracteristicas.setSistemaOperacioanl(dto.sistemaOperacional());
+        caracteristicas.setSistemaOperacional(dto.sistemaOperacional());
         caracteristicas.setQuantidadeHDMI(dto.quantidadeHDMI());
         caracteristicas.setQuantidadeUSB(dto.quantidadeUSB());
         caracteristicas.setSmartTV(dto.smartTV());

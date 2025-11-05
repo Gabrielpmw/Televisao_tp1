@@ -89,14 +89,18 @@ class Televisao{
 }
 
 enum TipoTela{
-    - id: long
-    - nome: String
+    - LED
+    - OLED
+    - QLED
+    - LCD
+    - PLASMA
 }
 
 enum Resolucao{
-    - id: long
-    - nome: String
-    - escala: String
+    - HD
+    - FULL_HD
+    - UHD_4K
+    - UHD_8K
 }
 
 class Dimensao{

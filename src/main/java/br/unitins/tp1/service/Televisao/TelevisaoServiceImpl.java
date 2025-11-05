@@ -135,4 +135,14 @@ public class TelevisaoServiceImpl implements TelevisaoService {
     public ModeloResponseDTO findTelevisaoByModelo(long idTelevisao) {
         return ModeloResponseDTO.valueOf(televisaoRepository.findModeloByTelevisao(idTelevisao));
     }
+
+    @Override
+    public long count() {
+        return televisaoRepository.findAll().count();
+    }
+
+    @Override
+    public long count(String nome) {
+        return 0;
+    }
 }

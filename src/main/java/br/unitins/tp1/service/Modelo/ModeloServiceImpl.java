@@ -88,4 +88,14 @@ public class ModeloServiceImpl implements ModeloService{
     public List<ModeloResponseDTO> findAll() {
         return modeloRepository.findAll().list().stream().map(ModeloResponseDTO::valueOf).toList();
     }
+
+    @Override
+    public long count() {
+        return modeloRepository.findAll().count();
+    }
+
+    @Override
+    public long count(String nome) {
+        return 0;
+    }
 }

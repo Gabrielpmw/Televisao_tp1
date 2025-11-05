@@ -71,4 +71,14 @@ public class MunicipioServiceImpl implements MunicipioService{
     public List<EnderecoResponseDTO> findEnderecoByMunicipio(long id) {
         return municipioRepository.findEnderecosByMunicipioId(id).stream().map(EnderecoResponseDTO::valueOf).toList();
     }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public long count(String nome) {
+        return 0;
+    }
 }

@@ -3,7 +3,7 @@ package br.unitins.tp1.model.Televisao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum TipoResolucao {
+public enum     TipoResolucao {
     HD(1, "HD", "1280 x 720"),
     FULL_HD(2, "Full HD", "1920 x 1080"),
     UHD_4K(3, "4K", "3840 x 2160"),
