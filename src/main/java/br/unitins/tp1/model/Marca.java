@@ -23,7 +23,6 @@ public class Marca extends DefaultEntity{
     @ManyToMany(mappedBy = "marcas")
     private List<Fornecedor> fornecedores = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "marca")
     private List<Modelo> modelos = new ArrayList<>();
 

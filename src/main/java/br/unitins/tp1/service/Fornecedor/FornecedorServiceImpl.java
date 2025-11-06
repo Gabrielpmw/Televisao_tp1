@@ -64,29 +64,19 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     @Transactional
     public void update(long id, FornecedorRequestDTO dto) {
-        // 1. Busca o fornecedor existente
-        // (Mudei o nome da variável de 'novoFornecedor' para 'edicao' para clareza)
+
         Fornecedor edicao = fornecedorRepository.findById(id);
 
-        // 2. Atualiza os campos simples
         edicao.setRazaoSocial(dto.razaoSocial());
         edicao.setEmail(dto.email());
         edicao.setStatus(dto.status());
         edicao.setCnpj(dto.cnpj());
 
-        // --- INÍCIO DA CORREÇÃO ---
-        // Aplicando a mesma lógica do seu FabricanteService:
-
-        // 3. Limpa a lista de telefones (Isso agenda os DELETES no Hibernate)
-        // (Requer 'orphanRemoval = true' na sua entidade Fornecedor)
         edicao.getTelefones().clear();
 
-        // 4. FORÇA a execução dos DELETES no banco de dados AGORA.
-        // Isso remove os telefones antigos *antes* de tentarmos inserir os novos.
+
         telefoneRepository.flush(); // <-- ESTA É A LINHA QUE FALTAVA
 
-        // 5. Adiciona os novos telefones (Isso agenda os INSERTS)
-        // Como os antigos já foram deletados, não haverá conflito.
         if (dto.telefones() != null) { // Boa prática adicionar essa verificação
             for (TelefoneRequestDTO telefoneDTO : dto.telefones()){
                 Telefone telefone = new Telefone();
@@ -98,9 +88,6 @@ public class FornecedorServiceImpl implements FornecedorService {
                 edicao.getTelefones().add(telefone); // Adiciona na lista
             }
         }
-        // --- FIM DA CORREÇÃO ---
-
-        // 6. O Hibernate/Panache persiste 'edicao' automaticamente no fim da transação.
     }
 
 
@@ -115,13 +102,9 @@ public class FornecedorServiceImpl implements FornecedorService {
         return FornecedorResponseDTO.valueOf(fornecedorRepository.findById(id));
     }
 
-    /**
-     * 1. Método findAll ATUALIZADO para aceitar paginação
-     */
     @Override
     @Transactional
     public List<FornecedorResponseDTO> findAll(int page, int pageSize) {
-        // Aplica a paginação e busca a lista
         return fornecedorRepository.findAll().page(page, pageSize).list().stream()
                 .map(f -> FornecedorResponseDTO.valueOf(f)).toList();
     }

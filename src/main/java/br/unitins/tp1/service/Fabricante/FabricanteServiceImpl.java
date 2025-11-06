@@ -136,4 +136,7 @@ public class FabricanteServiceImpl implements FabricanteService {
     public long count(String nome) {
         return 0;
     }
+
+    public List<FabricanteResponseDTO> buscarTodos() {
+        return fabricanteRepository.findAll().list().stream().map(FabricanteResponseDTO::valueOf).toList();    }
 }

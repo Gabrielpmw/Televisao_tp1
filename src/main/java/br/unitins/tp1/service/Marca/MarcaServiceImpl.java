@@ -1,13 +1,17 @@
 package br.unitins.tp1.service.Marca;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
+import br.unitins.tp1.model.DTO.Fornecedor.FornecedorResponseDTO;
 import br.unitins.tp1.model.DTO.Marca.MarcaRequestDTO;
 import br.unitins.tp1.model.DTO.Marca.MarcaResponseDTO;
 import br.unitins.tp1.model.DTO.Modelo.ModeloResponseDTO;
 import br.unitins.tp1.model.Marca;
 import br.unitins.tp1.model.PessoaJuridica.Fabricante;
+import br.unitins.tp1.model.PessoaJuridica.Fornecedor;
 import br.unitins.tp1.repository.FabricanteRepository;
 import br.unitins.tp1.repository.MarcaRepository;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -61,8 +65,9 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
-    public List<MarcaResponseDTO> findAll() {
-        return marcaRepository.findAll().list().stream().map(MarcaResponseDTO::valueOf).toList();
+    public List<MarcaResponseDTO> findAll(int page, int pageSize) {
+        return marcaRepository.findAll().page(page, pageSize).list().stream()
+                .map(m -> MarcaResponseDTO.valueOf(m)).toList();
     }
 
     @Override
@@ -78,5 +83,15 @@ public class MarcaServiceImpl implements MarcaService{
     @Override
     public long count(String nome) {
         return 0;
+    }
+
+    @Override
+    public List<MarcaResponseDTO> findMarcaByModelo(String nome, int page, int pageSize) {
+        PanacheQuery<Marca> query = marcaRepository.findByNome(nome)
+                .page(Page.of(page, pageSize));
+
+        return query.list().stream()
+                .map(MarcaResponseDTO::valueOf)
+                .toList();
     }
 }

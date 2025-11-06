@@ -1,6 +1,7 @@
 package br.unitins.tp1.resource;
 
 import br.unitins.tp1.model.DTO.Fabricante.FabricanteRequestDTO;
+import br.unitins.tp1.model.DTO.Fabricante.FabricanteResponseDTO;
 import br.unitins.tp1.service.Fabricante.FabricanteServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -91,6 +92,7 @@ public class FabricanteResource {
 
     @GET
     @Path("/nome/{nome}")
+    //@RolesAllowed("adm")
     public Response buscarPorNome(@PathParam("nome") String nome,
                                   @QueryParam("page")     @DefaultValue("0")   int page,
                                   @QueryParam("pageSize") @DefaultValue("10")  int pageSize) {
@@ -102,5 +104,13 @@ public class FabricanteResource {
                 .header("X-Page-Size", pageSize)
                 .header("X-Total-Count", serviceFabricante.count(nome))
                 .build();
+    }
+
+    @GET
+    @Path("/todos")
+    //@RolesAllowed("adm")
+    public Response buscarTodos(){
+        List<FabricanteResponseDTO> listaCompleta = serviceFabricante.buscarTodos();
+        return Response.ok(listaCompleta).build();
     }
 }
