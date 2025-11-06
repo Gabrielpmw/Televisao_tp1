@@ -11,8 +11,9 @@ public interface ModeloService {
     void update(long id, ModeloRequestDTO dto);
     void delete(long id);
     ModeloResponseDTO findById(long id);
-    List<ModeloResponseDTO> findAll();
+    List<ModeloResponseDTO> findAll(int page, int pageSize);
     CaracteristicasResponseDTO caracteristicaForModelo(long idModelo, long idCaracteristica);
+    List<ModeloResponseDTO> findByNome(String nome, int page, int pageSize);
     long count();
     long count(String nome);
 }

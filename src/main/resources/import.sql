@@ -76,24 +76,24 @@ INSERT INTO Fabricante (id, anoFundacao, paisSede) VALUES
 
 -- FORNECEDOR
 INSERT INTO Fornecedor (id, email) VALUES
-                                       (19, 'compras@fastshop.com.br'),
-                                       (20, 'parceiros@magalu.com.br'),
-                                       (21, 'contato@via.com.br'),
-                                       (22, 'comercial@b2w.digital'),
-                                       (23, 'import@eletroxyz.com'),
-                                       (24, 'vendas@kabum.com.br'),
-                                       (25, 'contato@pontofrio.com.br'),
-                                       (26, 'suporte@casasbahia.com.br'),
-                                       (27, 'atendimento@submarino.com'),
-                                       (28, 'parceiros@amazon.com.br'),
-                                       (29, 'suporte@mercadolivre.com.br'),
-                                       (30, 'vendas@extra.com.br'),
-                                       (31, 'comercial@carrefour.com.br'),
-                                       (32, 'relacionamento@americanas.com.br'),
-                                       (33, 'contato@shoptime.com.br'),
-                                       (34, 'compras@magazinehouse.com'),
-                                       (35, 'vendas@eletrostar.com.br'),
-                                       (36, 'contato@novatech.com.br');
+(19, 'compras@fastshop.com.br'),
+(20, 'parceiros@magalu.com.br'),
+(21, 'contato@via.com.br'),
+(22, 'comercial@b2w.digital'),
+(23, 'import@eletroxyz.com'),
+(24, 'vendas@kabum.com.br'),
+(25, 'contato@pontofrio.com.br'),
+(26, 'suporte@casasbahia.com.br'),
+(27, 'atendimento@submarino.com'),
+(28, 'parceiros@amazon.com.br'),
+(29, 'suporte@mercadolivre.com.br'),
+(30, 'vendas@extra.com.br'),
+(31, 'comercial@carrefour.com.br'),
+(32, 'relacionamento@americanas.com.br'),
+(33, 'contato@shoptime.com.br'),
+(34, 'compras@magazinehouse.com'),
+(35, 'vendas@eletrostar.com.br'),
+(36, 'contato@novatech.com.br');
 
 -- TELEFONE PARA FABRICANTE
 INSERT INTO Telefone(ddd, numero, fabricante_id) VALUES
@@ -328,12 +328,17 @@ INSERT INTO fornecedor_marca (fornecedor_id, marca_id) VALUES
 -- Fornecedor 36 (NovaTech Global) - Vende 1 marca (nicho)
 (36, 22); -- AOC
 
+
+
 -- CARACTERÍSTICAS GERAIS PARA MODELO
-INSERT INTO CaracteristicasGerais (id, sistemaOperacional, quantidadeHDMI, quantidadeUSB, smartTV) VALUES
-(1, 'Tizen', 4, 2, true),
-(2, 'WebOS', 4, 2, true),
-(3, 'Google TV', 3, 2, true),
-(4, 'Básico', 2, 1, false);
+INSERT INTO CaracteristicasGerais (id, nome, sistemaOperacional, quantidadeHDMI, quantidadeUSB, smartTV) VALUES
+(1, 'Smart TV Premium (Tizen)', 'Tizen', 4, 2, true),
+(2, 'Smart TV Premium (WebOS)', 'WebOS', 4, 2, true),
+(3, 'Smart TV Google (Padrão)', 'Google TV', 3, 2, true),
+(4, 'TV Básica (Não-Smart)', 'Básico', 2, 1, false),
+(5, 'Smart TV Custo-Benefício', 'Roku TV', 2, 1, true);
+
+
 
 --MODELO
 INSERT INTO Modelo (id, modelo, mesesgarantia, anolancamento, marca_id, caracteristicas_id) VALUES

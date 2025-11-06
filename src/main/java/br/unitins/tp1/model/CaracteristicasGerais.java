@@ -12,6 +12,9 @@ import java.util.List;
 public class CaracteristicasGerais extends DefaultEntity{
 
     @Column
+    private String nome;
+
+    @Column
     private String sistemaOperacional;
 
     @Column
@@ -65,5 +68,13 @@ public class CaracteristicasGerais extends DefaultEntity{
 
     public void setSmartTV(boolean smartTV) {
         this.smartTV = smartTV;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

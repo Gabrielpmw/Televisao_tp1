@@ -9,6 +9,8 @@ import br.unitins.tp1.model.Modelo;
 import br.unitins.tp1.repository.CaracteristicasGeraisRepository;
 import br.unitins.tp1.repository.MarcaRepository;
 import br.unitins.tp1.repository.ModeloRepository;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -85,8 +87,19 @@ public class ModeloServiceImpl implements ModeloService{
     }
 
     @Override
-    public List<ModeloResponseDTO> findAll() {
-        return modeloRepository.findAll().list().stream().map(ModeloResponseDTO::valueOf).toList();
+    public List<ModeloResponseDTO> findAll(int page, int pageSize) {
+        return modeloRepository.findAll().page(page, pageSize).list().stream()
+                .map(ModeloResponseDTO::valueOf).toList();
+    }
+
+    @Override
+    public List<ModeloResponseDTO> findByNome(String nome, int page, int pageSize) {
+        PanacheQuery<Modelo> query = modeloRepository.findByNome(nome)
+                .page(Page.of(page, pageSize));
+
+        return query.list().stream()
+                .map(ModeloResponseDTO::valueOf)
+                .toList();
     }
 
     @Override
@@ -96,6 +109,6 @@ public class ModeloServiceImpl implements ModeloService{
 
     @Override
     public long count(String nome) {
-        return 0;
+        return modeloRepository.findByNome(nome).count();
     }
 }

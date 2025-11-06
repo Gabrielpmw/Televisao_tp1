@@ -9,9 +9,10 @@ import jakarta.inject.Inject;
 import java.time.LocalDate;
 
 public record ModeloResponseDTO(
-        String nomeMarca,
         long id,
         String modelo,
+        long idMarca,
+        String marca,
         int mesesGarantia,
         LocalDate anoLancamento,
         CaracteristicasResponseDTO caracteristicasResponseDTO
@@ -21,9 +22,10 @@ public record ModeloResponseDTO(
         if (modelo == null) return null;
 
         return new ModeloResponseDTO(
-                modelo.getMarca().getNomeMarca(),
                 modelo.getId(),
                 modelo.getModelo(),
+                modelo.getMarca().getId(),
+                modelo.getMarca().getNomeMarca(),
                 modelo.getMesesGarantia(),
                 modelo.getAnoLancamento(),
                 CaracteristicasResponseDTO.valueOf(modelo.getCaracteristicas()));

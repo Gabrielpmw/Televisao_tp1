@@ -11,5 +11,7 @@ public interface CaracteristicasService {
     void update(long id, CaracteristicasRequestDTO dto);
     void delete(long id);
     CaracteristicasResponseDTO findById(long id);
-    List<CaracteristicasResponseDTO> findAll();
+    List<CaracteristicasResponseDTO> findAll(int page, int pageSize);
+    List<CaracteristicasResponseDTO> findByNomeQuerry(String nome, int page, int pageSize);
+    List<CaracteristicasResponseDTO> findaByNome(String nome);
 }
