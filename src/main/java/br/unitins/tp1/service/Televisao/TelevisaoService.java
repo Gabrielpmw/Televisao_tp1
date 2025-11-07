@@ -12,8 +12,9 @@ public interface TelevisaoService {
     void update(long id, TelevisaoRequestDTO tv);
     void delete(long id);
     Televisao findById(long id);
-    List<TelevisaoResponseDTO> findAll();
+    List<TelevisaoResponseDTO> findAll(int page, int pageSize);
     ModeloResponseDTO findTelevisaoByModelo(long idTelevisao);
     long count();
     long count(String nome);
+    List<TelevisaoResponseDTO> findByModelo(String nomeModelo, int page, int pageSize);
 }

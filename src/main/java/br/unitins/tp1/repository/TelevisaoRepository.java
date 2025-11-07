@@ -25,4 +25,9 @@ public class TelevisaoRepository implements PanacheRepository<Televisao> {
         }
         return null;
     }
+
+    public PanacheQuery<Televisao> findByNomeModelo(String nomeModelo) {
+        return find("SELECT t FROM Televisao t WHERE t.modelo.nome = ?1", nomeModelo);
+    }
+
 }
