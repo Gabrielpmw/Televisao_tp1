@@ -342,25 +342,76 @@ INSERT INTO CaracteristicasGerais (id, nome, sistemaOperacional, quantidadeHDMI,
 
 --MODELO
 INSERT INTO Modelo (id, modelo, mesesgarantia, anolancamento, marca_id, caracteristicas_id) VALUES
--- Modelos da Marca 1 (Samsung)
-(1, 'QN90C Neo QLED', 12, '2023-03-10', 1, 1), -- Usa Tizen (Carac 1)
-(2, 'Crystal UHD CU8000', 12, '2023-04-15', 1, 1), -- Usa Tizen (Carac 1)
+-- 1. Samsung
+(1, 'QN90C Neo QLED', 12, '2023-03-10', 1, 1),
+(2, 'Crystal UHD CU8000', 12, '2023-04-15', 2, 1),
 
--- Modelos da Marca 2 (LG)
-(3, 'OLED C3 Evo', 12, '2023-03-15', 2, 2), -- Usa WebOS (Carac 2)
-(4, 'QNED80 4K', 12, '2023-05-01', 2, 2), -- Usa WebOS (Carac 2)
+-- 2. LG
+(3, 'OLED C3 Evo', 12, '2023-03-15', 4, 2),
+(4, 'QNED80 4K', 12, '2023-05-01', 6, 2),
 
--- Modelos da Marca 3 (Sony)
-(5, 'Bravia X90L', 12, '2023-04-20', 3, 3), -- Usa Google TV (Carac 3)
-(6, 'Bravia X75L', 12, '2023-06-01', 3, 3), -- Usa Google TV (Carac 3)
+-- 3. Sony
+(5, 'Bravia X90L', 12, '2023-04-20', 7, 3),
+(6, 'Bravia X75L', 12, '2023-06-01', 8, 3),
 
--- Modelos da Marca 4 (Panasonic)
-(7, 'Viera MX800', 12, '2023-05-01', 4, 3), -- Usa Google TV (Carac 3)
-(8, 'Viera M300 (Não-Smart)', 6, '2022-10-01', 4, 4), -- Usa Básico (Carac 4)
+-- 4. Panasonic
+(7, 'Viera MX800', 12, '2023-05-01', 9, 3),
+(8, 'Viera M300', 6, '2022-10-01', 10, 4),
 
--- Modelos da Marca 5 (Philips)
-(9, 'The One 8808 (Ambilight)', 12, '2023-04-01', 5, 3), -- Usa Google TV (Carac 3)
-(10, 'Série 5000 LED (Não-Smart)', 6, '2022-11-15', 5, 4);
+-- 5. Philips
+(9, 'The One 8808 Ambilight', 12, '2023-04-01', 11, 3),
+(10, 'Philips 5000 LED', 6, '2022-11-15', 12, 4),
+
+-- 6. TCL
+(11, 'C845 Mini LED 4K', 12, '2023-06-10', 13, 3),
+(12, 'Q6 QLED', 12, '2023-08-01', 14, 3),
+
+-- 7. Hisense
+(13, 'U8H ULED 4K', 12, '2023-07-15', 15, 3),
+(14, 'L9G Laser TV', 12, '2023-02-25', 16, 5),
+
+-- 8. Sharp
+(15, 'Aquos XLED', 12, '2023-09-01', 17, 3),
+(16, 'Aquos Basic HD', 6, '2022-08-15', 18, 4),
+
+-- 9. Vizio
+(17, 'Vizio M-Series Quantum', 12, '2023-05-10', 19, 3),
+(18, 'Vizio V-Series SmartCast', 12, '2023-06-20', 20, 3),
+
+-- 10. Toshiba
+(19, 'Toshiba Regza 4K', 12, '2023-03-30', 21, 3),
+(20, 'Toshiba Smart 32V35', 6, '2022-10-12', 22, 4),
+
+-- 11. Semp
+(21, 'Semp Smart 43"', 12, '2023-02-05', 23, 4),
+(22, 'Semp TCL QLED', 12, '2023-06-08', 24, 3),
+
+-- 12. AOC
+(23, 'AOC Roku TV 50S5195', 12, '2023-04-01', 25, 5),
+(24, 'AOC Smart LED 32"', 6, '2022-11-11', 26, 4),
+
+-- 13. Philco
+(25, 'Philco Smart 43" Android', 12, '2023-02-10', 27, 3),
+(26, 'Philco Hitachi 4K', 12, '2023-05-30', 28, 3),
+
+-- 14. Xiaomi
+(27, 'Mi TV P1 55"', 12, '2023-04-14', 29, 3),
+(28, 'Redmi TV A65', 12, '2023-07-01', 31, 3),
+
+-- 15. Haier
+(29, 'Haier Smart TV S9', 12, '2023-03-25', 32, 3),
+(30, 'Candy LED 32C3', 6, '2022-12-10', 33, 4),
+
+-- 16. JVC
+(31, 'JVC 4K Fire TV Edition', 12, '2023-05-05', 34, 3),
+(32, 'Kenwood Smart 40"', 12, '2023-08-01', 35, 3),
+
+-- 17. Hitachi
+(33, 'Hitachi 43HAK6150', 12, '2023-02-28', 36, 3),
+
+-- 18. Britânia
+(34, 'Britânia Smart 43" BTV43', 12, '2023-03-10', 37, 3),
+(35, 'Britânia LED 32BHD', 6, '2022-09-05', 37, 4);
 
 -- DIMENSÃO
 INSERT INTO Dimensao (id, comprimento, altura, polegada) VALUES
@@ -412,166 +463,247 @@ INSERT INTO Televisao (id, valor, resolucao, tipoTela, estoque, descricao, id_mo
 
 -- TVs do Modelo 10 (Philips Série 5000)
 (19, 1499.99, 'FULL_HD', 'LED', 90, 'TV Philips 43 Polegadas Série 5000 (Não-Smart)', 10, 3),
-(20, 1899.99, 'FULL_HD', 'LED', 70, 'TV Philips 50 Polegadas Série 5000 (Não-Smart)', 10, 4);
+(20, 1899.99, 'FULL_HD', 'LED', 70, 'TV Philips 50 Polegadas Série 5000 (Não-Smart)', 10, 4),
 
--- ESTADO
-INSERT INTO Estado (nome, sigla, regiao) VALUES
-('São Paulo', 'SP', 'SUDESTE'),
-('Rio de Janeiro', 'RJ', 'SUDESTE'),
-('Minas Gerais', 'MG', 'CENTRO_OESTE'),
-('Bahia', 'BA', 'NORDESTE'),
-('Paraná', 'PR', 'SUL');
+-- TVs do Modelo 11 (TCL C845 Mini LED)
+(21, 4399.99, 'UHD_4K', 'QLED', 60, 'TV TCL 55 Polegadas C845 Mini LED 4K', 11, 5),
+(22, 5899.99, 'UHD_4K', 'QLED', 40, 'TV TCL 65 Polegadas C845 Mini LED 4K', 11, 6),
 
--- MUNICIPIO
-INSERT INTO Municipio (nome, id_estado) VALUES
--- Municípios de São Paulo
-('São Paulo', 1),
-('Campinas', 1),
-('Santos', 1),
--- Municípios do Rio de Janeiro
-('Rio de Janeiro', 2),
-('Niterói', 2),
-('Petrópolis', 2),
--- Municípios de Minas Gerais
-('Belo Horizonte', 3),
-('Uberlândia', 3),
-('Ouro Preto', 3),
--- Municípios da Bahia
-('Salvador', 4),
-('Feira de Santana', 4),
-('Ilhéus', 4),
--- Municípios do Paraná
-('Curitiba', 5),
-('Londrina', 5),
-('Maringá', 5);
+-- TVs do Modelo 12 (TCL Q6 QLED)
+(23, 2999.99, 'UHD_4K', 'QLED', 80, 'TV TCL 50 Polegadas Q6 QLED 4K', 12, 4),
 
--- ADM
-INSERT INTO Funcionario (nome, cpf) VALUES
-('Gabriel Vieira', '12345678900');
-INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
-('gabriel', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', '12345678900', 1);
+-- TVs do Modelo 13 (Hisense U8H) - Tipo de tela alterado de ULED para QLED
+(24, 4199.99, 'UHD_4K', 'QLED', 50, 'TV Hisense 55 Polegadas U8H ULED 4K', 13, 5),
+(25, 5499.99, 'UHD_4K', 'QLED', 30, 'TV Hisense 65 Polegadas U8H ULED 4K', 13, 6),
 
---senha: 123456
---hash: SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==
+-- TVs do Modelo 14 (Hisense L9G Laser) - Tipo de tela alterado de LASER para LED
+(26, 17999.99, 'UHD_4K', 'LED', 10, 'Projetor Hisense L9G Laser TV 4K', 14, 7),
 
---USER
-INSERT INTO Usuario (username, senha, perfil, cpf)
-VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
+-- TVs do Modelo 15 (Sharp Aquos XLED)
+(27, 3699.99, 'UHD_4K', 'LED', 40, 'TV Sharp 55 Polegadas Aquos XLED 4K', 15, 5), -- ID corrigido de 227 para 27
+(28, 4999.99, 'UHD_4K', 'LED', 25, 'TV Sharp 65 Polegadas Aquos XLED 4K', 15, 6),
 
+-- TVs do Modelo 16 (Sharp Aquos Basic)
+(29, 1599.99, 'FULL_HD', 'LED', 85, 'TV Sharp 43 Polegadas Aquos Basic HD', 16, 3),
+
+-- TVs do Modelo 17 (Vizio M-Series)
+(30, 2999.99, 'UHD_4K', 'LED', 50, 'TV Vizio 55 Polegadas M-Series Quantum 4K', 17, 5),
+(31, 3699.99, 'UHD_4K', 'LED', 35, 'TV Vizio 65 Polegadas M-Series Quantum 4K', 17, 6),
+
+-- TVs do Modelo 18 (Vizio SmartCast)
+(32, 2299.99, 'UHD_4K', 'LED', 70, 'TV Vizio 50 Polegadas V-Series SmartCast 4K', 18, 4),
+
+-- TVs do Modelo 19 (Toshiba Regza)
+(33, 2899.99, 'UHD_4K', 'LED', 55, 'TV Toshiba 55 Polegadas Regza 4K', 19, 5),
+
+-- TVs do Modelo 20 (Toshiba 32V35)
+(34, 1499.99, 'FULL_HD', 'LED', 100, 'TV Toshiba 32 Polegadas Smart 32V35', 20, 1),
+
+-- TVs do Modelo 21 (Semp Smart 43")
+(35, 1699.99, 'FULL_HD', 'LED', 90, 'TV Semp 43 Polegadas Smart Full HD', 21, 3),
+
+-- TVs do Modelo 22 (Semp TCL QLED)
+(36, 3199.99, 'UHD_4K', 'QLED', 60, 'TV Semp TCL 55 Polegadas QLED 4K', 22, 5),
+
+-- TVs do Modelo 23 (AOC Roku TV)
+(37, 1899.99, 'FULL_HD', 'LED', 70, 'TV AOC 43 Polegadas Roku TV', 23, 3),
+(38, 2299.99, 'UHD_4K', 'LED', 60, 'TV AOC 50 Polegadas Roku TV 4K', 23, 4),
+
+-- TVs do Modelo 24 (AOC Smart LED)
+(39, 1399.99, 'FULL_HD', 'LED', 90, 'TV AOC 32 Polegadas Smart LED', 24, 1),
+
+-- TVs do Modelo 25 (Philco Smart Android)
+(40, 1899.99, 'FULL_HD', 'LED', 70, 'TV Philco 43 Polegadas Smart Android', 25, 3),
+
+-- TVs do Modelo 26 (Philco Hitachi 4K)
+(41, 2499.99, 'UHD_4K', 'LED', 50, 'TV Philco Hitachi 50 Polegadas 4K', 26, 4),
+
+-- TVs do Modelo 27 (Xiaomi Mi TV P1)
+(42, 2699.99, 'UHD_4K', 'LED', 55, 'TV Xiaomi 55 Polegadas Mi TV P1 4K', 27, 5),
+
+-- TVs do Modelo 28 (Xiaomi Redmi TV A65)
+(43, 3599.99, 'UHD_4K', 'LED', 45, 'TV Xiaomi 65 Polegadas Redmi TV A65 4K', 28, 6),
+
+-- TVs do Modelo 29 (Haier Smart S9)
+(44, 2099.99, 'UHD_4K', 'LED', 65, 'TV Haier 50 Polegadas Smart TV S9 4K', 29, 4),
+
+-- TVs do Modelo 30 (Candy LED 32C3)
+(45, 1299.99, 'FULL_HD', 'LED', 100, 'TV Candy 32 Polegadas LED 32C3', 30, 1),
+
+-- TVs do Modelo 31 (JVC Fire TV Edition)
+(46, 2499.99, 'UHD_4K', 'LED', 50, 'TV JVC 55 Polegadas 4K Fire TV Edition', 31, 5),
+
+-- TVs do Modelo 32 (Kenwood Smart 40")
+(47, 1699.99, 'FULL_HD', 'LED', 80, 'TV Kenwood 40 Polegadas Smart TV', 32, 2),
+
+-- TVs do Modelo 33 (Hitachi 43HAK6150)
+(48, 1999.99, 'FULL_HD', 'LED', 75, 'TV Hitachi 43 Polegadas HAK6150 Full HD', 33, 3),
+
+-- TVs do Modelo 34 (Britânia Smart 43")
+(49, 1899.99, 'FULL_HD', 'LED', 70, 'TV Britânia 43 Polegadas Smart BTV43', 34, 3),
+
+-- TVs do Modelo 35 (Britânia LED 32")
+(50, 1199.99, 'FULL_HD', 'LED', 90, 'TV Britânia 32 Polegadas LED 32BHD', 35, 1);
+
+
+-- -- ESTADO
+-- INSERT INTO Estado (nome, sigla, regiao) VALUES
+-- ('São Paulo', 'SP', 'SUDESTE'),
+-- ('Rio de Janeiro', 'RJ', 'SUDESTE'),
+-- ('Minas Gerais', 'MG', 'CENTRO_OESTE'),
+-- ('Bahia', 'BA', 'NORDESTE'),
+-- ('Paraná', 'PR', 'SUL');
+--
+-- -- MUNICIPIO
+-- INSERT INTO Municipio (nome, id_estado) VALUES
+-- -- Municípios de São Paulo
+-- ('São Paulo', 1),
+-- ('Campinas', 1),
+-- ('Santos', 1),
+-- -- Municípios do Rio de Janeiro
+-- ('Rio de Janeiro', 2),
+-- ('Niterói', 2),
+-- ('Petrópolis', 2),
+-- -- Municípios de Minas Gerais
+-- ('Belo Horizonte', 3),
+-- ('Uberlândia', 3),
+-- ('Ouro Preto', 3),
+-- -- Municípios da Bahia
+-- ('Salvador', 4),
+-- ('Feira de Santana', 4),
+-- ('Ilhéus', 4),
+-- -- Municípios do Paraná
+-- ('Curitiba', 5),
+-- ('Londrina', 5),
+-- ('Maringá', 5);
+--
+-- -- ADM
+-- INSERT INTO Funcionario (nome, cpf) VALUES
+-- ('Gabriel Vieira', '12345678900');
+-- INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
+-- ('gabriel', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', '12345678900', 1);
+--
+-- --senha: 123456
+-- --hash: SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==
+--
+-- --USER
 -- INSERT INTO Usuario (username, senha, perfil, cpf)
--- VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
-
-INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio, id_usuario) VALUES
--- Endereços do usuário 1 (italo)
-('01001000', 'Sé', 100, 'Edifício Comercial', 1, 2),
-('01311000', 'Bela Vista', 200, 'Apartamento 302', 1, 2),
-('01415000', 'Cerqueira César', 300, 'Sala 501', 1, 2);
-
--- -- Endereços do usuário 2 (felipe)
--- ('13010000', 'Centro', 400, 'Casa Azul', 2, 3),
--- ('13010000', 'Cambuí', 500, 'Loja 10', 2, 3),
--- ('11015000', 'Gonzaga', 600, 'Cobertura', 3, 3);
-
--- Pedido 1 (Italo)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 200.00, 'PEDIDO_EM_PROCESSO', 2);
-
--- Endereço de entrega
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (1, 1); -- Endereço: Sé
-
--- Pagamento pendente
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (200.00, 'PAGAMENTO_PENDENTE', NOW(), 1);
-
--- Pix vinculado ao pagamento id = 1
-INSERT INTO Pix (id, chave)
-VALUES (1, 'pix-italo-001');
-
--- Itens
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (1, 1, 200.00, 1);
-
--- Pedido 2 (Italo)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 300.00, 'PEDIDO_EM_PROCESSO', 2);
-
--- Endereço de entrega
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (2, 2); -- Endereço: Bela Vista
-
--- Pagamento pendente
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (300.00, 'PAGAMENTO_PENDENTE', NOW(), 2);
-
--- Boleto vinculado ao pagamento id = 2
-INSERT INTO Boleto (id, codigoBarras)
-VALUES (2, '34191.79001 01043.510047 91020.150008 8 79410000030000');
-
--- Itens
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (2, 2, 300.00, 1);
-
--- Pedido 3 (Italo)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 400.00, 'PEDIDO_EM_PROCESSO', 2);
-
--- Endereço de entrega
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (3, 3); -- Endereço: Cerqueira César
-
--- Pagamento pendente
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (400.00, 'PAGAMENTO_PENDENTE', NOW(), 3);
-
--- Cartão vinculado ao pagamento id = 3
-INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
-VALUES (3, 'Italo Ribeiro', '4111111111111111', '2026-10-21', '123');
-
--- Itens
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (3, 3, 400.00, 1);
-
--- Pedido 4 (Italo)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 500.00, 'CANCELADO', 2);
-
--- Endereço de entrega
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (4, 1); -- Endereço: Sé
-
--- Pagamento cancelado
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (500.00, 'PAGAMENTO_PENDENTE', NOW(), 4); -- Você pode criar outro status se desejar
-
--- Pix vinculado ao pagamento id = 4
-INSERT INTO Pix (id, chave)
-VALUES (4, 'pix-cancelado-italo');
-
--- Itens
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (4, 4, 500.00, 1);
-
--- Pedido 5 (Italo)
-INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
-VALUES (NOW(), 600.00, 'ENTREGUE', 2);
-
--- Endereço de entrega
-INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
-VALUES (5, 2); -- Endereço: Bela Vista
-
--- Pagamento efetuado
-INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
-VALUES (600.00, 'PAGAMENTO_EFETUADO', NOW(), 5);
-
--- Boleto vinculado ao pagamento id = 5
-INSERT INTO Boleto (id, codigoBarras)
-VALUES (5, '23793.38127 60007.439370 78000.421010 6 83580000060000');
-
--- Itens
-INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
-VALUES (5, 5, 600.00, 1);
-
+-- VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
+--
+-- -- INSERT INTO Usuario (username, senha, perfil, cpf)
+-- -- VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
+--
+-- INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio, id_usuario) VALUES
+-- -- Endereços do usuário 1 (italo)
+-- ('01001000', 'Sé', 100, 'Edifício Comercial', 1, 2),
+-- ('01311000', 'Bela Vista', 200, 'Apartamento 302', 1, 2),
+-- ('01415000', 'Cerqueira César', 300, 'Sala 501', 1, 2);
+--
+-- -- -- Endereços do usuário 2 (felipe)
+-- -- ('13010000', 'Centro', 400, 'Casa Azul', 2, 3),
+-- -- ('13010000', 'Cambuí', 500, 'Loja 10', 2, 3),
+-- -- ('11015000', 'Gonzaga', 600, 'Cobertura', 3, 3);
+--
+-- -- Pedido 1 (Italo)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 200.00, 'PEDIDO_EM_PROCESSO', 2);
+--
+-- -- Endereço de entrega
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (1, 1); -- Endereço: Sé
+--
+-- -- Pagamento pendente
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (200.00, 'PAGAMENTO_PENDENTE', NOW(), 1);
+--
+-- -- Pix vinculado ao pagamento id = 1
+-- INSERT INTO Pix (id, chave)
+-- VALUES (1, 'pix-italo-001');
+--
+-- -- Itens
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (1, 1, 200.00, 1);
+--
+-- -- Pedido 2 (Italo)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 300.00, 'PEDIDO_EM_PROCESSO', 2);
+--
+-- -- Endereço de entrega
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (2, 2); -- Endereço: Bela Vista
+--
+-- -- Pagamento pendente
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (300.00, 'PAGAMENTO_PENDENTE', NOW(), 2);
+--
+-- -- Boleto vinculado ao pagamento id = 2
+-- INSERT INTO Boleto (id, codigoBarras)
+-- VALUES (2, '34191.79001 01043.510047 91020.150008 8 79410000030000');
+--
+-- -- Itens
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (2, 2, 300.00, 1);
+--
+-- -- Pedido 3 (Italo)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 400.00, 'PEDIDO_EM_PROCESSO', 2);
+--
+-- -- Endereço de entrega
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (3, 3); -- Endereço: Cerqueira César
+--
+-- -- Pagamento pendente
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (400.00, 'PAGAMENTO_PENDENTE', NOW(), 3);
+--
+-- -- Cartão vinculado ao pagamento id = 3
+-- INSERT INTO Cartao (id, titular, numero, dataValidade, cvv)
+-- VALUES (3, 'Italo Ribeiro', '4111111111111111', '2026-10-21', '123');
+--
+-- -- Itens
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (3, 3, 400.00, 1);
+--
+-- -- Pedido 4 (Italo)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 500.00, 'CANCELADO', 2);
+--
+-- -- Endereço de entrega
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (4, 1); -- Endereço: Sé
+--
+-- -- Pagamento cancelado
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (500.00, 'PAGAMENTO_PENDENTE', NOW(), 4); -- Você pode criar outro status se desejar
+--
+-- -- Pix vinculado ao pagamento id = 4
+-- INSERT INTO Pix (id, chave)
+-- VALUES (4, 'pix-cancelado-italo');
+--
+-- -- Itens
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (4, 4, 500.00, 1);
+--
+-- -- Pedido 5 (Italo)
+-- INSERT INTO Pedido (dataPedido, valorTotal, statusPedido, id_usuario)
+-- VALUES (NOW(), 600.00, 'ENTREGUE', 2);
+--
+-- -- Endereço de entrega
+-- INSERT INTO EnderecoEntrega (id_pedido, id_endereco)
+-- VALUES (5, 2); -- Endereço: Bela Vista
+--
+-- -- Pagamento efetuado
+-- INSERT INTO Pagamento (valor, statusPagamento, dataPagamento, id_pedido)
+-- VALUES (600.00, 'PAGAMENTO_EFETUADO', NOW(), 5);
+--
+-- -- Boleto vinculado ao pagamento id = 5
+-- INSERT INTO Boleto (id, codigoBarras)
+-- VALUES (5, '23793.38127 60007.439370 78000.421010 6 83580000060000');
+--
+-- -- Itens
+-- INSERT INTO ItemPedido (id_pedido, id_televisao, preco, quantidade)
+-- VALUES (5, 5, 600.00, 1);
+--
 
 SELECT setval(pg_get_serial_sequence('pessoajuridica', 'id'), (SELECT MAX(id) FROM pessoajuridica), true);
 SELECT setval(pg_get_serial_sequence('marca', 'id'), (SELECT MAX(id) FROM marca), true);
