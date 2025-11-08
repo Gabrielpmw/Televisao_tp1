@@ -27,7 +27,11 @@ public class TelevisaoRepository implements PanacheRepository<Televisao> {
     }
 
     public PanacheQuery<Televisao> findByNomeModelo(String nomeModelo) {
-        return find("SELECT t FROM Televisao t WHERE t.modelo.nome = ?1", nomeModelo);
+
+        String query = "SELECT t FROM Televisao t WHERE UPPER(t.modelo.modelo) LIKE ?1";
+        String parametro = "%" + nomeModelo.toUpperCase() + "%";
+
+        return find(query, parametro);
     }
 
 }

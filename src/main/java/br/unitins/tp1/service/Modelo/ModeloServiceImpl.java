@@ -16,6 +16,9 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+// 'stream' e 'Collectors' podem já estar implícitos, mas é bom garantir
+import java.util.stream.Collectors;
+
 
 @ApplicationScoped
 public class ModeloServiceImpl implements ModeloService{
@@ -101,6 +104,20 @@ public class ModeloServiceImpl implements ModeloService{
                 .map(ModeloResponseDTO::valueOf)
                 .toList();
     }
+
+    // --- NOVO MÉTODO IMPLEMENTADO ---
+    @Override
+    public List<ModeloResponseDTO> findByMarca(Long idMarca) {
+        // 1. Chama o método do repositório
+        // (Lembre-se de adicionar 'findByMarca' ao seu ModeloRepository.java)
+        List<Modelo> modelos = modeloRepository.findByMarca(idMarca);
+
+        // 2. Converte a lista de Entidades para DTOs, seguindo seu padrão
+        return modelos.stream()
+                .map(ModeloResponseDTO::valueOf)
+                .toList(); // ou .collect(Collectors.toList());
+    }
+    // --- FIM DO NOVO MÉTODO ---
 
     @Override
     public long count() {

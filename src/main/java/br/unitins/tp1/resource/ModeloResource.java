@@ -2,6 +2,7 @@ package br.unitins.tp1.resource;
 
 // Verifique se todos os imports necessários estão aqui
 import br.unitins.tp1.model.DTO.Modelo.ModeloRequestDTO;
+import br.unitins.tp1.model.DTO.Modelo.ModeloResponseDTO; // Import adicionado
 import br.unitins.tp1.service.Modelo.ModeloServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import java.util.List; // Import adicionado
 import java.util.logging.Logger;
 
 @Path("/modelos")
@@ -57,7 +59,7 @@ public class ModeloResource {
     }
 
     @GET
-   // @RolesAllowed("adm")
+    // @RolesAllowed("adm")
     @Path("/{id}/buscar-modelo-por-id")
     public Response buscarPorId(@PathParam("id") long id){
         logger.info("Procurando modelo com id: " + id);
@@ -105,4 +107,26 @@ public class ModeloResource {
                 .header("X-Total-Count", modeloService.count(nome))
                 .build();
     }
+
+    // --- NOVO ENDPOINT ADICIONADO ---
+    /**
+     * Endpoint que busca modelos pelo ID da marca.
+     * URL: GET /modelos/marca/{idMarca}
+     */
+    @GET
+    //@RolesAllowed("adm") // Seguindo seu padrão
+    @Path("/marca/{idMarca}")
+    public Response buscarPorMarca(@PathParam("idMarca") Long idMarca) {
+
+        logger.info("Buscando modelos por ID da marca: " + idMarca);
+        String username = jwt.getSubject();
+        logger.info("Usuário responsável: " + username);
+
+        // Chama o novo método do serviço
+        List<ModeloResponseDTO> lista = modeloService.findByMarca(idMarca);
+
+        // Retorna a lista (pode ser vazia, o que é correto)
+        return Response.ok(lista).build();
+    }
+    // --- FIM DO NOVO ENDPOINT ---
 }

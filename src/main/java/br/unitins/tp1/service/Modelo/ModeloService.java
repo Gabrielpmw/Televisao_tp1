@@ -16,4 +16,5 @@ public interface ModeloService {
     List<ModeloResponseDTO> findByNome(String nome, int page, int pageSize);
     long count();
     long count(String nome);
+    List<ModeloResponseDTO> findByMarca(Long idMarca);
 }

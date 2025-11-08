@@ -58,7 +58,7 @@ public class TelevisaoServiceImpl implements TelevisaoService {
         tv.setTipoTela(TipoTela.valueOf(dto.idTipoTela()));
         tv.setValor(dto.valor());
         tv.setEstoque(dto.estoque());
-
+        tv.setDescricao(dto.descricao());
         Dimensao dimensao = new Dimensao();
         dimensao.setAltura(dto.altura());
         dimensao.setComprimento(dto.largura());

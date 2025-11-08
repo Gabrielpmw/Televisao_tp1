@@ -9,19 +9,24 @@ import br.unitins.tp1.model.Televisao.TipoTela;
 
 public record TelevisaoResponseDTO(
         long idTelevisao,
-        String marca,
-        String modelo,
+        String marca,       // Continua ótimo para exibição
+        String modelo,      // Continua ótimo para exibição
         String descricao,
         TipoResolucao resolucao,
         TipoTela tipoTela,
         DimensaoResponseDTO dimensao,
         Double valor,
-        Integer estoque
+        Integer estoque,
+
+        // --- ADIÇÕES NECESSÁRIAS PARA O FORMULÁRIO DE EDIÇÃO ---
+        long idModelo,
+        long idMarca
+        // --- FIM DAS ADIÇÕES ---
 ) {
     public static TelevisaoResponseDTO valueOf(Televisao tv) {
         if (tv == null) return null;
 
-        ModeloResponseDTO modeloTeste = ModeloResponseDTO.valueOf(tv.getModelo());
+        // Removi a variável não utilizada 'modeloTeste'
 
         return new TelevisaoResponseDTO(
                 tv.getId(),
@@ -32,6 +37,12 @@ public record TelevisaoResponseDTO(
                 tv.getTipoTela(),
                 DimensaoResponseDTO.valueOf(tv.getDimensao()),
                 tv.getValor(),
-                tv.getEstoque());
+                tv.getEstoque(),
+
+                // --- ADIÇÕES NECESSÁRIAS PARA O FORMULÁRIO DE EDIÇÃO ---
+                tv.getModelo().getId(), // Pega o ID do modelo
+                tv.getModelo().getMarca().getId() // Pega o ID da marca
+                // --- FIM DAS ADIÇÕES ---
+        );
     }
 }
