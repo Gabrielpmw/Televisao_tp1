@@ -70,8 +70,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         String senhaAntiga = hashService.getHashSenha(dto.senhaAntiga());
 
-
-
         if (!usuario.getSenha().equals(senhaAntiga)) {
             throw new ValidationException("Usuario", "Username ou senha errado");
         }

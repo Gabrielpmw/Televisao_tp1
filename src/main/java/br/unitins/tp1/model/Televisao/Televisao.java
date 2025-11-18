@@ -30,6 +30,9 @@ import br.unitins.tp1.model.DefaultEntity;
             @Column
             private String descricao;
 
+            @Column(nullable = true, name = "nome_imagem")
+            private String nomeImagem;
+
             @ManyToOne
             @JoinColumn(name = "id_modelo")
             private Modelo modelo;
@@ -106,4 +109,13 @@ import br.unitins.tp1.model.DefaultEntity;
             public void setDescricao(String descricao) {
                 this.descricao = descricao;
             }
+
+            public String getNomeImagem() {
+                return nomeImagem;
+            }
+
+            public void setNomeImagem(String nomeImagem) {
+                this.nomeImagem = nomeImagem;
+            }
         }
+

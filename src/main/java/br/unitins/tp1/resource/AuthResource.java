@@ -47,13 +47,11 @@ public class AuthResource {
     private static final Logger logger = Logger.getLogger(AuthResource.class.getName());
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    //@Produces(MediaType.TEXT_PLAIN)
     public Response login(AuthRequestDTO dto) throws Exception {
-        String username = jwt.getSubject();
-        logger.info("Usuário responsável: " + username);
 
         String hash = null;
-        
+
         try {
             hash = hashService.getHashSenha(dto.senha());
         } catch (Exception e) {
@@ -61,16 +59,22 @@ public class AuthResource {
         }
 
         Usuario usuario = usuarioRepository.findByUsernameAndSenha(dto.username(), hash);
-        UsuarioResponseDTO usuarioResponseDTO = UsuarioResponseDTO.valueOf(usuario);
+
         if (usuario == null) {
             logger.warning("Usuário não encontrado: " + dto.username());
 
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("Cliente não encontrado").build();
-        }else {
-            logger.info("Login efetuado por: " + dto.username());
         }
-            String token = jwtService.generateJwt(usuarioResponseDTO.username(), usuarioResponseDTO.perfil().getNOME());
-            return Response.ok().header("Authorization", token).build();
+
+        UsuarioResponseDTO usuarioResponseDTO = UsuarioResponseDTO.valueOf(usuario);
+
+        logger.info("Login efetuado por: " + dto.username());
+
+        String token = jwtService.generateJwt(usuarioResponseDTO.username(), usuarioResponseDTO.perfil().getNOME());
+
+        return Response.ok(usuarioResponseDTO)
+                .header("Authorization", token)
+                .build();
     }
 }

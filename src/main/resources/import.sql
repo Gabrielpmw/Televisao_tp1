@@ -576,23 +576,23 @@ INSERT INTO Televisao (id, valor, resolucao, tipoTela, estoque, descricao, id_mo
 -- ('Curitiba', 5),
 -- ('Londrina', 5),
 -- ('Maringá', 5);
---
--- -- ADM
--- INSERT INTO Funcionario (nome, cpf) VALUES
--- ('Gabriel Vieira', '12345678900');
--- INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
--- ('gabriel', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', '12345678900', 1);
---
--- --senha: 123456
--- --hash: SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==
---
--- --USER
+
+-- ADM
+INSERT INTO Funcionario (nome, cpf) VALUES
+('Gabriel Vieira', '12345678900');
+INSERT INTO Usuario (username, senha, perfil, cpf, id_funcionario) VALUES
+('gabriel', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'ADM', '12345678900', 1);
+
+--senha: 123456
+--hash: SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==
+
+--USER
+INSERT INTO Usuario (username, senha, perfil, cpf)
+VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
+
 -- INSERT INTO Usuario (username, senha, perfil, cpf)
--- VALUES ('italo', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '98765432100');
---
--- -- INSERT INTO Usuario (username, senha, perfil, cpf)
--- -- VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
---
+-- VALUES ('felipe', 'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==', 'USER', '03518783190');
+
 -- INSERT INTO Endereco (cep, bairro, numero, complemento, id_municipio, id_usuario) VALUES
 -- -- Endereços do usuário 1 (italo)
 -- ('01001000', 'Sé', 100, 'Edifício Comercial', 1, 2),

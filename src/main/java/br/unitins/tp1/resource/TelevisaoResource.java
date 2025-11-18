@@ -3,14 +3,20 @@ package br.unitins.tp1.resource;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoRequestDTO;
 import br.unitins.tp1.model.DTO.Televisao.TelevisaoResponseDTO;
 import br.unitins.tp1.model.Televisao.Televisao;
+import br.unitins.tp1.service.Imagem.TelevisaoFileServiceImpl;
 import br.unitins.tp1.service.Televisao.TelevisaoServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.jboss.resteasy.reactive.RestForm;
+import org.jboss.resteasy.reactive.multipart.FileUpload;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 @Path("/televisoes")
@@ -23,6 +29,9 @@ public class TelevisaoResource {
 
     @Inject
     JsonWebToken jwt;
+
+    @Inject
+    TelevisaoFileServiceImpl fileService;
 
     private static final Logger logger = Logger.getLogger(TelevisaoResource.class.getName());
 
@@ -146,5 +155,36 @@ public class TelevisaoResource {
         logger.info("Usuário responsável: " + username);
 
         return Response.ok(televisaoService.findTelevisaoByModelo(idTelevisao)).build();
+    }
+
+    @GET
+    @Path("/imagem/download/{nomeImagem}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response download(@PathParam("nomeImagem") String nomeImagem) {
+        Response.ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
+        response.header("Content-Disposition", "attachment;filename=" + nomeImagem);
+        return response.build();
+    }
+
+    @PATCH
+    @Path("/imagem/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response salvarImagem(
+            @RestForm("idTelevisao")
+            @NotNull(message = "idTelevisão é obrigatório.")
+            @Min(value = 1, message = "idTelevisão deve ser maior ou igual a 1.")
+            Long idTelevisao,
+
+            @RestForm("file")
+            @NotNull(message = "Arquivo de imagem é obrigatório.")
+            FileUpload file) {
+
+        try {
+            fileService.salvar(idTelevisao, file);
+            return Response.noContent().build();
+        } catch (IOException e) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
     }
 }
