@@ -1,11 +1,10 @@
 package br.unitins.tp1.service.Usersss;
 
 import br.unitins.tp1.model.DTO.Endereco.Endereco.EnderecoResponseDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioCreateRequestDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioResponseDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioUpdateRequestDTO;
+import br.unitins.tp1.model.DTO.Usuario.*;
 import br.unitins.tp1.model.Endereco.Endereco;
 import br.unitins.tp1.model.Perfil;
+import br.unitins.tp1.model.Telefone;
 import br.unitins.tp1.model.Usuario;
 import br.unitins.tp1.repository.UsuarioRepository;
 import br.unitins.tp1.service.Auth.HashServiceImpl;
@@ -127,5 +126,44 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         return UsuarioResponseDTO.valueOf(usuarioRepository.findById(id));
+    }
+
+    @Override
+    @Transactional
+    public void redefinirSenhaUsuario(RedefinirSenhaRequestDTO dto) {
+      Usuario usuario = usuarioRepository.findByUsernameAndCpf(dto.username(), dto.cpf());
+
+        if (usuario == null) {
+            throw new ValidationException("Autenticação", "Usuário não encontrado ou CPF incorreto.");
+        }
+
+        usuario.setSenha(hashService.getHashSenha(dto.novaSenha()));
+
+    }
+
+    @Override
+    @Transactional
+    public void updateDadosPessoais(Long idUsuario, DadosPessoaisRequestDTO dto) {
+        Usuario usuario = usuarioRepository.findById(idUsuario);
+
+        if (usuario == null) {
+            throw new ValidationException("Usuario", "Usuário não encontrado");
+        }
+        usuario.setNome(dto.nome());
+        usuario.setSobrenome(dto.sobrenome());
+        usuario.setEmail(dto.email());
+        usuario.setDataNascimento(dto.dataNascimento());
+        if (dto.telefoneRequestDTO() != null) {
+            Telefone telefone;
+            if (usuario.getTelefones().isEmpty()) {
+                telefone = new Telefone();
+                telefone.setUsuario(usuario);
+                usuario.getTelefones().add(telefone);
+            } else {
+                telefone = usuario.getTelefones().get(0);
+            }
+            telefone.setDdd(dto.telefoneRequestDTO().ddd());
+            telefone.setNumero(dto.telefoneRequestDTO().numero());
+        }
     }
 }

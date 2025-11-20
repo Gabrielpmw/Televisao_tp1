@@ -1,8 +1,6 @@
 package br.unitins.tp1.service.Usersss;
 
-import br.unitins.tp1.model.DTO.Usuario.UsuarioCreateRequestDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioResponseDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioUpdateRequestDTO;
+import br.unitins.tp1.model.DTO.Usuario.*;
 
 import java.util.List;
 
@@ -18,4 +16,8 @@ public interface UsuarioService {
     List<UsuarioResponseDTO> findAll();
 
     UsuarioResponseDTO findByUsername(String username);
+
+    void redefinirSenhaUsuario(RedefinirSenhaRequestDTO dto);
+
+    void updateDadosPessoais(Long idUsuario, DadosPessoaisRequestDTO dto);
 }

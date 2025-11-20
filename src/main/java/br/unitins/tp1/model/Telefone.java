@@ -24,6 +24,18 @@ public class Telefone extends DefaultEntity{
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Fornecedor getFornecedor() {
         return fornecedor;
     }

@@ -15,6 +15,10 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
         return find("SELECT u FROM Usuario u WHERE u.username = ?1 ", username).firstResult();
     }
 
+    public Usuario findByUsernameAndCpf(String username, String cpf) {
+        return find("username = ?1 and cpf = ?2", username, cpf).firstResult();
+    }
+
     public List<Usuario> findByUsernameLikeIgnoreCase(String username) {
         return find("UPPER(username) LIKE UPPER(?1)", "%" + username + "%").list();
     }
