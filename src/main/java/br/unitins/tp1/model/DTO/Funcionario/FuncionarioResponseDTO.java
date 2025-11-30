@@ -6,12 +6,19 @@ public record FuncionarioResponseDTO(
         long id,
         String username,
         String nome,
-        String cpf
+        String cpf,
+        String sobrenome, // NOVO: Campo adicionado
+        String email
 ) {
     public static FuncionarioResponseDTO valueOf(Funcionario funcionario) {
-        return new FuncionarioResponseDTO(funcionario.getId(),
+        // Mapeamos os dados de Funcionario e os novos dados de Usuario
+        return new FuncionarioResponseDTO(
+                funcionario.getId(),
                 funcionario.getUsuario().getUsername(),
                 funcionario.getNome(),
-                funcionario.getCpf());
+                funcionario.getCpf(),
+                funcionario.getUsuario().getSobrenome(), // Mapeamento do sobrenome
+                funcionario.getUsuario().getEmail()      // Mapeamento do email
+        );
     }
 }

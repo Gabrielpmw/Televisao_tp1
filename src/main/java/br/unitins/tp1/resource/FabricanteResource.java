@@ -27,7 +27,7 @@ public class FabricanteResource {
     private static final Logger logger = Logger.getLogger(AuthResource.class.getName());
 
     @POST
-    //@RolesAllowed("adm")
+    @RolesAllowed("adm")
     public Response incluir(FabricanteRequestDTO dto) {
         logger.info("Novo fabricante criado: " + dto);
         String username = jwt.getSubject();
@@ -36,7 +36,7 @@ public class FabricanteResource {
     }
 
     @PUT
-    //@RolesAllowed("adm")
+    @RolesAllowed("adm")
     @Path("/{id}/atualizar")
     public Response atualizar(@PathParam("id") long id, FabricanteRequestDTO dto) {
         logger.info("Fabricante com id: " + id + " atualizado para: " + dto);
@@ -47,7 +47,7 @@ public class FabricanteResource {
     }
 
     @DELETE
-    //@RolesAllowed("adm")
+    @RolesAllowed("adm")
     @Path("/{id}/apagar")
     public Response apagar(@PathParam("id") long id) {
         logger.info("Fabricante apagado com id: " + id);
@@ -58,7 +58,7 @@ public class FabricanteResource {
     }
 
     @GET
-   // @RolesAllowed("adm")
+    @RolesAllowed("adm")
     @Path("/{id}/buscar-fabricante-por-id")
     public Response buscarPorId(@PathParam("id") long id){
         logger.info("Procurando fabricante com id: " + id);
@@ -81,7 +81,7 @@ public class FabricanteResource {
     }
 
     @GET
-    //@RolesAllowed("adm")
+    @RolesAllowed("adm")
     @Path("/{id}/buscar-marca-por-fabricante")
     public Response buscarMarcaPorFabricante(@PathParam("id") long idFabricante){
         logger.info("Buscando marca por id fabricante: " + idFabricante);
@@ -92,7 +92,7 @@ public class FabricanteResource {
 
     @GET
     @Path("/nome/{nome}")
-    //@RolesAllowed("adm")
+    @RolesAllowed("adm")
     public Response buscarPorNome(@PathParam("nome") String nome,
                                   @QueryParam("page")     @DefaultValue("0")   int page,
                                   @QueryParam("pageSize") @DefaultValue("10")  int pageSize) {
@@ -108,7 +108,7 @@ public class FabricanteResource {
 
     @GET
     @Path("/todos")
-    //@RolesAllowed("adm")
+    @RolesAllowed("adm")
     public Response buscarTodos(){
         List<FabricanteResponseDTO> listaCompleta = serviceFabricante.buscarTodos();
         return Response.ok(listaCompleta).build();
