@@ -1,15 +1,13 @@
 package br.unitins.tp1.resource;
 
 
-import br.unitins.tp1.model.DTO.Usuario.DadosPessoaisRequestDTO;
-import br.unitins.tp1.model.DTO.Usuario.RedefinirSenhaRequestDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioCreateRequestDTO;
-import br.unitins.tp1.model.DTO.Usuario.UsuarioUpdateRequestDTO;
+import br.unitins.tp1.model.DTO.Usuario.*;
 import br.unitins.tp1.model.Usuario;
 import br.unitins.tp1.repository.UsuarioRepository;
 import br.unitins.tp1.service.Usersss.UsuarioServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -124,6 +122,35 @@ public class UsuarioResource {
 
         // Se encontrou, prossegue com a atualização
         usuarioService.updateDadosPessoais(usuarioLogado.getId(), dto);
+
+        return Response.noContent().build();
+    }
+
+    @PATCH
+    @Path("/atualizar-credenciais")
+    // 1. Garanta que os perfis aqui batem com o que seu JWT gera (cliente, adm)
+    @RolesAllowed({"cliente", "adm"})
+    public Response atualizarCredenciais(@Valid UpdateCredenciaisDTO dto) {
+
+        // --- CORREÇÃO DO ERRO ---
+
+        // ERRADO (O que está causando o erro):
+        // Long idUsuarioLogado = Long.parseLong(jwt.getClaim("id").toString());
+
+        // CERTO (A abordagem segura):
+        // 1. Pega o username (login) que SEMPRE existe no token
+        String username = jwt.getSubject();
+
+        // 2. Busca o usuário no banco de dados
+        Usuario usuarioLogado = usuarioRepository.findByUsername(username);
+
+        // 3. Verificação de segurança extra
+        if (usuarioLogado == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        // 4. Passa o ID real do banco para o serviço
+        usuarioService.atualizarCredenciais(usuarioLogado.getId(), dto);
 
         return Response.noContent().build();
     }

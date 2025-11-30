@@ -12,6 +12,7 @@ import br.unitins.tp1.service.Auth.HashServiceImpl;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import br.unitins.tp1.validation.ValidationException;
 
@@ -178,5 +179,47 @@ public class UsuarioServiceImpl implements UsuarioService {
                 telefone.setNumero(dto.telefoneRequestDTO().numero());
             }
         }
+    }
+
+    @Transactional
+    public void atualizarCredenciais(Long idUsuario, UpdateCredenciaisDTO dto) {
+        // 1. Busca o usuário (Dono da conta)
+        Usuario usuario = usuarioRepository.findById(idUsuario);
+
+        if (usuario == null) {
+            throw new NotFoundException("Usuário não encontrado.");
+        }
+
+        // 2. Valida se o username antigo informado bate com o do banco
+        if (!usuario.getUsername().equals(dto.usernameAntigo())) {
+            throw new IllegalArgumentException("O username antigo não confere.");
+        }
+
+        // 3. Valida se a senha antiga bate (Comparar Hash)
+        // Supondo que seu hashService tenha um método verify ou matches
+        // Ex: hashService.getHashSenha(dto.senhaAntiga()).equals(usuario.getSenha())
+        // Abaixo um exemplo genérico:
+        if (!hashService.verificarSenha(dto.senhaAntiga(), usuario.getSenha())) {
+            throw new IllegalArgumentException("A senha antiga está incorreta.");
+        }
+
+        // 4. Regra: Nova senha não pode ser igual à atual
+        if (hashService.verificarSenha(dto.novaSenha(), usuario.getSenha())) {
+            throw new IllegalArgumentException("A nova senha deve ser diferente da atual.");
+        }
+
+        // 5. Valida troca de Username (se houver mudança)
+        if (!dto.usernameAntigo().equals(dto.novoUsername())) {
+            // Verifica se o NOVO username já existe no banco (para outro id)
+            if (usuarioRepository.findByUsername(dto.novoUsername()) != null) {
+                throw new IllegalArgumentException("Este novo username já está em uso.");
+            }
+            usuario.setUsername(dto.novoUsername());
+        }
+
+        // 6. Atualiza a senha (Gera novo Hash)
+        usuario.setSenha(hashService.getHashSenha(dto.novaSenha()));
+
+        // O @Transactional cuida do persist/merge ao final do método
     }
 }

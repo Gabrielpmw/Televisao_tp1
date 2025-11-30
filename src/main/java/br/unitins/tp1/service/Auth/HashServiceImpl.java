@@ -36,4 +36,9 @@ public class HashServiceImpl implements HashService{
 
         return Base64.getEncoder().encodeToString(result);
     }
+
+    public boolean verificarSenha(String senha, String hash) {
+        // Gera o hash da senha recebida e compara com o hash do banco
+        return getHashSenha(senha).equals(hash);
+    }
 }
