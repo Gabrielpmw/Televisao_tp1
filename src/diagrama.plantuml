@@ -1,0 +1,239 @@
+@startuml
+'PEDIDO'
+class Pedido{
+  - id: long
+  - dataPedido: LocalDateTime
+  - valorTotal: double
+  - status: StatusPedido
+}
+
+class ItemPedido{
+  - id: long
+  - quantidade: int
+  - valorUnitario: double
+}
+
+enum StatusPedido{
+  - PEDIDO_EM_PROCESSO
+  - SAIU_PARA_ENTREGA
+  - ENTREGUE
+  - CANCELADO
+}
+
+'PAGAMENTO'
+abstract Pagamento{
+  - id: long
+  - valor: double
+  - status: StatusPagamento
+  - dataPagamennto: LocalDateTime
+}
+
+class Cartao{
+  - titular: String
+  - numero: long
+  - dataValidade: LocalDateTime
+  - cvv: long
+  - banco: String
+}
+
+
+class Pix{
+  - chavePix: String
+  - codigoQR: String
+}
+
+class Boleto{
+  - numeroBoleto: String
+  - dataEmissao: LocalDateTime
+  - dataVencimento: LocalDateTime
+  - codigoQR: String
+}
+
+enum StatusPagamento{
+  - PAGAMENTO_PENDENTE
+  - PAGAMENTO_EFETUADO
+}
+
+'Usuários'
+class Usuario{
+  - id: long
+  - cpf: String
+  - login: String
+  - senha: String
+}
+
+
+class Funcionario{
+  - id: long
+  - nome: String
+  - codigo: String
+  - cargo: String
+}
+
+enum Perfil{
+  - USER
+  - ADM
+}
+
+'TELEVISAO'
+class Televisao{
+  - id: long
+  - marca: String
+  - modelo: String
+  - tela: TipoTela
+  - resolucao: Resolucao
+  - versao: String
+  - descricao: String
+  - valor: Double
+  - estoque: int
+}
+
+enum TipoTela{
+    - LED
+    - OLED
+    - QLED
+    - LCD
+    - PLASMA
+}
+
+enum Resolucao{
+    - HD
+    - FULL_HD
+    - UHD_4K
+    - UHD_8K
+}
+
+class Dimensao{
+    - id: long
+    - altura: double
+    - largura: double
+    - polegada: int
+}
+
+class CaracteristicasGerais{
+  - id: long
+  - sistemaOperacional: String
+  - quantidadePortasHDMI: int
+  - quantidadePortasUSB: int
+  - smartTv: boolean
+}
+
+class Marca{
+  - id: long
+  - nomeMarca: String
+  - descricao: String
+}
+
+class Modelo{
+  - id: long
+  - modelo: String
+  - garantia: int
+  - anoLancamento: LocalDate
+}
+
+'ENDERECO'
+class Endereco{
+    - id: long
+    - cep: String
+    - numero: Stringo
+    - bairro: String
+    - complemento: String
+    - idMunicipio: long
+    - idEstado: long
+    - tipoEndereco: TipoEndereco
+}
+
+class EnderecoEntrega{
+  - id: long
+  - cep: String
+  - complemento: String
+  - numero: int
+}
+
+class Estado{
+    - id: long
+    - nome: String
+}
+
+class Municipio{
+    - id: long
+    - nome: String
+}
+
+enum TipoEndereco{
+    - RESIDENCIAL
+    - COMERCIAL
+}
+
+'FABRICANTE'
+abstract PessoaJuridica{
+    - id: long
+    - razaoSocial: String
+    - cnpj: String 
+    - status: boolean 
+}
+
+class Fabricante{
+    - id: long
+    - anoFundacao: LocalDate
+    - paisSede: String
+}
+
+'FORNECEDOR'
+class  Fornecedor{
+    - id: long
+    - email: String
+}
+
+'TELEFONE'
+class Telefone{
+    - id: long
+    - ddd: String
+    - numero: String
+}
+
+'RELACIONAMENTO DO PEDIDO'
+Pedido "1" --> "*" ItemPedido
+Pedido "1" --> "1" Pagamento
+Pedido "1" --> "1" EnderecoEntrega
+Pedido "1" --> "1" StatusPedido
+Pedido "1" --> "1" Usuario
+ItemPedido "1" --> "1" Televisao 
+
+'RELACIONAMENTO DO PAGAMENTO'
+Pagamento <|-- Pix
+Pagamento <|-- Boleto
+Pagamento <|-- Cartao
+Pagamento --> StatusPagamento
+
+'RELACIONAMENTO DA TELEVISAO'
+Televisao "*" --> "1" Resolucao
+Televisao "1" *--> "1" Dimensao
+Televisao "*" --> "1" TipoTela
+Televisao "*" --> "1" Modelo
+Modelo "*" --> "1" Marca
+Modelo "*" --> "1" CaracteristicasGerais
+
+'RELACIONAMENTO DO USUARIO'
+Usuario "1" <-- "1" Funcionario
+Usuario "1" --> "1" Perfil
+
+'RELACIONAMENTO DO TELEFONE'
+Telefone "*" <--* "1" Fabricante
+Telefone "*" <--* "1" Fornecedor
+
+'RELACIONAMENTO DO ENDERECO'
+Endereco "*" --> "1" Usuario
+Endereco "*" --> "1" Municipio
+Municipio "*" --> "1" Estado
+Endereco "1" --> "1" TipoEndereco
+EnderecoEntrega "1" --> "1" Endereco 
+
+'RELACIONAMENTO DO FABRICANTE'
+Fabricante <|-- PessoaJuridica
+Fabricante "1" --> "*" Marca
+
+'RELACIONAMENTO DO FORNECEDOR'
+Fornecedor <|-- PessoaJuridica
+Fornecedor "*" --> "*" Marca
+@enduml

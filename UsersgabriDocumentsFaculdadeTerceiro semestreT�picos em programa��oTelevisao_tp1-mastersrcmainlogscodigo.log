@@ -1,0 +1,45 @@
+13-06-2025 11:09:12 WARN  [io.qu.config] (Quarkus Main Thread) Unrecognized configuration key "quarkus.datasource.log.bind-parameters" was provided; it will be ignored; verify that the dependency extension for this configuration is set or that you did not make a typo
+13-06-2025 11:09:13 WARN  [or.hi.to.sc.in.ExceptionHandlerLoggedImpl] (JPA Startup Thread) GenerationTarget encountered exception accepting command : Error executing DDL "INSERT INTO Telefone (ddd, numero, id_fornecedor) VALUES ('11', '987654321', 1), ('21', '998877665', 1), ('31', '912345678', 2), ('41', '923456789', 3), ('51', '934567890', 4), ('61', '945678901', 5)" via JDBC [ERRO: duplicar valor da chave viola a restrição de unicidade "telefone_numero_key"
+  Detalhe: Chave (numero)=(987654321) já existe.]: org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "INSERT INTO Telefone (ddd, numero, id_fornecedor) VALUES ('11', '987654321', 1), ('21', '998877665', 1), ('31', '912345678', 2), ('41', '923456789', 3), ('51', '934567890', 4), ('61', '945678901', 5)" via JDBC [ERRO: duplicar valor da chave viola a restrição de unicidade "telefone_numero_key"
+  Detalhe: Chave (numero)=(987654321) já existe.]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applyScript(Helper.java:255)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.applyImportFiles(SchemaCreatorImpl.java:676)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.applyImportSources(SchemaCreatorImpl.java:595)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:184)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:142)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:118)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at io.quarkus.hibernate.orm.runtime.observers.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:21)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at io.quarkus.hibernate.orm.runtime.boot.FastBootEntityManagerFactoryBuilder.build(FastBootEntityManagerFactoryBuilder.java:87)
+	at io.quarkus.hibernate.orm.runtime.FastBootHibernatePersistenceProvider.createEntityManagerFactory(FastBootHibernatePersistenceProvider.java:72)
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at io.quarkus.hibernate.orm.runtime.JPAConfig$LazyPersistenceUnit.get(JPAConfig.java:154)
+	at io.quarkus.hibernate.orm.runtime.JPAConfig$1.run(JPAConfig.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.postgresql.util.PSQLException: ERRO: duplicar valor da chave viola a restrição de unicidade "telefone_numero_key"
+  Detalhe: Chave (numero)=(987654321) já existe.
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2733)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2420)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:356)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:341)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:317)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:312)
+	at io.agroal.pool.wrapper.StatementWrapper.execute(StatementWrapper.java:220)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 21 more
+
+13-06-2025 11:09:13 INFO  [io.quarkus] (Quarkus Main Thread) televisao_tp1 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.18.4) started in 6.656s. Listening on: http://localhost:8080
+13-06-2025 11:09:13 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+13-06-2025 11:09:13 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [agroal, cdi, hibernate-orm, hibernate-orm-panache, hibernate-validator, jdbc-postgresql, narayana-jta, rest, rest-jackson, security, smallrye-context-propagation, smallrye-jwt, smallrye-openapi, swagger-ui, vertx]
+13-06-2025 11:09:44 INFO  [br.un.tp.re.UsuarioResource] (executor-thread-4) Criando novo usuário
